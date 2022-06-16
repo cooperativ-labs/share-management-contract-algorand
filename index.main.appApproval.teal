@@ -1,0 +1,1820 @@
+#pragma version 6
+// resource: R_Txn
+int 0
+store 0 // GV_txnCounter :: UInt
+txn ApplicationID
+bz alloc
+byte base64()
+app_global_get
+dup
+int 0
+extract_uint64
+store 1 // GV_currentStep :: UInt
+int 8
+extract_uint64
+store 2 // GV_currentTime :: UInt
+txn OnCompletion
+int OptIn
+==
+bz normal
+// checked on completion
+txn Sender
+byte base64(AA==)
+int 55
+bzero
+app_local_put
+b checkSize
+normal:
+txna ApplicationArgs 0
+btoi
+preamble:
+dup
+bz publish
+api:
+int 0
+store 4 // GV_argTime :: UInt
+int 1
+store 6 // GV_wasMeth :: Bool
+dup
+int 2467850461
+<
+bnz l9_method_lt_2467850461
+dup
+int 3398047067
+<
+bnz l10_method_lt_3398047067
+dup
+int 3826530141
+<
+bnz l11_method_lt_3826530141
+dup
+int 3959834456
+<
+bnz l12_method_lt_3959834456
+int 3959834456
+==
+assert
+
+  // { l8_remWL
+  l8_remWL:
+  // API: remWL(address)byte
+  //  i(3959834456) h(ec064758) b64(7AZHWA==)
+  txna ApplicationArgs 1
+  store 255 // v6900 :: Tuple(Address)
+  byte base64(CA==)
+  load 255 // v6900 :: Tuple(Address)
+  concat
+  int 40
+  bzero
+  concat
+  b publish2
+  // l8_remWL }
+
+l12_method_lt_3959834456:
+int 3826530141
+==
+assert
+
+  // { l6_dBT
+  l6_dBT:
+  // API: dBT(uint64)byte
+  //  i(3826530141) h(e414375d) b64(5BQ3XQ==)
+  txna ApplicationArgs 1
+  store 255 // v6901 :: Tuple(UInt)
+  byte base64(Bg==)
+  load 255 // v6901 :: Tuple(UInt)
+  concat
+  int 64
+  bzero
+  concat
+  b publish2
+  // l6_dBT }
+
+l11_method_lt_3826530141:
+dup
+int 3582815796
+<
+bnz l13_method_lt_3582815796
+int 3582815796
+==
+assert
+
+  // { l14_totSTBTDRec
+  l14_totSTBTDRec:
+  // View: totSTBTDRec(address)(uint64,uint64,uint64)
+  //  i(3582815796) h(d58d6e34) b64(1Y1uNA==)
+  load 1 // GV_currentStep :: UInt
+  int 3
+  ==
+  assert
+
+    // { totSTBTDRec_3
+    txna ApplicationArgs 1
+    store 255 // v1221 :: Address
+    int 0
+    // resource: R_Account
+    load 255 // v1221 :: Address
+    callsub l15_LF_cMapLoad
+    extract 18 9
+    dup
+    store 254 // fromSome object
+    int 1
+    extract_uint64
+    load 254 // fromSome object
+    int 0
+    getbyte
+    select
+    itob
+    int 0
+    load 255 // v1221 :: Address
+    callsub l15_LF_cMapLoad
+    extract 36 9
+    dup
+    store 254 // fromSome object
+    int 1
+    extract_uint64
+    load 254 // fromSome object
+    int 0
+    getbyte
+    select
+    itob
+    concat
+    int 0
+    load 255 // v1221 :: Address
+    callsub l15_LF_cMapLoad
+    extract 45 9
+    dup
+    store 254 // fromSome object
+    int 1
+    extract_uint64
+    load 254 // fromSome object
+    int 0
+    getbyte
+    select
+    itob
+    concat
+    store 7 // GV_apiRet :: Null
+    b apiReturn_check
+    // totSTBTDRec_3 }
+
+  // l14_totSTBTDRec }
+
+l13_method_lt_3582815796:
+int 3398047067
+==
+assert
+
+  // { l1_aST
+  l1_aST:
+  // API: aST(address,address,uint64)byte
+  //  i(3398047067) h(ca8a155b) b64(yooVWw==)
+  txna ApplicationArgs 1
+  txna ApplicationArgs 2
+  concat
+  txna ApplicationArgs 3
+  concat
+  store 255 // v6902 :: Tuple(Address, Address, UInt)
+  byte base64(AQ==)
+  load 255 // v6902 :: Tuple(Address, Address, UInt)
+  concat
+  b publish2
+  // l1_aST }
+
+l10_method_lt_3398047067:
+dup
+int 2590061419
+<
+bnz l16_method_lt_2590061419
+dup
+int 3323445552
+<
+bnz l17_method_lt_3323445552
+int 3323445552
+==
+assert
+
+  // { l18_saleLocked
+  l18_saleLocked:
+  // View: saleLocked()byte
+  //  i(3323445552) h(c617c130) b64(xhfBMA==)
+  load 1 // GV_currentStep :: UInt
+  int 3
+  ==
+  assert
+
+    // { saleLocked_3
+    byte base64(AA==)
+    app_global_get
+    dup
+    store 3 // GV_svs :: Null
+    extract 80 1
+    store 7 // GV_apiRet :: Null
+    b apiReturn_check
+    // saleLocked_3 }
+
+  // l18_saleLocked }
+
+l17_method_lt_3323445552:
+int 2590061419
+==
+assert
+
+  // { l3_cBT
+  l3_cBT:
+  // API: cBT()byte
+  //  i(2590061419) h(9a61336b) b64(mmEzaw==)
+  byte base64()
+  store 255 // v6905 :: Tuple()
+  byte base64(Aw==)
+  load 255 // v6905 :: Tuple()
+  concat
+  int 72
+  bzero
+  concat
+  b publish2
+  // l3_cBT }
+
+l16_method_lt_2590061419:
+int 2467850461
+==
+assert
+
+  // { l19_wlMember
+  l19_wlMember:
+  // View: wlMember(address)byte
+  //  i(2467850461) h(931868dd) b64(kxho3Q==)
+  load 1 // GV_currentStep :: UInt
+  int 3
+  ==
+  assert
+
+    // { wlMember_3
+    // resource: R_Account
+    txna ApplicationArgs 1
+    callsub l15_LF_cMapLoad
+    extract 54 1
+    dup
+    store 254 // v/1231 :: Data({"None": Null, "Some": Null}) for switch
+    int 0
+    getbyte
+    bnz l21_LocalSwitch_nz
+
+      // { l22_LocalSwitch_None
+      l22_LocalSwitch_None:
+      int 0
+      store 255 // v1232 :: Bool
+      b l20_LocalSwitchK
+      // l22_LocalSwitch_None }
+
+    l21_LocalSwitch_nz:
+
+      // { l23_LocalSwitch_Some
+      l23_LocalSwitch_Some:
+      int 1
+      store 255 // v1232 :: Bool
+      b l20_LocalSwitchK
+      // l23_LocalSwitch_Some }
+
+    l20_LocalSwitchK:
+    load 255 // v1232 :: Bool
+    itob
+    substring 7 8
+    store 7 // GV_apiRet :: Null
+    b apiReturn_check
+    // wlMember_3 }
+
+  // l19_wlMember }
+
+l9_method_lt_2467850461:
+dup
+int 553712668
+<
+bnz l24_method_lt_553712668
+dup
+int 2238830268
+<
+bnz l25_method_lt_2238830268
+dup
+int 2432000717
+<
+bnz l26_method_lt_2432000717
+int 2432000717
+==
+assert
+
+  // { l27_totSTBTD
+  l27_totSTBTD:
+  // View: totSTBTD()(uint64,uint64,uint64)
+  //  i(2432000717) h(90f562cd) b64(kPVizQ==)
+  load 1 // GV_currentStep :: UInt
+  int 3
+  ==
+  assert
+
+    // { totSTBTD_3
+    byte base64(AA==)
+    app_global_get
+    dup
+    store 3 // GV_svs :: Null
+    extract 89 8
+    load 3 // GV_svs :: Null
+    extract 81 8
+    concat
+    load 3 // GV_svs :: Null
+    extract 72 8
+    concat
+    store 7 // GV_apiRet :: Null
+    b apiReturn_check
+    // totSTBTD_3 }
+
+  // l27_totSTBTD }
+
+l26_method_lt_2432000717:
+int 2238830268
+==
+assert
+
+  // { l2_addWL
+  l2_addWL:
+  // API: addWL(address)byte
+  //  i(2238830268) h(8571d6bc) b64(hXHWvA==)
+  txna ApplicationArgs 1
+  store 255 // v6908 :: Tuple(Address)
+  byte base64(Ag==)
+  load 255 // v6908 :: Tuple(Address)
+  concat
+  int 40
+  bzero
+  concat
+  b publish2
+  // l2_addWL }
+
+l25_method_lt_2238830268:
+dup
+int 1377993337
+<
+bnz l28_method_lt_1377993337
+int 1377993337
+==
+assert
+
+  // { l7_optIn
+  l7_optIn:
+  // API: optIn()byte
+  //  i(1377993337) h(52228279) b64(UiKCeQ==)
+  byte base64()
+  store 255 // v6909 :: Tuple()
+  byte base64(Bw==)
+  load 255 // v6909 :: Tuple()
+  concat
+  int 72
+  bzero
+  concat
+  b publish2
+  // l7_optIn }
+
+l28_method_lt_1377993337:
+int 553712668
+==
+assert
+
+  // { l4_cCM
+  l4_cCM:
+  // API: cCM(address)byte
+  //  i(553712668) h(2100fc1c) b64(IQD8HA==)
+  txna ApplicationArgs 1
+  store 255 // v6910 :: Tuple(Address)
+  byte base64(BA==)
+  load 255 // v6910 :: Tuple(Address)
+  concat
+  int 40
+  bzero
+  concat
+  b publish2
+  // l4_cCM }
+
+l24_method_lt_553712668:
+dup
+int 314382201
+<
+bnz l29_method_lt_314382201
+dup
+int 465096368
+<
+bnz l30_method_lt_465096368
+int 465096368
+==
+assert
+
+  // { l5_cST
+  l5_cST:
+  // API: cST()byte
+  //  i(465096368) h(1bb8ceb0) b64(G7jOsA==)
+  byte base64()
+  store 255 // v6911 :: Tuple()
+  byte base64(BQ==)
+  load 255 // v6911 :: Tuple()
+  concat
+  int 72
+  bzero
+  concat
+  b publish2
+  // l5_cST }
+
+l30_method_lt_465096368:
+int 314382201
+==
+assert
+
+  // { l31_claimSTBT
+  l31_claimSTBT:
+  // View: claimSTBT(address)(uint64,uint64)
+  //  i(314382201) h(12bd1779) b64(Er0XeQ==)
+  load 1 // GV_currentStep :: UInt
+  int 3
+  ==
+  assert
+
+    // { claimSTBT_3
+    txna ApplicationArgs 1
+    store 255 // v1214 :: Address
+    int 0
+    // resource: R_Account
+    load 255 // v1214 :: Address
+    callsub l15_LF_cMapLoad
+    extract 0 9
+    dup
+    store 254 // fromSome object
+    int 1
+    extract_uint64
+    load 254 // fromSome object
+    int 0
+    getbyte
+    select
+    itob
+    int 0
+    load 255 // v1214 :: Address
+    callsub l15_LF_cMapLoad
+    extract 9 9
+    dup
+    store 254 // fromSome object
+    int 1
+    extract_uint64
+    load 254 // fromSome object
+    int 0
+    getbyte
+    select
+    itob
+    concat
+    store 7 // GV_apiRet :: Null
+    b apiReturn_check
+    // claimSTBT_3 }
+
+  // l31_claimSTBT }
+
+l29_method_lt_314382201:
+int 23182175
+==
+assert
+
+  // { l0_aBT
+  l0_aBT:
+  // API: aBT(address)byte
+  //  i(23182175) h(161bb5f) b64(AWG7Xw==)
+  txna ApplicationArgs 1
+  store 255 // v6912 :: Tuple(Address)
+  byte base64(AA==)
+  load 255 // v6912 :: Tuple(Address)
+  concat
+  int 40
+  bzero
+  concat
+  b publish2
+  // l0_aBT }
+
+publish:
+txna ApplicationArgs 2
+btoi
+store 4 // GV_argTime :: UInt
+txna ApplicationArgs 3
+txna ApplicationArgs 1
+btoi
+dup
+int 2
+<
+bnz l32_publish_lt_2
+dup
+int 3
+<
+bnz l33_publish_lt_3
+int 3
+==
+assert
+
+  // { publish3
+  publish3:
+  // check step
+  int 3
+  load 1 // GV_currentStep :: UInt
+  ==
+  assert
+  // check time
+  load 4 // GV_argTime :: UInt
+  dup
+  int 0
+  ==
+  swap
+  load 2 // GV_currentTime :: UInt
+  ==
+  ||
+  assert
+  byte base64(AA==)
+  app_global_get
+  dup
+  store 3 // GV_svs :: Null
+  extract 0 32
+  store 255 // Creator/1185 :: Address
+  byte base64(p2XEtA==)
+  log // up to 4 bytes
+  global Round
+  int 18446744073709551615
+  >=
+  assert
+  // ^ CheckPay
+  // at ./index.rsh:299:21:dot
+  // at ./index.rsh:298:40:application call to [unknown function] (defined at: ./index.rsh:298:40:function exp)
+  load 255 // Creator/1185 :: Address
+  txn Sender
+  ==
+  assert
+  // ^ Claim: sender correct
+  // at ./index.rsh:299:21:dot
+  // at ./index.rsh:298:40:application call to [unknown function] (defined at: ./index.rsh:298:40:function exp)
+  load 255 // Creator/1185 :: Address
+  load 3 // GV_svs :: Null
+  int 32
+  extract_uint64
+  load 3 // GV_svs :: Null
+  extract 40 32
+  load 3 // GV_svs :: Null
+  int 72
+  extract_uint64
+  load 3 // GV_svs :: Null
+  extract 80 1
+  btoi
+  load 3 // GV_svs :: Null
+  int 81
+  extract_uint64
+  load 3 // GV_svs :: Null
+  int 89
+  extract_uint64
+  global Round
+  load 3 // GV_svs :: Null
+  extract 97 17
+  b loopBody1
+  // publish3 }
+
+l33_publish_lt_3:
+pop
+
+  // { publish2
+  publish2:
+  // check step
+  int 3
+  load 1 // GV_currentStep :: UInt
+  ==
+  assert
+  // check time
+  load 4 // GV_argTime :: UInt
+  dup
+  int 0
+  ==
+  swap
+  load 2 // GV_currentTime :: UInt
+  ==
+  ||
+  assert
+  byte base64(AA==)
+  app_global_get
+  dup
+  store 3 // GV_svs :: Null
+  dup
+  dup2
+  dup2
+  dup2
+  extract 0 32
+  store 255 // Creator/1185 :: Address
+  int 32
+  extract_uint64
+  store 254 // bT/1189 :: Token
+  extract 40 32
+  store 253 // ctcMan/1202 :: Address
+  int 72
+  extract_uint64
+  store 252 // distrNum/1203 :: UInt
+  extract 80 1
+  btoi
+  store 251 // saleLocked/1204 :: Bool
+  int 81
+  extract_uint64
+  store 250 // totBT/1205 :: UInt
+  int 89
+  extract_uint64
+  store 249 // totST/1206 :: UInt
+  extract 97 17
+  store 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
+  dup
+  store 5 // GV_argMsg :: Null
+  store 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
+  byte base64(mMT3sw==)
+  load 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
+  concat
+  log // up to 77 bytes
+  global Round
+  int 18446744073709551615
+  <
+  assert
+  load 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
+  int 0
+  getbyte
+  dup
+  int 4
+  <
+  bnz l34_Switch_lt_4
+  dup
+  int 6
+  <
+  bnz l35_Switch_lt_6
+  dup
+  int 7
+  <
+  bnz l36_Switch_lt_7
+  dup
+  int 8
+  <
+  bnz l37_Switch_lt_8
+  int 8
+  ==
+  assert
+
+    // { l38_Switch_remWL0_169
+    l38_Switch_remWL0_169:
+    load 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
+    extract 1 32
+    store 246 // data_id/3640 :: Tuple(Address)
+    api_remWL:
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
+    extract 0 17
+    store 245 // tokInfo/3724 :: Tuple(UInt, UInt, Bool)
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    txn Sender
+    load 255 // Creator/1185 :: Address
+    ==
+    txn Sender
+    load 253 // ctcMan/1202 :: Address
+    ==
+    ||
+    assert
+    // ^ Claim
+    // at ./index.rsh:142:24:application
+    // at ./index.rsh:141:13:application call to [unknown function] (defined at: ./index.rsh:141:13:function exp)
+    // resource: R_Account
+    load 246 // data_id/3640 :: Tuple(Address)
+    byte base64(AA==)
+    load 246 // data_id/3640 :: Tuple(Address)
+    callsub l15_LF_cMapLoad
+    int 0
+    int 54
+    swap
+    setbyte
+    app_local_put
+    byte base64(AAAAAAAADz4B)
+    log // up to 9 bytes
+    byte base64(AQ==)
+    store 7 // GV_apiRet :: Null
+    load 255 // Creator/1185 :: Address
+    load 254 // bT/1189 :: Token
+    load 253 // ctcMan/1202 :: Address
+    load 252 // distrNum/1203 :: UInt
+    load 251 // saleLocked/1204 :: Bool
+    load 250 // totBT/1205 :: UInt
+    load 249 // totST/1206 :: UInt
+    global Round
+    load 245 // tokInfo/3724 :: Tuple(UInt, UInt, Bool)
+    extract 0 8
+    load 245 // tokInfo/3724 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 245 // tokInfo/3724 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
+    b loopBody1
+    // l38_Switch_remWL0_169 }
+
+  l37_Switch_lt_8:
+  pop
+
+    // { l39_Switch_optIn0_169
+    l39_Switch_optIn0_169:
+    api_optIn:
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
+    extract 0 17
+    store 246 // tokInfo/3454 :: Tuple(UInt, UInt, Bool)
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    byte base64(AAAAAAAADiMB)
+    log // up to 9 bytes
+    byte base64(AQ==)
+    store 7 // GV_apiRet :: Null
+    load 255 // Creator/1185 :: Address
+    load 254 // bT/1189 :: Token
+    load 253 // ctcMan/1202 :: Address
+    load 252 // distrNum/1203 :: UInt
+    load 251 // saleLocked/1204 :: Bool
+    load 250 // totBT/1205 :: UInt
+    load 249 // totST/1206 :: UInt
+    global Round
+    load 246 // tokInfo/3454 :: Tuple(UInt, UInt, Bool)
+    extract 0 8
+    load 246 // tokInfo/3454 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 246 // tokInfo/3454 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
+    b loopBody1
+    // l39_Switch_optIn0_169 }
+
+  l36_Switch_lt_7:
+  pop
+
+    // { l40_Switch_dBT0_169
+    l40_Switch_dBT0_169:
+    load 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
+    extract 1 8
+    store 246 // data_id/3100 :: Tuple(UInt)
+    api_dBT:
+    load 246 // data_id/3100 :: Tuple(UInt)
+    btoi
+    store 245 // amt/3153 :: UInt
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
+    extract 0 17
+    store 244 // tokInfo/3184 :: Tuple(UInt, UInt, Bool)
+
+      // { checkTxn
+      load 245 // amt/3153 :: UInt
+      load 254 // bT/1189 :: Token
+      callsub l41_LF_checkTxn_tok
+      // checkTxn }
+
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    txn Sender
+    load 255 // Creator/1185 :: Address
+    ==
+    txn Sender
+    load 253 // ctcMan/1202 :: Address
+    ==
+    ||
+    assert
+    // ^ Claim
+    // at ./index.rsh:225:24:application
+    // at ./index.rsh:224:13:application call to [unknown function] (defined at: ./index.rsh:224:13:function exp)
+    load 245 // amt/3153 :: UInt
+    int 0
+    >
+    assert
+    // ^ Claim
+    // at ./index.rsh:226:24:application
+    // at ./index.rsh:224:13:application call to [unknown function] (defined at: ./index.rsh:224:13:function exp)
+    byte base64(AAAAAAAADQoB)
+    log // up to 9 bytes
+    byte base64(AQ==)
+    store 7 // GV_apiRet :: Null
+    load 255 // Creator/1185 :: Address
+    load 254 // bT/1189 :: Token
+    load 253 // ctcMan/1202 :: Address
+    load 252 // distrNum/1203 :: UInt
+    int 1
+    +
+    load 251 // saleLocked/1204 :: Bool
+    load 250 // totBT/1205 :: UInt
+    load 245 // amt/3153 :: UInt
+    +
+    load 249 // totST/1206 :: UInt
+    global Round
+    load 244 // tokInfo/3184 :: Tuple(UInt, UInt, Bool)
+    int 0
+    extract_uint64
+    load 245 // amt/3153 :: UInt
+    +
+    itob
+    load 244 // tokInfo/3184 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 244 // tokInfo/3184 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
+    b loopBody1
+    // l40_Switch_dBT0_169 }
+
+  l35_Switch_lt_6:
+  dup
+  int 5
+  <
+  bnz l42_Switch_lt_5
+  pop
+
+    // { l43_Switch_cST0_169
+    l43_Switch_cST0_169:
+    api_cST:
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
+    extract 0 17
+    store 246 // tokInfo/2914 :: Tuple(UInt, UInt, Bool)
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    int 0
+    txn Sender
+    callsub l15_LF_cMapLoad
+    extract 0 9
+    dup
+    store 244 // fromSome object
+    int 1
+    extract_uint64
+    load 244 // fromSome object
+    int 0
+    getbyte
+    select
+    store 245 // has/3046 :: UInt
+    txn Sender
+    callsub l15_LF_cMapLoad
+    extract 54 1
+    dup
+    store 243 // v/3047 :: Data({"None": Null, "Some": Null}) for switch
+    int 0
+    getbyte
+    bnz l45_LocalSwitch_nz
+
+      // { l46_LocalSwitch_None
+      l46_LocalSwitch_None:
+      int 0
+      store 244 // v3048 :: Bool
+      b l44_LocalSwitchK
+      // l46_LocalSwitch_None }
+
+    l45_LocalSwitch_nz:
+
+      // { l47_LocalSwitch_Some
+      l47_LocalSwitch_Some:
+      int 1
+      store 244 // v3048 :: Bool
+      b l44_LocalSwitchK
+      // l47_LocalSwitch_Some }
+
+    l44_LocalSwitchK:
+    load 244 // v3048 :: Bool
+    assert
+    // ^ Claim
+    // at ./index.rsh:188:24:application
+    // at ./index.rsh:186:13:application call to [unknown function] (defined at: ./index.rsh:186:13:function exp)
+    load 245 // has/3046 :: UInt
+    int 0
+    >
+    assert
+    // ^ Claim
+    // at ./index.rsh:189:24:application
+    // at ./index.rsh:186:13:application call to [unknown function] (defined at: ./index.rsh:186:13:function exp)
+    txn Sender
+    byte base64(AA==)
+    txn Sender
+    callsub l15_LF_cMapLoad
+    byte base64(AQ==)
+    int 0
+    txn Sender
+    callsub l15_LF_cMapLoad
+    extract 18 9
+    dup
+    store 243 // fromSome object
+    int 1
+    extract_uint64
+    load 243 // fromSome object
+    int 0
+    getbyte
+    select
+    load 245 // has/3046 :: UInt
+    +
+    itob
+    concat
+    store 243 // spliceNew
+    dup
+    extract 0 18
+    load 243 // spliceNew
+    concat
+    swap
+    extract 27 28
+    concat
+    app_local_put
+    txn Sender
+    byte base64(AA==)
+    txn Sender
+    callsub l15_LF_cMapLoad
+    byte base64(AQAAAAAAAAAA)
+    store 243 // spliceNew
+    extract 9 46
+    load 243 // spliceNew
+    swap
+    concat
+    app_local_put
+    byte base64(AAAAAAAAC+8B)
+    log // up to 9 bytes
+    byte base64(AQ==)
+    store 7 // GV_apiRet :: Null
+    load 255 // Creator/1185 :: Address
+    load 254 // bT/1189 :: Token
+    load 253 // ctcMan/1202 :: Address
+    load 252 // distrNum/1203 :: UInt
+    load 251 // saleLocked/1204 :: Bool
+    load 250 // totBT/1205 :: UInt
+    load 249 // totST/1206 :: UInt
+    global Round
+    load 246 // tokInfo/2914 :: Tuple(UInt, UInt, Bool)
+    extract 0 8
+    load 246 // tokInfo/2914 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 246 // tokInfo/2914 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
+    b loopBody1
+    // l43_Switch_cST0_169 }
+
+  l42_Switch_lt_5:
+  pop
+
+    // { l48_Switch_cCM0_169
+    l48_Switch_cCM0_169:
+    load 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
+    extract 1 32
+    store 246 // data_id/2560 :: Tuple(Address)
+    api_cCM:
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
+    extract 0 17
+    store 245 // tokInfo/2644 :: Tuple(UInt, UInt, Bool)
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    txn Sender
+    load 255 // Creator/1185 :: Address
+    ==
+    txn Sender
+    load 253 // ctcMan/1202 :: Address
+    ==
+    ||
+    assert
+    // ^ Claim
+    // at ./index.rsh:292:24:application
+    // at ./index.rsh:291:13:application call to [unknown function] (defined at: ./index.rsh:291:13:function exp)
+    byte base64(AAAAAAAACs4B)
+    log // up to 9 bytes
+    byte base64(AQ==)
+    store 7 // GV_apiRet :: Null
+    load 255 // Creator/1185 :: Address
+    load 254 // bT/1189 :: Token
+    load 246 // data_id/2560 :: Tuple(Address)
+    load 252 // distrNum/1203 :: UInt
+    load 251 // saleLocked/1204 :: Bool
+    load 250 // totBT/1205 :: UInt
+    load 249 // totST/1206 :: UInt
+    global Round
+    load 245 // tokInfo/2644 :: Tuple(UInt, UInt, Bool)
+    extract 0 8
+    load 245 // tokInfo/2644 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 245 // tokInfo/2644 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
+    b loopBody1
+    // l48_Switch_cCM0_169 }
+
+  l34_Switch_lt_4:
+  dup
+  int 2
+  <
+  bnz l49_Switch_lt_2
+  dup
+  int 3
+  <
+  bnz l50_Switch_lt_3
+  pop
+
+    // { l51_Switch_cBT0_169
+    l51_Switch_cBT0_169:
+    api_cBT:
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
+    extract 0 17
+    dup
+    store 246 // tokInfo/2374 :: Tuple(UInt, UInt, Bool)
+    extract 0 8
+    load 246 // tokInfo/2374 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 246 // tokInfo/2374 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
+    store 245 // tokInfos'/2382 :: Array(Tuple(UInt, UInt, Bool), 1)
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    txn Sender
+    callsub l15_LF_cMapLoad
+    extract 54 1
+    dup
+    store 243 // v/2450 :: Data({"None": Null, "Some": Null}) for switch
+    int 0
+    getbyte
+    bnz l53_LocalSwitch_nz
+
+      // { l54_LocalSwitch_None
+      l54_LocalSwitch_None:
+      int 0
+      store 244 // v2451 :: Bool
+      b l52_LocalSwitchK
+      // l54_LocalSwitch_None }
+
+    l53_LocalSwitch_nz:
+
+      // { l55_LocalSwitch_Some
+      l55_LocalSwitch_Some:
+      int 1
+      store 244 // v2451 :: Bool
+      b l52_LocalSwitchK
+      // l55_LocalSwitch_Some }
+
+    l52_LocalSwitchK:
+    load 244 // v2451 :: Bool
+    assert
+    // ^ Claim
+    // at ./index.rsh:244:24:application
+    // at ./index.rsh:243:13:application call to [unknown function] (defined at: ./index.rsh:243:13:function exp)
+    load 245 // tokInfos'/2382 :: Array(Tuple(UInt, UInt, Bool), 1)
+    extract 0 17
+    dup
+    store 243 // tokInfo/2454 :: Tuple(UInt, UInt, Bool)
+    int 0
+    extract_uint64
+    store 242 // v2455 :: UInt
+    int 0
+    txn Sender
+    callsub l15_LF_cMapLoad
+    extract 27 9
+    dup
+    store 240 // fromSome object
+    int 1
+    extract_uint64
+    load 240 // fromSome object
+    int 0
+    getbyte
+    select
+    store 241 // v2460 :: UInt
+    load 242 // v2455 :: UInt
+    int 0
+    >
+    load 249 // totST/1206 :: UInt
+    int 0
+    >
+    &&
+    load 249 // totST/1206 :: UInt
+    load 241 // v2460 :: UInt
+    >=
+    &&
+    assert
+    // ^ Claim
+    // at ./index.rsh:245:24:application
+    // at ./index.rsh:243:13:application call to [unknown function] (defined at: ./index.rsh:243:13:function exp)
+    load 241 // v2460 :: UInt
+    load 242 // v2455 :: UInt
+    *
+    load 249 // totST/1206 :: UInt
+    /
+    store 240 // has/2468 :: UInt
+
+      // { makeTxn
+      itxn_begin
+      int 0
+      itxn_field Fee
+      load 240 // has/2468 :: UInt
+      itxn_field AssetAmount
+      int axfer
+      itxn_field TypeEnum
+      txn Sender
+      itxn_field AssetReceiver
+      // resource: R_Asset
+      load 254 // bT/1189 :: Token
+      itxn_field XferAsset
+      itxn_submit
+      // makeTxn }
+
+    txn Sender
+    byte base64(AA==)
+    txn Sender
+    callsub l15_LF_cMapLoad
+    byte base64(AQ==)
+    int 0
+    txn Sender
+    callsub l15_LF_cMapLoad
+    extract 36 9
+    dup
+    store 239 // fromSome object
+    int 1
+    extract_uint64
+    load 239 // fromSome object
+    int 0
+    getbyte
+    select
+    load 240 // has/2468 :: UInt
+    +
+    itob
+    concat
+    store 239 // spliceNew
+    dup
+    extract 0 36
+    load 239 // spliceNew
+    concat
+    swap
+    extract 45 10
+    concat
+    app_local_put
+    txn Sender
+    byte base64(AA==)
+    txn Sender
+    callsub l15_LF_cMapLoad
+    byte base64(AQ==)
+    load 252 // distrNum/1203 :: UInt
+    itob
+    concat
+    store 239 // spliceNew
+    dup
+    extract 0 45
+    load 239 // spliceNew
+    concat
+    swap
+    extract 54 1
+    concat
+    app_local_put
+    byte base64(AAAAAAAACbQB)
+    log // up to 9 bytes
+    byte base64(AQ==)
+    store 7 // GV_apiRet :: Null
+    load 255 // Creator/1185 :: Address
+    load 254 // bT/1189 :: Token
+    load 253 // ctcMan/1202 :: Address
+    load 252 // distrNum/1203 :: UInt
+    load 251 // saleLocked/1204 :: Bool
+    load 250 // totBT/1205 :: UInt
+    load 249 // totST/1206 :: UInt
+    global Round
+    load 242 // v2455 :: UInt
+    load 240 // has/2468 :: UInt
+    -
+    itob
+    load 243 // tokInfo/2454 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 243 // tokInfo/2454 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
+    b loopBody1
+    // l51_Switch_cBT0_169 }
+
+  l50_Switch_lt_3:
+  pop
+
+    // { l56_Switch_addWL0_169
+    l56_Switch_addWL0_169:
+    load 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
+    extract 1 32
+    store 246 // data_id/2020 :: Tuple(Address)
+    api_addWL:
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
+    extract 0 17
+    store 245 // tokInfo/2104 :: Tuple(UInt, UInt, Bool)
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    txn Sender
+    load 255 // Creator/1185 :: Address
+    ==
+    txn Sender
+    load 253 // ctcMan/1202 :: Address
+    ==
+    ||
+    assert
+    // ^ Claim
+    // at ./index.rsh:124:24:application
+    // at ./index.rsh:123:13:application call to [unknown function] (defined at: ./index.rsh:123:13:function exp)
+    // resource: R_Account
+    load 246 // data_id/2020 :: Tuple(Address)
+    byte base64(AA==)
+    load 246 // data_id/2020 :: Tuple(Address)
+    callsub l15_LF_cMapLoad
+    int 1
+    int 54
+    swap
+    setbyte
+    app_local_put
+    byte base64(AAAAAAAACHsB)
+    log // up to 9 bytes
+    byte base64(AQ==)
+    store 7 // GV_apiRet :: Null
+    load 255 // Creator/1185 :: Address
+    load 254 // bT/1189 :: Token
+    load 253 // ctcMan/1202 :: Address
+    load 252 // distrNum/1203 :: UInt
+    load 251 // saleLocked/1204 :: Bool
+    load 250 // totBT/1205 :: UInt
+    load 249 // totST/1206 :: UInt
+    global Round
+    load 245 // tokInfo/2104 :: Tuple(UInt, UInt, Bool)
+    extract 0 8
+    load 245 // tokInfo/2104 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 245 // tokInfo/2104 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
+    b loopBody1
+    // l56_Switch_addWL0_169 }
+
+  l49_Switch_lt_2:
+  dup
+  int 1
+  <
+  bnz l57_Switch_lt_1
+  pop
+
+    // { l58_Switch_aST0_169
+    l58_Switch_aST0_169:
+    load 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
+    extract 1 72
+    store 246 // data_id/1750 :: Tuple(Address, Address, UInt)
+    api_aST:
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
+    extract 0 17
+    store 245 // tokInfo/1834 :: Tuple(UInt, UInt, Bool)
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    load 246 // data_id/1750 :: Tuple(Address, Address, UInt)
+    extract 0 32
+    store 244 // user/1870 :: Address
+    load 246 // data_id/1750 :: Tuple(Address, Address, UInt)
+    extract 32 32
+    store 243 // i/1871 :: Address
+    load 246 // data_id/1750 :: Tuple(Address, Address, UInt)
+    int 64
+    extract_uint64
+    store 242 // amt/1872 :: UInt
+    load 244 // user/1870 :: Address
+    load 255 // Creator/1185 :: Address
+    ==
+    load 244 // user/1870 :: Address
+    load 253 // ctcMan/1202 :: Address
+    ==
+    ||
+    assert
+    // ^ Claim
+    // at ./index.rsh:162:24:application
+    // at ./index.rsh:161:13:application call to [unknown function] (defined at: ./index.rsh:161:13:function exp)
+    load 242 // amt/1872 :: UInt
+    int 0
+    >
+    assert
+    // ^ Claim
+    // at ./index.rsh:163:24:application
+    // at ./index.rsh:161:13:application call to [unknown function] (defined at: ./index.rsh:161:13:function exp)
+    // resource: R_Account
+    load 243 // i/1871 :: Address
+    byte base64(AA==)
+    load 243 // i/1871 :: Address
+    callsub l15_LF_cMapLoad
+    int 1
+    int 54
+    swap
+    setbyte
+    app_local_put
+    load 243 // i/1871 :: Address
+    byte base64(AA==)
+    load 243 // i/1871 :: Address
+    callsub l15_LF_cMapLoad
+    byte base64(AQ==)
+    int 0
+    load 243 // i/1871 :: Address
+    callsub l15_LF_cMapLoad
+    extract 0 9
+    dup
+    store 241 // fromSome object
+    int 1
+    extract_uint64
+    load 241 // fromSome object
+    int 0
+    getbyte
+    select
+    load 242 // amt/1872 :: UInt
+    +
+    itob
+    concat
+    store 241 // spliceNew
+    extract 9 46
+    load 241 // spliceNew
+    swap
+    concat
+    app_local_put
+    load 243 // i/1871 :: Address
+    byte base64(AA==)
+    load 243 // i/1871 :: Address
+    callsub l15_LF_cMapLoad
+    byte base64(AQ==)
+    int 0
+    load 243 // i/1871 :: Address
+    callsub l15_LF_cMapLoad
+    extract 27 9
+    dup
+    store 241 // fromSome object
+    int 1
+    extract_uint64
+    load 241 // fromSome object
+    int 0
+    getbyte
+    select
+    load 242 // amt/1872 :: UInt
+    +
+    itob
+    concat
+    store 241 // spliceNew
+    dup
+    extract 0 27
+    load 241 // spliceNew
+    concat
+    swap
+    extract 36 19
+    concat
+    app_local_put
+    byte base64(AAAAAAAAB1wB)
+    log // up to 9 bytes
+    byte base64(AQ==)
+    store 7 // GV_apiRet :: Null
+    load 255 // Creator/1185 :: Address
+    load 254 // bT/1189 :: Token
+    load 253 // ctcMan/1202 :: Address
+    load 252 // distrNum/1203 :: UInt
+    load 251 // saleLocked/1204 :: Bool
+    load 250 // totBT/1205 :: UInt
+    load 249 // totST/1206 :: UInt
+    load 242 // amt/1872 :: UInt
+    +
+    global Round
+    load 245 // tokInfo/1834 :: Tuple(UInt, UInt, Bool)
+    extract 0 8
+    load 245 // tokInfo/1834 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 245 // tokInfo/1834 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
+    b loopBody1
+    // l58_Switch_aST0_169 }
+
+  l57_Switch_lt_1:
+  pop
+
+    // { l59_Switch_aBT0_169
+    l59_Switch_aBT0_169:
+    load 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
+    extract 1 32
+    store 246 // data_id/1480 :: Tuple(Address)
+    api_aBT:
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
+    extract 0 17
+    dup
+    store 245 // tokInfo/1564 :: Tuple(UInt, UInt, Bool)
+    extract 0 8
+    load 245 // tokInfo/1564 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 245 // tokInfo/1564 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
+    store 244 // tokInfos'/1572 :: Array(Tuple(UInt, UInt, Bool), 1)
+    // ^ CheckPay
+    // at ./index.rsh:102:72:dot
+    load 246 // data_id/1480 :: Tuple(Address)
+    store 243 // i/1574 :: Address
+    txn Sender
+    load 255 // Creator/1185 :: Address
+    ==
+    txn Sender
+    load 253 // ctcMan/1202 :: Address
+    ==
+    ||
+    assert
+    // ^ Claim
+    // at ./index.rsh:270:24:application
+    // at ./index.rsh:269:13:application call to [unknown function] (defined at: ./index.rsh:269:13:function exp)
+    int 0
+    // resource: R_Account
+    load 243 // i/1574 :: Address
+    callsub l15_LF_cMapLoad
+    extract 27 9
+    dup
+    store 242 // fromSome object
+    int 1
+    extract_uint64
+    load 242 // fromSome object
+    int 0
+    getbyte
+    select
+    int 0
+    >
+    assert
+    // ^ Claim
+    // at ./index.rsh:272:24:application
+    // at ./index.rsh:269:13:application call to [unknown function] (defined at: ./index.rsh:269:13:function exp)
+    int 0
+    txn Sender
+    callsub l15_LF_cMapLoad
+    extract 27 9
+    dup
+    store 241 // fromSome object
+    int 1
+    extract_uint64
+    load 241 // fromSome object
+    int 0
+    getbyte
+    select
+    load 244 // tokInfos'/1572 :: Array(Tuple(UInt, UInt, Bool), 1)
+    extract 0 17
+    int 0
+    extract_uint64
+    *
+    load 249 // totST/1206 :: UInt
+    /
+    store 242 // amt/1586 :: UInt
+    load 243 // i/1574 :: Address
+    byte base64(AA==)
+    load 243 // i/1574 :: Address
+    callsub l15_LF_cMapLoad
+    byte base64(AQ==)
+    int 0
+    load 243 // i/1574 :: Address
+    callsub l15_LF_cMapLoad
+    extract 9 9
+    dup
+    store 241 // fromSome object
+    int 1
+    extract_uint64
+    load 241 // fromSome object
+    int 0
+    getbyte
+    select
+    load 242 // amt/1586 :: UInt
+    +
+    itob
+    concat
+    store 241 // spliceNew
+    dup
+    extract 0 9
+    load 241 // spliceNew
+    concat
+    swap
+    extract 18 37
+    concat
+    app_local_put
+    byte base64(AAAAAAAABjYB)
+    log // up to 9 bytes
+    byte base64(AQ==)
+    store 7 // GV_apiRet :: Null
+    load 255 // Creator/1185 :: Address
+    load 254 // bT/1189 :: Token
+    load 253 // ctcMan/1202 :: Address
+    load 252 // distrNum/1203 :: UInt
+    load 251 // saleLocked/1204 :: Bool
+    load 250 // totBT/1205 :: UInt
+    load 249 // totST/1206 :: UInt
+    load 242 // amt/1586 :: UInt
+    +
+    global Round
+    load 244 // tokInfos'/1572 :: Array(Tuple(UInt, UInt, Bool), 1)
+    b loopBody1
+    // l59_Switch_aBT0_169 }
+
+  // publish2 }
+
+l32_publish_lt_2:
+int 0
+==
+assert
+
+  // { publish0
+  publish0:
+  // check step
+  int 0
+  load 1 // GV_currentStep :: UInt
+  ==
+  assert
+  // check time
+  load 4 // GV_argTime :: UInt
+  dup
+  int 0
+  ==
+  swap
+  load 2 // GV_currentTime :: UInt
+  ==
+  ||
+  assert
+  dup
+  store 5 // GV_argMsg :: Null
+  dup
+  dup2
+  dup
+  extract 0 128
+  store 255 // companyName/1186 :: Bytes(128)
+  extract 128 1
+  btoi
+  store 254 // lockSale/1187 :: Bool
+  extract 129 32
+  store 253 // managerAddr/1188 :: Address
+  int 161
+  extract_uint64
+  store 252 // bT/1189 :: Token
+  int 169
+  extract_uint64
+  store 251 // authorizedST/1190 :: UInt
+  byte base64(ZxWleA==)
+  load 255 // companyName/1186 :: Bytes(128)
+  concat
+  load 254 // lockSale/1187 :: Bool
+  itob
+  substring 7 8
+  concat
+  load 253 // managerAddr/1188 :: Address
+  concat
+  load 252 // bT/1189 :: Token
+  itob
+  concat
+  load 251 // authorizedST/1190 :: UInt
+  itob
+  concat
+  log // up to 181 bytes
+
+    // { checkTxn
+    int 100000
+    callsub l60_LF_checkTxn_net
+    // checkTxn }
+
+  // ^ CheckPay
+  // at ./index.rsh:82:13:dot
+  int 17
+  bzero
+  dup
+  store 250 // tokInfos/1168 :: Array(Tuple(UInt, UInt, Bool), 1)
+  extract 0 17
+  store 249 // tokInfo/1193 :: Tuple(UInt, UInt, Bool)
+
+    // { TokenInit
+
+      // { checkTxn
+      int 100000
+      callsub l60_LF_checkTxn_net
+      // checkTxn }
+
+
+      // { makeTxn
+      itxn_begin
+      int 0
+      itxn_field Fee
+      int 0
+      itxn_field AssetAmount
+      int axfer
+      itxn_field TypeEnum
+      global CurrentApplicationAddress
+      itxn_field AssetReceiver
+      // resource: R_Asset
+      load 252 // bT/1189 :: Token
+      itxn_field XferAsset
+      itxn_submit
+      // makeTxn }
+
+    // TokenInit }
+
+  // ^ CheckPay
+  // at ./index.rsh:82:13:dot
+  txn Sender
+  load 252 // bT/1189 :: Token
+  load 253 // managerAddr/1188 :: Address
+  int 0
+  load 254 // lockSale/1187 :: Bool
+  int 0
+  int 0
+  global Round
+  int 8
+  bzero
+  load 249 // tokInfo/1193 :: Tuple(UInt, UInt, Bool)
+  extract 8 8
+  concat
+  load 249 // tokInfo/1193 :: Tuple(UInt, UInt, Bool)
+  extract 16 1
+  concat
+  b loopBody1
+  // publish0 }
+
+
+  // { loopBody1
+  loopBody1:
+  store 255 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
+  store 254 // thisConsensusTime/1207 :: UInt
+  store 253 // totST/1206 :: UInt
+  store 252 // totBT/1205 :: UInt
+  store 251 // saleLocked/1204 :: Bool
+  store 250 // distrNum/1203 :: UInt
+  store 249 // ctcMan/1202 :: Address
+  store 248 // bT/1189 :: Token
+  dup
+  store 247 // Creator/1185 :: Address
+  load 248 // bT/1189 :: Token
+  itob
+  concat
+  load 249 // ctcMan/1202 :: Address
+  concat
+  load 250 // distrNum/1203 :: UInt
+  itob
+  concat
+  load 251 // saleLocked/1204 :: Bool
+  itob
+  substring 7 8
+  concat
+  load 252 // totBT/1205 :: UInt
+  itob
+  concat
+  load 253 // totST/1206 :: UInt
+  itob
+  concat
+  load 255 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
+  concat
+  byte base64(AA==)
+  dig 1
+  extract 0 114
+  app_global_put
+  pop
+  int 3
+  store 1 // GV_currentStep :: UInt
+  global Round
+  store 2 // GV_currentTime :: UInt
+  b updateStateNoOp
+  // loopBody1 }
+
+updateStateHalt:
+txn OnCompletion
+int DeleteApplication
+==
+assert
+// checked on completion
+
+  // { makeTxn
+  itxn_begin
+  int 0
+  itxn_field Fee
+  int 0
+  itxn_field Amount
+  int pay
+  itxn_field TypeEnum
+  global CreatorAddress
+  itxn_field CloseRemainderTo
+  global CurrentApplicationAddress
+  itxn_field Receiver
+  itxn_submit
+  // makeTxn }
+
+b updateState
+updateStateNoOp:
+txn OnCompletion
+int NoOp
+==
+assert
+// checked on completion
+updateState:
+byte base64()
+load 1 // GV_currentStep :: UInt
+itob
+load 2 // GV_currentTime :: UInt
+itob
+concat
+app_global_put
+load 6 // GV_wasMeth :: Bool
+bz checkSize
+apiReturn_noCheck:
+byte base64(FR98dQ==)
+load 7 // GV_apiRet :: Null
+concat
+log // up to 28 bytes
+checkSize:
+load 0 // GV_txnCounter :: UInt
+dup
+int 1
++
+global GroupSize
+==
+assert
+txn GroupIndex
+==
+assert
+done:
+int 1
+return
+apiReturn_check:
+txn OnCompletion
+int NoOp
+==
+assert
+// checked on completion
+b apiReturn_noCheck
+alloc:
+int 0
+store 1 // GV_currentStep :: UInt
+int 0
+store 2 // GV_currentTime :: UInt
+b updateStateNoOp
+l15_LF_cMapLoad:
+dup
+txn ApplicationID
+app_opted_in
+bnz l61_mapLoadDo
+l62_mapLoadDef:
+pop
+int 55
+bzero
+retsub
+l61_mapLoadDo:
+byte base64(AA==)
+app_local_get
+retsub
+l60_LF_checkTxn_net:
+// resource: R_Txn
+load 0 // GV_txnCounter :: UInt
+dup
+dup2
+int 1
++
+store 0 // GV_txnCounter :: UInt
+gtxns Receiver
+global CurrentApplicationAddress
+==
+assert
+gtxns TypeEnum
+int pay
+==
+assert
+gtxns Amount
+==
+assert
+retsub
+l41_LF_checkTxn_tok:
+// resource: R_Txn
+load 0 // GV_txnCounter :: UInt
+dup
+dup2
+dup
+int 1
++
+store 0 // GV_txnCounter :: UInt
+gtxns AssetReceiver
+global CurrentApplicationAddress
+==
+assert
+gtxns TypeEnum
+int axfer
+==
+assert
+gtxns XferAsset
+uncover 2
+==
+assert
+gtxns AssetAmount
+==
+assert
+retsub
