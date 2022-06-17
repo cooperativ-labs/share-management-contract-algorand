@@ -9,9 +9,11 @@ Alice whats to distribute shares of Syndication LLC shares as tokens, so she dep
 Syndication LLC sometimes earns money (from rent, for example), and Alice wants to distribute a portion of these earnings to her investors. She does so by sending the total amount she wants to distribute (in USDCa*) to the Manager contract. Doing so automatically sends a proportional amount of this distribution to each of the tokens (the USDCa appears in the wallet of the token holder).
 
 
-## Central Contract Design Overview and Functions
+## Share Manager Contract Design Overview, Functions and Views
 
 We are using Reach Programming Language to develop the smart contract and then compile to javascript file and/or TEAL or Solidity for eventual contract deployment. The following are the functions available via this smart contract:
+
+### Functions
 
 **Add Investor to Whitelist** [addWL(approvedInvestor)](https://github.com/cooperativ-labs/Contracts/blob/main/Central/index.rsh#:~:text=const%20User%20%3D%20API,%7D) – This is a restricted function that takes in one argument (approved investor's wallet address), and is used to update the list of verified and vetted investors eligible to receive share token and distribution or backing tokens from the Central Contract.  Only contract creator or contract manager can use this function. In the Future, we plan to allow Contract Creator to delegate access to this API.
 
@@ -33,6 +35,19 @@ We are using Reach Programming Language to develop the smart contract and then c
 
 **Update Legal Contract Hash** [docHash(hash)](https://github.com/cooperativ-labs/Contracts/blob/main/Central/index.rsh#:~:text=const%20User%20%3D%20API,%7D) - This is a restricted function for allowing chainging the legal document hash associated with share tokens on the manager contract. Only contract creator (or eventually a contract manager) can use this API This function takes in the document has as an argument.
 
+### Views
+
+**Total Share Token, Total Backing Token, Number of Distributions** [totSTBTD()](https://github.com/cooperativ-labs/Contracts/blob/main/Central/index.rsh#:~:text=const%20User%20%3D%20API,%7D) - This view shows the total amount of Share Token and Backing Token distributed, and the number of distributions conducted. It accepts no arguments and returns an Array. 
+
+**Whether Sale is Locked** [saleLocked()](https://github.com/cooperativ-labs/Contracts/blob/main/Central/index.rsh#:~:text=const%20User%20%3D%20API,%7D) - This view shows whether share holders can transfer shares. It accepts no arguments and returns `true` or `false`.
+
+**Show Unclaimed Tokens per Investor** [claimSTBT(walletAddress)](https://github.com/cooperativ-labs/Contracts/blob/main/Central/index.rsh#:~:text=const%20User%20%3D%20API,%7D) - This view shows the number of Share Token and Backing Token a given investor had _not yet_ claimed. It takes an investor's wallet address and returns `[shareToken, backingToken, numDistributions]`. (note: on Shares are claimed automatically on Algorand)
+
+**Show Claimed Tokens Per Investor** [totSTBTDRec(walletAddress)](https://github.com/cooperativ-labs/Contracts/blob/main/Central/index.rsh#:~:text=const%20User%20%3D%20API,%7D) - This view shows the number of Share Tokens and Backing Tokens the investor has recieved (excluding those she has not yet claimed), and the number of distributions she has accepted. It takes the investor's wallet address and returns `[shareToken, backingToken, numDistributions]`. (note: on Shares are claimed automatically on Algorand)
+
+**White List Member** [wlMember(walletAddress)](https://github.com/cooperativ-labs/Contracts/blob/main/Central/index.rsh#:~:text=const%20User%20%3D%20API,%7D) - This view shows whether a given wallet address is on the contract's whitelist. It takes an investor's wallet address and returnes `true` or `false`.
+
+**Hash of linked Legal Contract** [vHash()](https://github.com/cooperativ-labs/Contracts/blob/main/Central/index.rsh#:~:text=const%20User%20%3D%20API,%7D) - This accepts no arguments and returns an array of hashes. 
 
 ### TEAL Smart Contracts
 
