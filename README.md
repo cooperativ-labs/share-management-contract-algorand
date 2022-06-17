@@ -2,6 +2,9 @@
 
 The goal of this contract is to allow a business to pay distributions in the simplest possible manner, without requiring any detailed personal information about the recipients of those distributions. The tokens are tied to a centralized legal contract that specifies the obligations of the business. This written contract can specify additional terms, such as the smart contract’s relationship to an underlying security and the rights of the token holder vis a vis the issuing entity.
 
+## Disclaimer
+This code has not been audited and Cooperativ Labs makes no guarentees about it's functionality or security. Comments and bug reports are most welcome.
+
 ## User Story
 
 Alice whats to distribute shares of Syndication LLC shares as tokens, so she deploys a Distribution Capable smart contract to Algorand. This smart contract *must be tied to a legal contract* that describes the investment in legal terms. To create this linkage, Alice creates a hash of the legal text, and publishes it to the smart contract. Alice’s investors send her money, and she allocates to them the appropriate number of share tokens. 
