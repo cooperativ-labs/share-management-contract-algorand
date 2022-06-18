@@ -33,9 +33,7 @@ export const main = Reach.App(() => {
         totSTBTD: Tuple(UInt256, UInt256, UInt256),
         saleLocked: Bool,
         claimSTBT: Fun([Address], Tuple(UInt256, UInt256)),
-        
         totSTBTDRec: Fun([Address], Tuple(UInt256, UInt256, UInt256)),
-        
         wlMember: Fun([Address], Bool),
         vHash: Bytes(96),
         vcVersion: Bytes(4),
@@ -47,7 +45,6 @@ export const main = Reach.App(() => {
 
     Creator.only(() => {
         const { companyName, lockSale, managerAddr, bT, authorizedST } = declassify(interact.getParams());
-       
     });
 
     Creator.publish(companyName, lockSale, managerAddr, bT, authorizedST);
