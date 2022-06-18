@@ -2,10 +2,11 @@
 
 const Params = Object({
     companyName: Bytes(128),
+    //sT: Token,
     bT: Token,
     lockSale: Bool,
     managerAddr: Address,
-    authorizedST: UInt,
+    authorizedST: UInt256,
 });
 
 export const main = Reach.App(() => {
@@ -14,34 +15,39 @@ export const main = Reach.App(() => {
         getParams: Fun([], Params),
         iDeployed: Fun([Bytes(15)], Null),
     })
-
     const User = API({
         addWL: Fun([Address], Bool),
         remWL: Fun([Address], Bool),
-        aST: Fun([Address, Address, UInt], Bool),
+        aST: Fun([Address, Address, UInt256], Bool),
         cST: Fun([], Bool),
-        dBT: Fun([UInt], Bool),
+        dBT: Fun([UInt256], Bool),
         aBT: Fun([Address], Bool),
         cBT: Fun([], Bool),
         cCM: Fun([Address], Bool),
         optIn: Fun([], Bool),
         docHash: Fun([Bytes(96)], Bool),
+
     });
 
     const Views = View({
-        totSTBTD: Tuple(UInt, UInt, UInt),
+        totSTBTD: Tuple(UInt256, UInt256, UInt256),
         saleLocked: Bool,
-        claimSTBT: Fun([Address], Tuple(UInt, UInt)),
-        totSTBTDRec: Fun([Address], Tuple(UInt, UInt, UInt)),
+        claimSTBT: Fun([Address], Tuple(UInt256, UInt256)),
+        
+        totSTBTDRec: Fun([Address], Tuple(UInt256, UInt256, UInt256)),
+        
         wlMember: Fun([Address], Bool),
         vHash: Bytes(96),
+        vcVersion: Bytes(4),
+        vBtBal: UInt256,
+        vCcCm: Tuple(Address, Address),
     });
 
     init();
 
     Creator.only(() => {
         const { companyName, lockSale, managerAddr, bT, authorizedST } = declassify(interact.getParams());
-
+       
     });
 
     Creator.publish(companyName, lockSale, managerAddr, bT, authorizedST);
@@ -49,20 +55,18 @@ export const main = Reach.App(() => {
     Creator.interact.iDeployed('I have deployed');
 
     const end = UInt.max;
+    
+    const unwInt = (m) => fromSome(m, UInt256(0));
 
-    const unwInt = (m) => fromSome(m, 0);
+    const claimST = new Map(UInt256); 
+    const claimBT = new Map(UInt256); 
+    const totRecST = new Map(UInt256); 
+    const totAllST = new Map(UInt256); 
+    const totRecBT = new Map(UInt256); 
+    const iDistrNum = new Map(UInt256); 
+    const wl = new Set(); 
 
-    //maps
-    const claimST = new Map(UInt);
-    const claimBT = new Map(UInt);
-    const totRecST = new Map(UInt);
-    const totAllST = new Map(UInt);
-    const totRecBT = new Map(UInt);
-    const iDistrNum = new Map(UInt);
-    const wl = new Set(); //whitelist
-
-    //[totSTeverAllocated, totBTeverAllocated, contractManager, distributionNumber, docHash]
-    const [totST, totBT, saleLocked, ctcMan, distrNum, docHash] = parallelReduce([0, 0, lockSale, managerAddr, 0, 'ajdnaeinawindiaengtnifrjwritniqwrnirefindinigajdnaeinawidiaengtniitniqwrnirefindinigfuaebfubawur'])
+    const [cv, totST, totBT, saleLocked, ctcMan, distrNum, docHash] = parallelReduce(['1.00', UInt256(0), UInt256(0), lockSale, managerAddr, UInt256(0), 'ajdnaeinawindiaengtnifrjwritniqwrnirefindinigajdnaeinawidiaengtniitniqwrnirefindinigfuaebfubawur'])
         .invariant(balance() == 0)
         .while(true)
         .paySpec([bT])
@@ -73,6 +77,10 @@ export const main = Reach.App(() => {
             Views.totSTBTDRec.set((addr) => [unwInt(totRecST[addr]), unwInt(totRecBT[addr]), unwInt(iDistrNum[addr])]);
             Views.wlMember.set((addr) => wl.member(addr));
             Views.vHash.set(docHash);
+            Views.vcVersion.set(cv);
+            Views.vBtBal.set(UInt256(balance(bT)));
+            Views.vCcCm.set([Creator, ctcMan]);
+
         })
         .api(
             User.docHash,
@@ -88,7 +96,7 @@ export const main = Reach.App(() => {
                 require(this == Creator || this == ctcMan);
                 const nHash = hash;
                 res(true);
-                return [totST, totBT, saleLocked, ctcMan, distrNum, nHash];
+                return [cv, totST, totBT, saleLocked, ctcMan, distrNum, nHash];
             })
         )
         .api(
@@ -106,7 +114,7 @@ export const main = Reach.App(() => {
                 require(typeOf(i) == Address)
                 wl.insert(i);
                 res(true);
-                return [totST, totBT, saleLocked, ctcMan, distrNum, docHash];
+                return [cv, totST, totBT, saleLocked, ctcMan, distrNum, docHash];
             })
         )
         .api(
@@ -124,16 +132,15 @@ export const main = Reach.App(() => {
                 require(typeOf(i) == Address)
                 wl.remove(i);
                 res(true);
-                return [totST, totBT, saleLocked, ctcMan, distrNum, docHash];
+                return [cv, totST, totBT, saleLocked, ctcMan, distrNum, docHash];
             })
         )
-        //Allocate share tokens to approved addresses
         .api(
             User.aST,
             // Assumes
             ((user, i, amt) => {
                 assume(user == Creator || user == ctcMan);
-                assume(amt > 0);
+                assume(amt > UInt256(0));
                 assume(typeOf(i) == Address)
             }),
             // Payments
@@ -141,35 +148,34 @@ export const main = Reach.App(() => {
             // Consensus
             ((user, i, amt, res) => {
                 require(user == Creator || user == ctcMan);
-                require(amt > 0);
+                require(amt > UInt256(0));
                 require(typeOf(i) == Address);
                 wl.insert(i);
                 claimST[i] = unwInt(claimST[i]) + amt;
                 totAllST[i] = unwInt(totAllST[i]) + amt;
                 res(true);
-                return [totST + amt, totBT, saleLocked, ctcMan, distrNum, docHash];
+                return [cv, totST + amt, totBT, saleLocked, ctcMan, distrNum, docHash];
             })
         )
-        // Let investors claim their allocated share tokens
         .api(
             User.cST,
             // Assumes
             (() => {
                 const has = unwInt(claimST[this]);
                 assume(wl.member(this));
-                assume(has > 0);
+                assume(has > UInt256(0));
             }),
             // Payments
             (() => [0, [0, bT]]),
             // Consensus
             ((res) => {
-                const has = unwInt(claimST[this]);
+                const has = unwInt(claimST[this]); 
                 require(wl.member(this));
-                require(has > 0);
-                totRecST[this] = unwInt(totRecST[this]) + has;
-                claimST[this] = 0;
+                require(has > UInt256(0));
+                totRecST[this] = unwInt(totRecST[this]) + has; // 
+                claimST[this] = UInt256(0); 
                 res(true);
-                return [totST, totBT, saleLocked, ctcMan, distrNum, docHash];
+                return [cv, totST, totBT, saleLocked, ctcMan, distrNum, docHash];
             })
         )
         // Let investors optin first
@@ -184,7 +190,7 @@ export const main = Reach.App(() => {
             // Consensus
             ((res) => {
                 res(true);
-                return [totST, totBT, saleLocked, ctcMan, distrNum, docHash];
+                return [cv, totST, totBT, saleLocked, ctcMan, distrNum, docHash];
             })
         )
         .api(
@@ -192,18 +198,16 @@ export const main = Reach.App(() => {
             // Assumes
             ((amt) => {
                 assume(this == Creator || this == ctcMan);
-                assume(amt > 0);
-                //assume(saleLocked);
+                assume(UInt(amt) > 0);
             }),
             // Payments
-            ((amt) => [0, [amt, bT]]),
+            ((amt) => [0, [UInt(amt), bT]]),
             // Consensus
             ((amt, res) => {
                 require(this == Creator || this == ctcMan);
-                require(amt > 0);
-                //require(saleLocked);
+                require(UInt(amt) > 0);
                 res(true);
-                return [totST, totBT + amt, saleLocked, ctcMan, distrNum + 1, docHash];
+                return [cv, totST, totBT + amt, saleLocked, ctcMan, distrNum + UInt256(1), docHash];
             })
         )
         .api(
@@ -211,21 +215,20 @@ export const main = Reach.App(() => {
             // Assumes
             (() => {
                 assume(wl.member(this));
-                assume(balance(bT) > 0 && totST > 0 && totST >= unwInt(totAllST[this]));
+                assume(balance(bT) > 0 && totST > UInt256(0) && totST >= unwInt(totAllST[this]));
             }),
             // Payments
             (() => [0, [0, bT]]),
             // Consensus
             ((res) => {
                 require(wl.member(this));
-                require(balance(bT) > 0 && totST > 0 && totST >= unwInt(totAllST[this]));
-                const has = unwInt(totAllST[this]) * balance(bT) / totST; //find how much investor has to claim
-                //transfer all the amount waiting to be claimed to the receiving investor
-                transfer([0, [has, bT]]).to(this);
+                require(balance(bT) > 0 && totST > UInt256(0) && totST >= unwInt(totAllST[this]));
+                const has = (unwInt(totAllST[this]) / totST) * UInt256(balance(bT)); 
+                transfer([0, [UInt(has), bT]]).to(this);
                 totRecBT[this] = unwInt(totRecBT[this]) + has;
-                iDistrNum[this] = distrNum;
+                iDistrNum[this] = unwInt(iDistrNum[this]) + UInt256(1); 
                 res(true);
-                return [totST, totBT, saleLocked, ctcMan, distrNum, docHash];
+                return [cv, totST, totBT, saleLocked, ctcMan, distrNum, docHash];
             })
         )
         //Allocate backing tokens to approved addresses
@@ -236,21 +239,19 @@ export const main = Reach.App(() => {
                 assume(this == Creator || this == ctcMan);
                 assume(typeOf(i) == Address);
                 //assume(saleLocked)
-                assume(unwInt(totAllST[i]) > 0);
+                assume(unwInt(totAllST[i]) > UInt256(0)); 
             }),
             // Payments
             ((_) => [0, [0, bT]]),
             // Consensus
             ((i, res) => {
                 require(this == Creator || this == ctcMan);
-                //require(saleLocked);
-                require(typeOf(i) == Address && unwInt(totAllST[i]) > 0);
-                const amt = unwInt(totAllST[this]) * balance(bT) / totST;
-
+                require(typeOf(i) == Address && unwInt(totAllST[i]) > UInt256(0));
+                const amt = (unwInt(totAllST[this]) / totST) * UInt256(balance(bT)); 
                 claimBT[i] = unwInt(claimBT[i]) + amt;
 
                 res(true);
-                return [totST + amt, totBT, saleLocked, ctcMan, distrNum, docHash];
+                return [cv, totST + amt, totBT, saleLocked, ctcMan, distrNum, docHash];
             })
         )
         .api(
@@ -267,12 +268,12 @@ export const main = Reach.App(() => {
                 require(this == Creator || this == ctcMan);
                 require(typeOf(newCtcMan) == Address);
                 res(true);
-                return [totST, totBT, saleLocked, newCtcMan, distrNum, docHash];
+                return [cv, totST, totBT, saleLocked, newCtcMan, distrNum, docHash];
             })
         )
         .timeout(absoluteTime(end), () => {
             Anybody.publish();
-            return [totST, totBT, saleLocked, ctcMan, distrNum, docHash];
+            return [cv, totST, totBT, saleLocked, ctcMan, distrNum, docHash];
         });
 
     commit();
