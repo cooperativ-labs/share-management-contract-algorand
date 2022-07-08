@@ -68,7 +68,7 @@ We are using Reach Programming Language to develop the smart contract and then c
 
 **Smart Contract Version** [vcVersion()](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=const%20Views%20%3D%20View,%7D) - This accepts no arguments and returns array [[`some/none`, [`contractVersion`, `cooperativId`]] . 
 
-**Backing Token Balance** [vBtBal()](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=const%20Views%20%3D%20View,%7D) - This accepts no arguments and returns array [`some/none`, `btBalance`]. 
+**Backing Token Balance** [vBtBal()](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=const%20Views%20%3D%20View,%7D) - This accepts no arguments and returns array [`some/none`, [`btBalance`, `btID`]]. 
 
 **Show Contract Creator and Contract Manager** [vCcCm()](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=const%20Views%20%3D%20View,%7D) - This accepts no arguments and returns array ['some/none', [`contractCreator`, `contractManager`]]. 
 
