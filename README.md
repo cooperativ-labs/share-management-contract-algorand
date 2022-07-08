@@ -40,7 +40,18 @@ We are using Reach Programming Language to develop the smart contract and then c
 
 **Opt In to Central Contract** [optIn()](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=addWL%3A%20Fun(%5BAddress,Bytes(96)%5D%2C%20Bool)%2C) - This is an unrestricted function for allowing any address to opt into the contract before contract manager can add such an address to the whitelist. This function takes in no argument.
 
-**Update Legal Contract Hash** [docHash(hash)](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=addWL%3A%20Fun(%5BAddress,Bytes(96)%5D%2C%20Bool)%2C) - This is a restricted function for allowing chainging the legal document hash associated with share tokens on the manager contract. Only contract creator (or eventually a contract manager) can use this API This function takes in the document has as an argument.
+**Update Legal Contract Hash** [docHash(hash)](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=addWL%3A%20Fun(%5BAddress,Bytes(96)%5D%2C%20Bool)%2C) - This is a restricted function for adding immutable legal document hash associated with share tokens to the manager contract. Only contract creator (or eventually a contract manager) can use this API This function takes in the document hash as an argument.
+
+**Add Cooperativ ID** [addCoopId(id)](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=addWL%3A%20Fun(%5BAddress,Bytes(96)%5D%2C%20Bool)%2C) - This is a restricted function for adding Cooperativ ID to the manager contract. Only contract creator (or eventually a contract manager) can use this API This function takes in string (Bytes(36)) has as an argument, and returns boolean `true`.
+
+**Create Open Sale** [createOS(amount, price)](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=addWL%3A%20Fun(%5BAddress,Bytes(96)%5D%2C%20Bool)%2C) - This is a restricted function for creating or initiating sale. Only contract creator (or eventually a contract manager) can use this API. This function takes in two arguments (amount of share tokens to be sold, and price of each token to be sold). The function returns an object (details of sale e.g  `{ qty: BigNumber, price: BigNumber, sold: BigNumber, status: 'activ', cumProceeds: BigNumber }`).
+
+**Buy Open Sale** [buyOS(amount)](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=addWL%3A%20Fun(%5BAddress,Bytes(96)%5D%2C%20Bool)%2C) - This is a restricted function for buying share tokens from an open sale. Only whitelisted investors can use this API. This function takes in one argument (amount of share tokens to be purchased). The function returns an object (details of sale e.g  `{ qty: BigNumber, price: BigNumber, sold: BigNumber, status: 'activ', cumProceeds: BigNumber }`).
+
+**End Open Sale** [endOS()](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=addWL%3A%20Fun(%5BAddress,Bytes(96)%5D%2C%20Bool)%2C) - This is a restricted function for ending open sale. Only contract creator (or eventually a contract manager) can use this API. This function takes in no argument, and returns boolean `true`.
+
+**Claim Open Sale Proceeds** [claimOSpr()](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=addWL%3A%20Fun(%5BAddress,Bytes(96)%5D%2C%20Bool)%2C) - This is a restricted function for claiming ALL proceeds (not yet claimed) from all purchases from open sale. Only contract creator (or eventually a contract manager) can use this API. This function takes in no argument, and returns boolean `true`.
+
 
 ### Views
 **Total Share Token, Total Backing Token, Number of Distributions** [totSTBTD()](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=const%20Views%20%3D%20View,%7D) - This view shows the total amount of Share Token and Backing Token distributed, and the number of distributions conducted. It accepts no arguments and returns an Array. 
@@ -53,13 +64,17 @@ We are using Reach Programming Language to develop the smart contract and then c
 
 **White List Member** [wlMember(walletAddress)](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=const%20Views%20%3D%20View,%7D) - This view shows whether a given wallet address is on the contract's whitelist. It takes an investor's wallet address and returnes `true` or `false`.
 
-**Hash of linked Legal Contract** [vHash()](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=const%20Views%20%3D%20View,%7D) - This accepts no arguments and returns an array of hashes. 
+**Hash of linked Legal Contract** [vHash()](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=const%20Views%20%3D%20View,%7D) - This accepts no arguments and returns array ['some/none', [`documentHash`, `hashNumber`, `blockNumber`]]. `documentHash` represents the stored document hash. `hashNumber` represents the number of times hash has been changed. `blockNumber` represents the Algorand chain consensus time (transaction block) when the hash is being stored.
 
-**Smart Contract Version** [vcVersion()](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=const%20Views%20%3D%20View,%7D) - This accepts no arguments and returns array [`some/none`, `contractVersion`]. 
+**Smart Contract Version** [vcVersion()](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=const%20Views%20%3D%20View,%7D) - This accepts no arguments and returns array [[`some/none`, [`contractVersion`, `cooperativId`]] . 
 
 **Backing Token Balance** [vBtBal()](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=const%20Views%20%3D%20View,%7D) - This accepts no arguments and returns array [`some/none`, `btBalance`]. 
 
 **Show Contract Creator and Contract Manager** [vCcCm()](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=const%20Views%20%3D%20View,%7D) - This accepts no arguments and returns array ['some/none', [`contractCreator`, `contractManager`]]. 
+
+**Check if Investor is Opted In** [vOptedIn(Address)](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=const%20Views%20%3D%20View,%7D) - This function accepts investor address as an argument, and returns array [`some/none`, `Boolean`].
+
+**View Current Sale Details** [vCurrSale()](https://github.com/cooperativ-labs/share-manager-contract-algorand/blob/main/index.rsh#:~:text=const%20Views%20%3D%20View,%7D) - This function takes in no argument, and returns array [`some/none`, `{ qty: BigNumber, price: BigNumber, sold: BigNumber, status: 'activ', cumProceeds: BigNumber }`]. `cumProceeds` represents backing token balance from all Open Sale share token purchases.
 
 
 ### TEAL Smart Contracts
