@@ -1,5 +1,6 @@
+ * Step 2 may use up to 9 transaction references, but the limit is 8. Step 2 starts at /app/index.rsh:80:35:dot.
 Verifying knowledge assertions
 Verifying for generic connector
   Verifying when ALL participants are honest
   Verifying when NO participants are honest
-Checked 609 theorems; No failures!
+Checked 1185 theorems; No failures!
