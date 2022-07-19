@@ -10,19 +10,73 @@ dup
 int 0
 extract_uint64
 store 1 // GV_currentStep :: UInt
+dup
 int 8
 extract_uint64
 store 2 // GV_currentTime :: UInt
+int 16
+extract_uint64
+store 8 // GV_companion :: Contract
 txn OnCompletion
 int OptIn
 ==
 bz normal
 // checked on completion
 txn Sender
-byte base64(AA==)
-int 55
+int 1002
 bzero
+dig 1
+byte base64(AA==)
+dig 2
+extract 0 127
 app_local_put
+dig 1
+byte base64(AQ==)
+dig 2
+extract 127 127
+app_local_put
+dig 1
+byte base64(Ag==)
+dig 2
+extract 254 127
+app_local_put
+dig 1
+byte base64(Aw==)
+dig 2
+int 381
+int 127
+extract3
+app_local_put
+dig 1
+byte base64(BA==)
+dig 2
+int 508
+int 127
+extract3
+app_local_put
+dig 1
+byte base64(BQ==)
+dig 2
+int 635
+int 127
+extract3
+app_local_put
+dig 1
+byte base64(Bg==)
+dig 2
+int 762
+int 127
+extract3
+app_local_put
+dig 1
+byte base64(Bw==)
+dig 2
+int 889
+int 113
+extract3
+app_local_put
+pop
+pop
 b checkSize
 normal:
 txna ApplicationArgs 0
@@ -36,165 +90,204 @@ store 4 // GV_argTime :: UInt
 int 1
 store 6 // GV_wasMeth :: Bool
 dup
-int 2467850461
+int 2238830268
 <
-bnz l9_method_lt_2467850461
+bnz l13_method_lt_2238830268
 dup
-int 3398047067
+int 3260885285
 <
-bnz l10_method_lt_3398047067
+bnz l14_method_lt_3260885285
 dup
-int 3826530141
+int 3340995610
 <
-bnz l11_method_lt_3826530141
+bnz l15_method_lt_3340995610
+dup
+int 3720033735
+<
+bnz l16_method_lt_3720033735
 dup
 int 3959834456
 <
-bnz l12_method_lt_3959834456
+bnz l17_method_lt_3959834456
 int 3959834456
 ==
 assert
 
-  // { l8_remWL
-  l8_remWL:
+  // { l12_remWL
+  l12_remWL:
   // API: remWL(address)byte
   //  i(3959834456) h(ec064758) b64(7AZHWA==)
   txna ApplicationArgs 1
-  store 255 // v6900 :: Tuple(Address)
-  byte base64(CA==)
-  load 255 // v6900 :: Tuple(Address)
-  concat
-  int 40
-  bzero
-  concat
-  b publish2
-  // l8_remWL }
-
-l12_method_lt_3959834456:
-int 3826530141
-==
-assert
-
-  // { l6_dBT
-  l6_dBT:
-  // API: dBT(uint64)byte
-  //  i(3826530141) h(e414375d) b64(5BQ3XQ==)
-  txna ApplicationArgs 1
-  store 255 // v6901 :: Tuple(UInt)
-  byte base64(Bg==)
-  load 255 // v6901 :: Tuple(UInt)
+  store 255 // v25833 :: Tuple(Address)
+  byte base64(DA==)
+  load 255 // v25833 :: Tuple(Address)
   concat
   int 64
   bzero
   concat
   b publish2
-  // l6_dBT }
+  // l12_remWL }
 
-l11_method_lt_3826530141:
-dup
-int 3582815796
-<
-bnz l13_method_lt_3582815796
-int 3582815796
+l17_method_lt_3959834456:
+int 3720033735
 ==
 assert
 
-  // { l14_totSTBTDRec
-  l14_totSTBTDRec:
-  // View: totSTBTDRec(address)(uint64,uint64,uint64)
-  //  i(3582815796) h(d58d6e34) b64(1Y1uNA==)
+  // { l7_createOS
+  l7_createOS:
+  // API: createOS(uint64,uint64)(uint64,uint64,uint64,byte[5],uint64)
+  //  i(3720033735) h(ddbb35c7) b64(3bs1xw==)
+  txna ApplicationArgs 1
+  txna ApplicationArgs 2
+  concat
+  store 255 // v25834 :: Tuple(UInt, UInt)
+  byte base64(Bw==)
+  load 255 // v25834 :: Tuple(UInt, UInt)
+  concat
+  int 80
+  bzero
+  concat
+  b publish2
+  // l7_createOS }
+
+l16_method_lt_3720033735:
+dup
+int 3607344743
+<
+bnz l18_method_lt_3607344743
+int 3607344743
+==
+assert
+
+  // { l19_wlMembers
+  l19_wlMembers:
+  // View: wlMembers()address[25]
+  //  i(3607344743) h(d703b667) b64(1wO2Zw==)
+  load 1 // GV_currentStep :: UInt
+  err
+  // l19_wlMembers }
+
+l18_method_lt_3607344743:
+int 3340995610
+==
+assert
+
+  // { l20_vBtBal
+  l20_vBtBal:
+  // View: vBtBal()(uint256,uint64)
+  //  i(3340995610) h(c7238c1a) b64(xyOMGg==)
   load 1 // GV_currentStep :: UInt
   int 3
   ==
   assert
 
-    // { totSTBTDRec_3
-    txna ApplicationArgs 1
-    store 255 // v1221 :: Address
-    int 0
-    // resource: R_Account
-    load 255 // v1221 :: Address
-    callsub l15_LF_cMapLoad
-    extract 18 9
-    dup
-    store 254 // fromSome object
-    int 1
-    extract_uint64
-    load 254 // fromSome object
-    int 0
-    getbyte
-    select
-    itob
-    int 0
-    load 255 // v1221 :: Address
-    callsub l15_LF_cMapLoad
-    extract 36 9
-    dup
-    store 254 // fromSome object
-    int 1
-    extract_uint64
-    load 254 // fromSome object
-    int 0
-    getbyte
-    select
-    itob
+    // { vBtBal_3
+    byte base64(AA==)
+    app_global_get
+    byte base64(AQ==)
+    app_global_get
     concat
-    int 0
-    load 255 // v1221 :: Address
-    callsub l15_LF_cMapLoad
-    extract 45 9
+    byte base64(Ag==)
+    app_global_get
+    concat
+    byte base64(Aw==)
+    app_global_get
+    concat
+    byte base64(BA==)
+    app_global_get
+    concat
+    byte base64(BQ==)
+    app_global_get
+    concat
+    byte base64(Bg==)
+    app_global_get
+    concat
+    byte base64(Bw==)
+    app_global_get
+    concat
+    byte base64(CA==)
+    app_global_get
+    concat
+    byte base64(CQ==)
+    app_global_get
+    concat
+    byte base64(Cg==)
+    app_global_get
+    concat
+    byte base64(Cw==)
+    app_global_get
+    concat
+    byte base64(DA==)
+    app_global_get
+    concat
+    byte base64(DQ==)
+    app_global_get
+    concat
+    byte base64(Dg==)
+    app_global_get
+    concat
+    byte base64(Dw==)
+    app_global_get
+    concat
+    byte base64(EA==)
+    app_global_get
+    concat
+    byte base64(EQ==)
+    app_global_get
+    concat
+    byte base64(Eg==)
+    app_global_get
+    concat
+    byte base64(Ew==)
+    app_global_get
+    concat
+    byte base64(FA==)
+    app_global_get
+    concat
+    byte base64(FQ==)
+    app_global_get
+    concat
+    byte base64(Fg==)
+    app_global_get
+    concat
+    byte base64(Fw==)
+    app_global_get
+    concat
+    byte base64(GA==)
+    app_global_get
+    concat
+    byte base64(GQ==)
+    app_global_get
+    concat
     dup
-    store 254 // fromSome object
-    int 1
-    extract_uint64
-    load 254 // fromSome object
-    int 0
-    getbyte
-    select
-    itob
+    store 3 // GV_svs :: Null
+    int 3150
+    int 32
+    extract3
+    load 3 // GV_svs :: Null
+    extract 32 8
     concat
     store 7 // GV_apiRet :: Null
     b apiReturn_check
-    // totSTBTDRec_3 }
+    // vBtBal_3 }
 
-  // l14_totSTBTDRec }
+  // l20_vBtBal }
 
-l13_method_lt_3582815796:
-int 3398047067
-==
-assert
-
-  // { l1_aST
-  l1_aST:
-  // API: aST(address,address,uint64)byte
-  //  i(3398047067) h(ca8a155b) b64(yooVWw==)
-  txna ApplicationArgs 1
-  txna ApplicationArgs 2
-  concat
-  txna ApplicationArgs 3
-  concat
-  store 255 // v6902 :: Tuple(Address, Address, UInt)
-  byte base64(AQ==)
-  load 255 // v6902 :: Tuple(Address, Address, UInt)
-  concat
-  b publish2
-  // l1_aST }
-
-l10_method_lt_3398047067:
+l15_method_lt_3340995610:
 dup
-int 2590061419
+int 3322999520
 <
-bnz l16_method_lt_2590061419
+bnz l21_method_lt_3322999520
 dup
 int 3323445552
 <
-bnz l17_method_lt_3323445552
+bnz l22_method_lt_3323445552
 int 3323445552
 ==
 assert
 
-  // { l18_saleLocked
-  l18_saleLocked:
+  // { l23_saleLocked
+  l23_saleLocked:
   // View: saleLocked()byte
   //  i(3323445552) h(c617c130) b64(xhfBMA==)
   load 1 // GV_currentStep :: UInt
@@ -205,42 +298,323 @@ assert
     // { saleLocked_3
     byte base64(AA==)
     app_global_get
+    byte base64(AQ==)
+    app_global_get
+    concat
+    byte base64(Ag==)
+    app_global_get
+    concat
+    byte base64(Aw==)
+    app_global_get
+    concat
+    byte base64(BA==)
+    app_global_get
+    concat
+    byte base64(BQ==)
+    app_global_get
+    concat
+    byte base64(Bg==)
+    app_global_get
+    concat
+    byte base64(Bw==)
+    app_global_get
+    concat
+    byte base64(CA==)
+    app_global_get
+    concat
+    byte base64(CQ==)
+    app_global_get
+    concat
+    byte base64(Cg==)
+    app_global_get
+    concat
+    byte base64(Cw==)
+    app_global_get
+    concat
+    byte base64(DA==)
+    app_global_get
+    concat
+    byte base64(DQ==)
+    app_global_get
+    concat
+    byte base64(Dg==)
+    app_global_get
+    concat
+    byte base64(Dw==)
+    app_global_get
+    concat
+    byte base64(EA==)
+    app_global_get
+    concat
+    byte base64(EQ==)
+    app_global_get
+    concat
+    byte base64(Eg==)
+    app_global_get
+    concat
+    byte base64(Ew==)
+    app_global_get
+    concat
+    byte base64(FA==)
+    app_global_get
+    concat
+    byte base64(FQ==)
+    app_global_get
+    concat
+    byte base64(Fg==)
+    app_global_get
+    concat
+    byte base64(Fw==)
+    app_global_get
+    concat
+    byte base64(GA==)
+    app_global_get
+    concat
+    byte base64(GQ==)
+    app_global_get
+    concat
     dup
     store 3 // GV_svs :: Null
-    extract 80 1
+    int 2924
+    int 1
+    extract3
     store 7 // GV_apiRet :: Null
     b apiReturn_check
     // saleLocked_3 }
 
-  // l18_saleLocked }
+  // l23_saleLocked }
 
-l17_method_lt_3323445552:
-int 2590061419
+l22_method_lt_3323445552:
+int 3322999520
 ==
 assert
 
-  // { l3_cBT
-  l3_cBT:
-  // API: cBT()byte
-  //  i(2590061419) h(9a61336b) b64(mmEzaw==)
+  // { l24_totSTBTDRec
+  l24_totSTBTDRec:
+  // View: totSTBTDRec(address)(uint256,uint256,uint256)
+  //  i(3322999520) h(c610f2e0) b64(xhDy4A==)
+  load 1 // GV_currentStep :: UInt
+  int 3
+  ==
+  assert
+
+    // { totSTBTDRec_3
+    txna ApplicationArgs 1
+    store 255 // v3343 :: Address
+    global ZeroAddress
+    // resource: R_Account
+    load 255 // v3343 :: Address
+    callsub l25_LF_cMapLoad
+    extract 99 33
+    dup
+    store 254 // fromSome object
+    extract 1 32
+    load 254 // fromSome object
+    int 0
+    getbyte
+    select
+    global ZeroAddress
+    load 255 // v3343 :: Address
+    callsub l25_LF_cMapLoad
+    extract 132 33
+    dup
+    store 254 // fromSome object
+    extract 1 32
+    load 254 // fromSome object
+    int 0
+    getbyte
+    select
+    concat
+    global ZeroAddress
+    load 255 // v3343 :: Address
+    callsub l25_LF_cMapLoad
+    extract 165 33
+    dup
+    store 254 // fromSome object
+    extract 1 32
+    load 254 // fromSome object
+    int 0
+    getbyte
+    select
+    concat
+    store 7 // GV_apiRet :: Null
+    b apiReturn_check
+    // totSTBTDRec_3 }
+
+  // l24_totSTBTDRec }
+
+l21_method_lt_3322999520:
+int 3260885285
+==
+assert
+
+  // { l10_endOS
+  l10_endOS:
+  // API: endOS()byte
+  //  i(3260885285) h(c25d2925) b64(wl0pJQ==)
   byte base64()
-  store 255 // v6905 :: Tuple()
-  byte base64(Aw==)
-  load 255 // v6905 :: Tuple()
+  store 255 // v25839 :: Tuple()
+  byte base64(Cg==)
+  load 255 // v25839 :: Tuple()
   concat
-  int 72
+  int 96
   bzero
   concat
   b publish2
-  // l3_cBT }
+  // l10_endOS }
 
-l16_method_lt_2590061419:
+l14_method_lt_3260885285:
+dup
+int 2467850461
+<
+bnz l26_method_lt_2467850461
+dup
+int 2868288417
+<
+bnz l27_method_lt_2868288417
+dup
+int 3142241014
+<
+bnz l28_method_lt_3142241014
+int 3142241014
+==
+assert
+
+  // { l6_claimOSpr
+  l6_claimOSpr:
+  // API: claimOSpr()byte
+  //  i(3142241014) h(bb4acaf6) b64(u0rK9g==)
+  byte base64()
+  store 255 // v25840 :: Tuple()
+  byte base64(Bg==)
+  load 255 // v25840 :: Tuple()
+  concat
+  int 96
+  bzero
+  concat
+  b publish2
+  // l6_claimOSpr }
+
+l28_method_lt_3142241014:
+int 2868288417
+==
+assert
+
+  // { l29_totSTBTD
+  l29_totSTBTD:
+  // View: totSTBTD()(uint256,uint256,uint256)
+  //  i(2868288417) h(aaf69ba1) b64(qvaboQ==)
+  load 1 // GV_currentStep :: UInt
+  int 3
+  ==
+  assert
+
+    // { totSTBTD_3
+    byte base64(AA==)
+    app_global_get
+    byte base64(AQ==)
+    app_global_get
+    concat
+    byte base64(Ag==)
+    app_global_get
+    concat
+    byte base64(Aw==)
+    app_global_get
+    concat
+    byte base64(BA==)
+    app_global_get
+    concat
+    byte base64(BQ==)
+    app_global_get
+    concat
+    byte base64(Bg==)
+    app_global_get
+    concat
+    byte base64(Bw==)
+    app_global_get
+    concat
+    byte base64(CA==)
+    app_global_get
+    concat
+    byte base64(CQ==)
+    app_global_get
+    concat
+    byte base64(Cg==)
+    app_global_get
+    concat
+    byte base64(Cw==)
+    app_global_get
+    concat
+    byte base64(DA==)
+    app_global_get
+    concat
+    byte base64(DQ==)
+    app_global_get
+    concat
+    byte base64(Dg==)
+    app_global_get
+    concat
+    byte base64(Dw==)
+    app_global_get
+    concat
+    byte base64(EA==)
+    app_global_get
+    concat
+    byte base64(EQ==)
+    app_global_get
+    concat
+    byte base64(Eg==)
+    app_global_get
+    concat
+    byte base64(Ew==)
+    app_global_get
+    concat
+    byte base64(FA==)
+    app_global_get
+    concat
+    byte base64(FQ==)
+    app_global_get
+    concat
+    byte base64(Fg==)
+    app_global_get
+    concat
+    byte base64(Fw==)
+    app_global_get
+    concat
+    byte base64(GA==)
+    app_global_get
+    concat
+    byte base64(GQ==)
+    app_global_get
+    concat
+    dup
+    store 3 // GV_svs :: Null
+    int 2828
+    int 32
+    extract3
+    load 3 // GV_svs :: Null
+    int 2860
+    int 32
+    extract3
+    concat
+    load 3 // GV_svs :: Null
+    int 2892
+    int 32
+    extract3
+    concat
+    store 7 // GV_apiRet :: Null
+    b apiReturn_check
+    // totSTBTD_3 }
+
+  // l29_totSTBTD }
+
+l27_method_lt_2868288417:
 int 2467850461
 ==
 assert
 
-  // { l19_wlMember
-  l19_wlMember:
+  // { l30_wlMember
+  l30_wlMember:
   // View: wlMember(address)byte
   //  i(2467850461) h(931868dd) b64(kxho3Q==)
   load 1 // GV_currentStep :: UInt
@@ -251,85 +625,199 @@ assert
     // { wlMember_3
     // resource: R_Account
     txna ApplicationArgs 1
-    callsub l15_LF_cMapLoad
-    extract 54 1
+    callsub l25_LF_cMapLoad
+    extract 200 1
     dup
-    store 254 // v/1231 :: Data({"None": Null, "Some": Null}) for switch
+    store 254 // v/3353 :: Data({"None": Null, "Some": Null}) for switch
     int 0
     getbyte
-    bnz l21_LocalSwitch_nz
+    bnz l32_LocalSwitch_nz
 
-      // { l22_LocalSwitch_None
-      l22_LocalSwitch_None:
+      // { l33_LocalSwitch_None
+      l33_LocalSwitch_None:
       int 0
-      store 255 // v1232 :: Bool
-      b l20_LocalSwitchK
-      // l22_LocalSwitch_None }
+      store 255 // v3354 :: Bool
+      b l31_LocalSwitchK
+      // l33_LocalSwitch_None }
 
-    l21_LocalSwitch_nz:
+    l32_LocalSwitch_nz:
 
-      // { l23_LocalSwitch_Some
-      l23_LocalSwitch_Some:
+      // { l34_LocalSwitch_Some
+      l34_LocalSwitch_Some:
       int 1
-      store 255 // v1232 :: Bool
-      b l20_LocalSwitchK
-      // l23_LocalSwitch_Some }
+      store 255 // v3354 :: Bool
+      b l31_LocalSwitchK
+      // l34_LocalSwitch_Some }
 
-    l20_LocalSwitchK:
-    load 255 // v1232 :: Bool
+    l31_LocalSwitchK:
+    load 255 // v3354 :: Bool
     itob
     substring 7 8
     store 7 // GV_apiRet :: Null
     b apiReturn_check
     // wlMember_3 }
 
-  // l19_wlMember }
+  // l30_wlMember }
 
-l9_method_lt_2467850461:
+l26_method_lt_2467850461:
 dup
-int 553712668
+int 2307182292
 <
-bnz l24_method_lt_553712668
+bnz l35_method_lt_2307182292
 dup
-int 2238830268
+int 2351231217
 <
-bnz l25_method_lt_2238830268
-dup
-int 2432000717
-<
-bnz l26_method_lt_2432000717
-int 2432000717
+bnz l36_method_lt_2351231217
+int 2351231217
 ==
 assert
 
-  // { l27_totSTBTD
-  l27_totSTBTD:
-  // View: totSTBTD()(uint64,uint64,uint64)
-  //  i(2432000717) h(90f562cd) b64(kPVizQ==)
+  // { l37_claimSTBT
+  l37_claimSTBT:
+  // View: claimSTBT(address)(uint256,uint256)
+  //  i(2351231217) h(8c24f0f1) b64(jCTw8Q==)
   load 1 // GV_currentStep :: UInt
   int 3
   ==
   assert
 
-    // { totSTBTD_3
-    byte base64(AA==)
-    app_global_get
+    // { claimSTBT_3
+    txna ApplicationArgs 1
+    store 255 // v3336 :: Address
+    global ZeroAddress
+    // resource: R_Account
+    load 255 // v3336 :: Address
+    callsub l25_LF_cMapLoad
+    extract 0 33
     dup
-    store 3 // GV_svs :: Null
-    extract 89 8
-    load 3 // GV_svs :: Null
-    extract 81 8
-    concat
-    load 3 // GV_svs :: Null
-    extract 72 8
+    store 254 // fromSome object
+    extract 1 32
+    load 254 // fromSome object
+    int 0
+    getbyte
+    select
+    global ZeroAddress
+    load 255 // v3336 :: Address
+    callsub l25_LF_cMapLoad
+    extract 33 33
+    dup
+    store 254 // fromSome object
+    extract 1 32
+    load 254 // fromSome object
+    int 0
+    getbyte
+    select
     concat
     store 7 // GV_apiRet :: Null
     b apiReturn_check
-    // totSTBTD_3 }
+    // claimSTBT_3 }
 
-  // l27_totSTBTD }
+  // l37_claimSTBT }
 
-l26_method_lt_2432000717:
+l36_method_lt_2351231217:
+int 2307182292
+==
+assert
+
+  // { l38_vHash
+  l38_vHash:
+  // View: vHash()(byte[96],uint64,uint64)
+  //  i(2307182292) h(8984ced4) b64(iYTO1A==)
+  load 1 // GV_currentStep :: UInt
+  int 3
+  ==
+  assert
+
+    // { vHash_3
+    byte base64(AA==)
+    app_global_get
+    byte base64(AQ==)
+    app_global_get
+    concat
+    byte base64(Ag==)
+    app_global_get
+    concat
+    byte base64(Aw==)
+    app_global_get
+    concat
+    byte base64(BA==)
+    app_global_get
+    concat
+    byte base64(BQ==)
+    app_global_get
+    concat
+    byte base64(Bg==)
+    app_global_get
+    concat
+    byte base64(Bw==)
+    app_global_get
+    concat
+    byte base64(CA==)
+    app_global_get
+    concat
+    byte base64(CQ==)
+    app_global_get
+    concat
+    byte base64(Cg==)
+    app_global_get
+    concat
+    byte base64(Cw==)
+    app_global_get
+    concat
+    byte base64(DA==)
+    app_global_get
+    concat
+    byte base64(DQ==)
+    app_global_get
+    concat
+    byte base64(Dg==)
+    app_global_get
+    concat
+    byte base64(Dw==)
+    app_global_get
+    concat
+    byte base64(EA==)
+    app_global_get
+    concat
+    byte base64(EQ==)
+    app_global_get
+    concat
+    byte base64(Eg==)
+    app_global_get
+    concat
+    byte base64(Ew==)
+    app_global_get
+    concat
+    byte base64(FA==)
+    app_global_get
+    concat
+    byte base64(FQ==)
+    app_global_get
+    concat
+    byte base64(Fg==)
+    app_global_get
+    concat
+    byte base64(Fw==)
+    app_global_get
+    concat
+    byte base64(GA==)
+    app_global_get
+    concat
+    byte base64(GQ==)
+    app_global_get
+    concat
+    dup
+    store 3 // GV_svs :: Null
+    int 2925
+    int 112
+    extract3
+    store 7 // GV_apiRet :: Null
+    b apiReturn_check
+    // vHash_3 }
+
+  // l38_vHash }
+
+l35_method_lt_2307182292:
 int 2238830268
 ==
 assert
@@ -339,158 +827,590 @@ assert
   // API: addWL(address)byte
   //  i(2238830268) h(8571d6bc) b64(hXHWvA==)
   txna ApplicationArgs 1
-  store 255 // v6908 :: Tuple(Address)
+  store 255 // v25845 :: Tuple(Address)
   byte base64(Ag==)
-  load 255 // v6908 :: Tuple(Address)
+  load 255 // v25845 :: Tuple(Address)
   concat
-  int 40
+  int 64
   bzero
   concat
   b publish2
   // l2_addWL }
 
-l25_method_lt_2238830268:
+l13_method_lt_2238830268:
 dup
 int 1377993337
 <
-bnz l28_method_lt_1377993337
-int 1377993337
+bnz l39_method_lt_1377993337
+dup
+int 1957327741
+<
+bnz l40_method_lt_1957327741
+dup
+int 2154138461
+<
+bnz l41_method_lt_2154138461
+dup
+int 2205198602
+<
+bnz l42_method_lt_2205198602
+int 2205198602
 ==
 assert
 
-  // { l7_optIn
-  l7_optIn:
-  // API: optIn()byte
-  //  i(1377993337) h(52228279) b64(UiKCeQ==)
-  byte base64()
-  store 255 // v6909 :: Tuple()
-  byte base64(Bw==)
-  load 255 // v6909 :: Tuple()
-  concat
-  int 72
-  bzero
-  concat
-  b publish2
-  // l7_optIn }
-
-l28_method_lt_1377993337:
-int 553712668
-==
-assert
-
-  // { l4_cCM
-  l4_cCM:
-  // API: cCM(address)byte
-  //  i(553712668) h(2100fc1c) b64(IQD8HA==)
+  // { l8_dBT
+  l8_dBT:
+  // API: dBT(uint256)byte
+  //  i(2205198602) h(8370a90a) b64(g3CpCg==)
   txna ApplicationArgs 1
-  store 255 // v6910 :: Tuple(Address)
-  byte base64(BA==)
-  load 255 // v6910 :: Tuple(Address)
+  store 255 // v25846 :: Tuple(UInt256)
+  byte base64(CA==)
+  load 255 // v25846 :: Tuple(UInt256)
   concat
-  int 40
+  int 64
   bzero
   concat
   b publish2
-  // l4_cCM }
+  // l8_dBT }
 
-l24_method_lt_553712668:
-dup
-int 314382201
-<
-bnz l29_method_lt_314382201
-dup
-int 465096368
-<
-bnz l30_method_lt_465096368
-int 465096368
+l42_method_lt_2205198602:
+int 2154138461
 ==
 assert
 
-  // { l5_cST
-  l5_cST:
-  // API: cST()byte
-  //  i(465096368) h(1bb8ceb0) b64(G7jOsA==)
-  byte base64()
-  store 255 // v6911 :: Tuple()
-  byte base64(BQ==)
-  load 255 // v6911 :: Tuple()
+  // { l1_addCoopId
+  l1_addCoopId:
+  // API: addCoopId(byte[36])byte
+  //  i(2154138461) h(80658b5d) b64(gGWLXQ==)
+  txna ApplicationArgs 1
+  store 255 // v25847 :: Tuple(Bytes(36))
+  byte base64(AQ==)
+  load 255 // v25847 :: Tuple(Bytes(36))
   concat
-  int 72
+  int 60
   bzero
   concat
   b publish2
-  // l5_cST }
+  // l1_addCoopId }
 
-l30_method_lt_465096368:
-int 314382201
+l41_method_lt_2154138461:
+int 1957327741
 ==
 assert
 
-  // { l31_claimSTBT
-  l31_claimSTBT:
-  // View: claimSTBT(address)(uint64,uint64)
-  //  i(314382201) h(12bd1779) b64(Er0XeQ==)
+  // { l43_vCcCm
+  l43_vCcCm:
+  // View: vCcCm()(address,address)
+  //  i(1957327741) h(74aa737d) b64(dKpzfQ==)
   load 1 // GV_currentStep :: UInt
   int 3
   ==
   assert
 
-    // { claimSTBT_3
-    txna ApplicationArgs 1
-    store 255 // v1214 :: Address
-    int 0
-    // resource: R_Account
-    load 255 // v1214 :: Address
-    callsub l15_LF_cMapLoad
-    extract 0 9
+    // { vCcCm_3
+    byte base64(AA==)
+    app_global_get
+    byte base64(AQ==)
+    app_global_get
+    concat
+    byte base64(Ag==)
+    app_global_get
+    concat
+    byte base64(Aw==)
+    app_global_get
+    concat
+    byte base64(BA==)
+    app_global_get
+    concat
+    byte base64(BQ==)
+    app_global_get
+    concat
+    byte base64(Bg==)
+    app_global_get
+    concat
+    byte base64(Bw==)
+    app_global_get
+    concat
+    byte base64(CA==)
+    app_global_get
+    concat
+    byte base64(CQ==)
+    app_global_get
+    concat
+    byte base64(Cg==)
+    app_global_get
+    concat
+    byte base64(Cw==)
+    app_global_get
+    concat
+    byte base64(DA==)
+    app_global_get
+    concat
+    byte base64(DQ==)
+    app_global_get
+    concat
+    byte base64(Dg==)
+    app_global_get
+    concat
+    byte base64(Dw==)
+    app_global_get
+    concat
+    byte base64(EA==)
+    app_global_get
+    concat
+    byte base64(EQ==)
+    app_global_get
+    concat
+    byte base64(Eg==)
+    app_global_get
+    concat
+    byte base64(Ew==)
+    app_global_get
+    concat
+    byte base64(FA==)
+    app_global_get
+    concat
+    byte base64(FQ==)
+    app_global_get
+    concat
+    byte base64(Fg==)
+    app_global_get
+    concat
+    byte base64(Fw==)
+    app_global_get
+    concat
+    byte base64(GA==)
+    app_global_get
+    concat
+    byte base64(GQ==)
+    app_global_get
+    concat
     dup
-    store 254 // fromSome object
-    int 1
-    extract_uint64
-    load 254 // fromSome object
-    int 0
-    getbyte
-    select
-    itob
-    int 0
-    load 255 // v1214 :: Address
-    callsub l15_LF_cMapLoad
-    extract 9 9
-    dup
-    store 254 // fromSome object
-    int 1
-    extract_uint64
-    load 254 // fromSome object
-    int 0
-    getbyte
-    select
-    itob
+    store 3 // GV_svs :: Null
+    extract 0 32
+    load 3 // GV_svs :: Null
+    int 3182
+    int 32
+    extract3
     concat
     store 7 // GV_apiRet :: Null
     b apiReturn_check
-    // claimSTBT_3 }
+    // vCcCm_3 }
 
-  // l31_claimSTBT }
+  // l43_vCcCm }
 
-l29_method_lt_314382201:
-int 23182175
+l40_method_lt_1957327741:
+dup
+int 1468415561
+<
+bnz l44_method_lt_1468415561
+dup
+int 1788825111
+<
+bnz l45_method_lt_1788825111
+int 1788825111
 ==
 assert
 
-  // { l0_aBT
-  l0_aBT:
-  // API: aBT(address)byte
-  //  i(23182175) h(161bb5f) b64(AWG7Xw==)
+  // { l46_vOptedIn
+  l46_vOptedIn:
+  // View: vOptedIn(address)byte
+  //  i(1788825111) h(6a9f4e17) b64(ap9OFw==)
+  load 1 // GV_currentStep :: UInt
+  int 3
+  ==
+  assert
+
+    // { vOptedIn_3
+    int 0
+    // resource: R_Account
+    txna ApplicationArgs 1
+    callsub l25_LF_cMapLoad
+    extract 198 2
+    dup
+    store 255 // fromSome object
+    extract 1 1
+    btoi
+    load 255 // fromSome object
+    int 0
+    getbyte
+    select
+    itob
+    substring 7 8
+    store 7 // GV_apiRet :: Null
+    b apiReturn_check
+    // vOptedIn_3 }
+
+  // l46_vOptedIn }
+
+l45_method_lt_1788825111:
+int 1468415561
+==
+assert
+
+  // { l9_docHash
+  l9_docHash:
+  // API: docHash(byte[96])byte
+  //  i(1468415561) h(57863e49) b64(V4Y+SQ==)
   txna ApplicationArgs 1
-  store 255 // v6912 :: Tuple(Address)
-  byte base64(AA==)
-  load 255 // v6912 :: Tuple(Address)
+  store 255 // v25850 :: Tuple(Bytes(96))
+  byte base64(CQ==)
+  load 255 // v25850 :: Tuple(Bytes(96))
   concat
-  int 40
+  b publish2
+  // l9_docHash }
+
+l44_method_lt_1468415561:
+int 1377993337
+==
+assert
+
+  // { l11_optIn
+  l11_optIn:
+  // API: optIn()byte
+  //  i(1377993337) h(52228279) b64(UiKCeQ==)
+  byte base64()
+  store 255 // v25851 :: Tuple()
+  byte base64(Cw==)
+  load 255 // v25851 :: Tuple()
+  concat
+  int 96
   bzero
   concat
   b publish2
-  // l0_aBT }
+  // l11_optIn }
+
+l39_method_lt_1377993337:
+dup
+int 553712668
+<
+bnz l47_method_lt_553712668
+dup
+int 740258190
+<
+bnz l48_method_lt_740258190
+dup
+int 859778520
+<
+bnz l49_method_lt_859778520
+int 859778520
+==
+assert
+
+  // { l50_vcVersion
+  l50_vcVersion:
+  // View: vcVersion()(byte[4],byte[36])
+  //  i(859778520) h(333f2dd8) b64(Mz8t2A==)
+  load 1 // GV_currentStep :: UInt
+  int 3
+  ==
+  assert
+
+    // { vcVersion_3
+    byte base64(AA==)
+    app_global_get
+    byte base64(AQ==)
+    app_global_get
+    concat
+    byte base64(Ag==)
+    app_global_get
+    concat
+    byte base64(Aw==)
+    app_global_get
+    concat
+    byte base64(BA==)
+    app_global_get
+    concat
+    byte base64(BQ==)
+    app_global_get
+    concat
+    byte base64(Bg==)
+    app_global_get
+    concat
+    byte base64(Bw==)
+    app_global_get
+    concat
+    byte base64(CA==)
+    app_global_get
+    concat
+    byte base64(CQ==)
+    app_global_get
+    concat
+    byte base64(Cg==)
+    app_global_get
+    concat
+    byte base64(Cw==)
+    app_global_get
+    concat
+    byte base64(DA==)
+    app_global_get
+    concat
+    byte base64(DQ==)
+    app_global_get
+    concat
+    byte base64(Dg==)
+    app_global_get
+    concat
+    byte base64(Dw==)
+    app_global_get
+    concat
+    byte base64(EA==)
+    app_global_get
+    concat
+    byte base64(EQ==)
+    app_global_get
+    concat
+    byte base64(Eg==)
+    app_global_get
+    concat
+    byte base64(Ew==)
+    app_global_get
+    concat
+    byte base64(FA==)
+    app_global_get
+    concat
+    byte base64(FQ==)
+    app_global_get
+    concat
+    byte base64(Fg==)
+    app_global_get
+    concat
+    byte base64(Fw==)
+    app_global_get
+    concat
+    byte base64(GA==)
+    app_global_get
+    concat
+    byte base64(GQ==)
+    app_global_get
+    concat
+    dup
+    store 3 // GV_svs :: Null
+    int 3085
+    int 4
+    extract3
+    load 3 // GV_svs :: Null
+    int 3089
+    int 36
+    extract3
+    concat
+    store 7 // GV_apiRet :: Null
+    b apiReturn_check
+    // vcVersion_3 }
+
+  // l50_vcVersion }
+
+l49_method_lt_859778520:
+int 740258190
+==
+assert
+
+  // { l51_vCurrSale
+  l51_vCurrSale:
+  // View: vCurrSale()(uint64,uint64,uint64,byte[5],uint64)
+  //  i(740258190) h(2c1f718e) b64(LB9xjg==)
+  load 1 // GV_currentStep :: UInt
+  int 3
+  ==
+  assert
+
+    // { vCurrSale_3
+    byte base64(AA==)
+    app_global_get
+    byte base64(AQ==)
+    app_global_get
+    concat
+    byte base64(Ag==)
+    app_global_get
+    concat
+    byte base64(Aw==)
+    app_global_get
+    concat
+    byte base64(BA==)
+    app_global_get
+    concat
+    byte base64(BQ==)
+    app_global_get
+    concat
+    byte base64(Bg==)
+    app_global_get
+    concat
+    byte base64(Bw==)
+    app_global_get
+    concat
+    byte base64(CA==)
+    app_global_get
+    concat
+    byte base64(CQ==)
+    app_global_get
+    concat
+    byte base64(Cg==)
+    app_global_get
+    concat
+    byte base64(Cw==)
+    app_global_get
+    concat
+    byte base64(DA==)
+    app_global_get
+    concat
+    byte base64(DQ==)
+    app_global_get
+    concat
+    byte base64(Dg==)
+    app_global_get
+    concat
+    byte base64(Dw==)
+    app_global_get
+    concat
+    byte base64(EA==)
+    app_global_get
+    concat
+    byte base64(EQ==)
+    app_global_get
+    concat
+    byte base64(Eg==)
+    app_global_get
+    concat
+    byte base64(Ew==)
+    app_global_get
+    concat
+    byte base64(FA==)
+    app_global_get
+    concat
+    byte base64(FQ==)
+    app_global_get
+    concat
+    byte base64(Fg==)
+    app_global_get
+    concat
+    byte base64(Fw==)
+    app_global_get
+    concat
+    byte base64(GA==)
+    app_global_get
+    concat
+    byte base64(GQ==)
+    app_global_get
+    concat
+    dup
+    store 3 // GV_svs :: Null
+    int 3251
+    int 8
+    extract3
+    load 3 // GV_svs :: Null
+    int 3259
+    int 8
+    extract3
+    concat
+    load 3 // GV_svs :: Null
+    int 3267
+    int 8
+    extract3
+    concat
+    load 3 // GV_svs :: Null
+    int 3275
+    int 5
+    extract3
+    concat
+    load 3 // GV_svs :: Null
+    int 3280
+    int 8
+    extract3
+    concat
+    store 7 // GV_apiRet :: Null
+    b apiReturn_check
+    // vCurrSale_3 }
+
+  // l51_vCurrSale }
+
+l48_method_lt_740258190:
+int 553712668
+==
+assert
+
+  // { l5_cCM
+  l5_cCM:
+  // API: cCM(address)byte
+  //  i(553712668) h(2100fc1c) b64(IQD8HA==)
+  txna ApplicationArgs 1
+  store 255 // v25856 :: Tuple(Address)
+  byte base64(BQ==)
+  load 255 // v25856 :: Tuple(Address)
+  concat
+  int 64
+  bzero
+  concat
+  b publish2
+  // l5_cCM }
+
+l47_method_lt_553712668:
+dup
+int 368075287
+<
+bnz l52_method_lt_368075287
+dup
+int 498978440
+<
+bnz l53_method_lt_498978440
+int 498978440
+==
+assert
+
+  // { l3_buyOS
+  l3_buyOS:
+  // API: buyOS(uint64)(uint64,uint64,uint64,byte[5],uint64)
+  //  i(498978440) h(1dbdce88) b64(Hb3OiA==)
+  txna ApplicationArgs 1
+  store 255 // v25857 :: Tuple(UInt)
+  byte base64(Aw==)
+  load 255 // v25857 :: Tuple(UInt)
+  concat
+  int 88
+  bzero
+  concat
+  b publish2
+  // l3_buyOS }
+
+l53_method_lt_498978440:
+int 368075287
+==
+assert
+
+  // { l4_cBT
+  l4_cBT:
+  // API: cBT()uint256
+  //  i(368075287) h(15f06217) b64(FfBiFw==)
+  byte base64()
+  store 255 // v25858 :: Tuple()
+  byte base64(BA==)
+  load 255 // v25858 :: Tuple()
+  concat
+  int 96
+  bzero
+  concat
+  b publish2
+  // l4_cBT }
+
+l52_method_lt_368075287:
+int 307756405
+==
+assert
+
+  // { l0_aST
+  l0_aST:
+  // API: aST(address,address,uint256)byte
+  //  i(307756405) h(1257fd75) b64(Elf9dQ==)
+  txna ApplicationArgs 1
+  txna ApplicationArgs 2
+  concat
+  txna ApplicationArgs 3
+  concat
+  store 255 // v25859 :: Tuple(Address, Address, UInt256)
+  byte base64(AA==)
+  load 255 // v25859 :: Tuple(Address, Address, UInt256)
+  concat
+  b publish2
+  // l0_aST }
 
 publish:
 txna ApplicationArgs 2
@@ -502,17 +1422,18 @@ btoi
 dup
 int 2
 <
-bnz l32_publish_lt_2
+bnz l54_publish_lt_2
 dup
 int 3
 <
-bnz l33_publish_lt_3
+bnz l55_publish_lt_3
 int 3
 ==
 assert
 
   // { publish3
   publish3:
+  // CompanionLabel False "publish3"
   // check step
   int 3
   load 1 // GV_currentStep :: UInt
@@ -530,10 +1451,85 @@ assert
   assert
   byte base64(AA==)
   app_global_get
+  byte base64(AQ==)
+  app_global_get
+  concat
+  byte base64(Ag==)
+  app_global_get
+  concat
+  byte base64(Aw==)
+  app_global_get
+  concat
+  byte base64(BA==)
+  app_global_get
+  concat
+  byte base64(BQ==)
+  app_global_get
+  concat
+  byte base64(Bg==)
+  app_global_get
+  concat
+  byte base64(Bw==)
+  app_global_get
+  concat
+  byte base64(CA==)
+  app_global_get
+  concat
+  byte base64(CQ==)
+  app_global_get
+  concat
+  byte base64(Cg==)
+  app_global_get
+  concat
+  byte base64(Cw==)
+  app_global_get
+  concat
+  byte base64(DA==)
+  app_global_get
+  concat
+  byte base64(DQ==)
+  app_global_get
+  concat
+  byte base64(Dg==)
+  app_global_get
+  concat
+  byte base64(Dw==)
+  app_global_get
+  concat
+  byte base64(EA==)
+  app_global_get
+  concat
+  byte base64(EQ==)
+  app_global_get
+  concat
+  byte base64(Eg==)
+  app_global_get
+  concat
+  byte base64(Ew==)
+  app_global_get
+  concat
+  byte base64(FA==)
+  app_global_get
+  concat
+  byte base64(FQ==)
+  app_global_get
+  concat
+  byte base64(Fg==)
+  app_global_get
+  concat
+  byte base64(Fw==)
+  app_global_get
+  concat
+  byte base64(GA==)
+  app_global_get
+  concat
+  byte base64(GQ==)
+  app_global_get
+  concat
   dup
   store 3 // GV_svs :: Null
   extract 0 32
-  store 255 // Creator/1185 :: Address
+  store 255 // Creator/2949 :: Address
   byte base64(p2XEtA==)
   log // up to 4 bytes
   global Round
@@ -541,44 +1537,39 @@ assert
   >=
   assert
   // ^ CheckPay
-  // at ./index.rsh:299:21:dot
-  // at ./index.rsh:298:40:application call to [unknown function] (defined at: ./index.rsh:298:40:function exp)
-  load 255 // Creator/1185 :: Address
+  // at ./index.rsh:396:21:dot
+  // at ./index.rsh:395:40:application call to [unknown function] (defined at: ./index.rsh:395:40:function exp)
+  load 255 // Creator/2949 :: Address
   txn Sender
   ==
   assert
   // ^ Claim: sender correct
-  // at ./index.rsh:299:21:dot
-  // at ./index.rsh:298:40:application call to [unknown function] (defined at: ./index.rsh:298:40:function exp)
-  load 255 // Creator/1185 :: Address
+  // at ./index.rsh:396:21:dot
+  // at ./index.rsh:395:40:application call to [unknown function] (defined at: ./index.rsh:395:40:function exp)
+  load 255 // Creator/2949 :: Address
   load 3 // GV_svs :: Null
   int 32
   extract_uint64
   load 3 // GV_svs :: Null
-  extract 40 32
+  extract 40 5
   load 3 // GV_svs :: Null
-  int 72
-  extract_uint64
-  load 3 // GV_svs :: Null
-  extract 80 1
-  btoi
-  load 3 // GV_svs :: Null
-  int 81
-  extract_uint64
-  load 3 // GV_svs :: Null
-  int 89
-  extract_uint64
+  int 45
+  int 2766
+  extract3
   global Round
   load 3 // GV_svs :: Null
-  extract 97 17
+  int 2811
+  int 17
+  extract3
   b loopBody1
   // publish3 }
 
-l33_publish_lt_3:
+l55_publish_lt_3:
 pop
 
   // { publish2
   publish2:
+  // CompanionLabel False "publish2"
   // check step
   int 3
   load 1 // GV_currentStep :: UInt
@@ -596,942 +1587,2951 @@ pop
   assert
   byte base64(AA==)
   app_global_get
+  byte base64(AQ==)
+  app_global_get
+  concat
+  byte base64(Ag==)
+  app_global_get
+  concat
+  byte base64(Aw==)
+  app_global_get
+  concat
+  byte base64(BA==)
+  app_global_get
+  concat
+  byte base64(BQ==)
+  app_global_get
+  concat
+  byte base64(Bg==)
+  app_global_get
+  concat
+  byte base64(Bw==)
+  app_global_get
+  concat
+  byte base64(CA==)
+  app_global_get
+  concat
+  byte base64(CQ==)
+  app_global_get
+  concat
+  byte base64(Cg==)
+  app_global_get
+  concat
+  byte base64(Cw==)
+  app_global_get
+  concat
+  byte base64(DA==)
+  app_global_get
+  concat
+  byte base64(DQ==)
+  app_global_get
+  concat
+  byte base64(Dg==)
+  app_global_get
+  concat
+  byte base64(Dw==)
+  app_global_get
+  concat
+  byte base64(EA==)
+  app_global_get
+  concat
+  byte base64(EQ==)
+  app_global_get
+  concat
+  byte base64(Eg==)
+  app_global_get
+  concat
+  byte base64(Ew==)
+  app_global_get
+  concat
+  byte base64(FA==)
+  app_global_get
+  concat
+  byte base64(FQ==)
+  app_global_get
+  concat
+  byte base64(Fg==)
+  app_global_get
+  concat
+  byte base64(Fw==)
+  app_global_get
+  concat
+  byte base64(GA==)
+  app_global_get
+  concat
+  byte base64(GQ==)
+  app_global_get
+  concat
   dup
   store 3 // GV_svs :: Null
   dup
   dup2
   dup2
   dup2
+  dup2
+  dup2
+  dup2
+  dup2
+  dup2
+  dup2
+  dup
   extract 0 32
-  store 255 // Creator/1185 :: Address
+  store 255 // Creator/2949 :: Address
   int 32
   extract_uint64
-  store 254 // bT/1189 :: Token
-  extract 40 32
-  store 253 // ctcMan/1202 :: Address
-  int 72
-  extract_uint64
-  store 252 // distrNum/1203 :: UInt
-  extract 80 1
+  store 254 // bT/2953 :: Token
+  extract 40 5
+  store 253 // v3276 :: Bytes(5)
+  int 45
+  int 2766
+  extract3
+  store 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+  int 2811
+  int 17
+  extract3
+  store 251 // tokenInfos/3283 :: Array(Tuple(UInt, UInt, Bool), 1)
+  int 2828
+  int 32
+  extract3
+  store 250 // v3331 :: UInt256
+  int 2860
+  int 32
+  extract3
+  store 249 // v3332 :: UInt256
+  int 2892
+  int 32
+  extract3
+  store 248 // v3333 :: UInt256
+  int 2924
+  int 1
+  extract3
   btoi
-  store 251 // saleLocked/1204 :: Bool
-  int 81
+  store 247 // v3335 :: Bool
+  int 2925
+  int 112
+  extract3
+  store 246 // v3357 :: Tuple(Bytes(96), UInt, UInt)
+  int 3037
   extract_uint64
-  store 250 // totBT/1205 :: UInt
-  int 89
+  store 245 // v3359 :: UInt
+  int 3045
+  int 40
+  extract3
+  store 244 // v3361 :: Tuple(Bytes(4), Bytes(36))
+  int 3125
+  int 17
+  extract3
+  store 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
+  int 3142
   extract_uint64
-  store 249 // totST/1206 :: UInt
-  extract 97 17
-  store 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
+  store 242 // v3367 :: UInt
+  int 3182
+  int 32
+  extract3
+  store 241 // v3370 :: Address
+  int 3214
+  int 37
+  extract3
+  store 240 // v3375 :: Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)})
+  int 3251
+  extract_uint64
+  store 239 // v3376 :: UInt
+  int 3259
+  extract_uint64
+  store 238 // v3377 :: UInt
+  int 3267
+  extract_uint64
+  store 237 // v3378 :: UInt
+  int 3275
+  int 5
+  extract3
+  store 236 // v3379 :: Bytes(5)
+  int 3280
+  extract_uint64
+  store 235 // v3380 :: UInt
   dup
   store 5 // GV_argMsg :: Null
-  store 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
-  byte base64(mMT3sw==)
-  load 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
+  store 234 // .fork709.msg/3782 :: Data({"aST0_709": Tuple(Address, Address, UInt256), "addCoopId0_709": Tuple(Bytes(36)), "addWL0_709": Tuple(Address), "buyOS0_709": Tuple(UInt), "cBT0_709": Tuple(), "cCM0_709": Tuple(Address), "claimOSpr0_709": Tuple(), "createOS0_709": Tuple(UInt, UInt), "dBT0_709": Tuple(UInt256), "docHash0_709": Tuple(Bytes(96)), "endOS0_709": Tuple(), "optIn0_709": Tuple(), "remWL0_709": Tuple(Address)})
+  byte base64(47jRlQ==)
+  load 234 // .fork709.msg/3782 :: Data({"aST0_709": Tuple(Address, Address, UInt256), "addCoopId0_709": Tuple(Bytes(36)), "addWL0_709": Tuple(Address), "buyOS0_709": Tuple(UInt), "cBT0_709": Tuple(), "cCM0_709": Tuple(Address), "claimOSpr0_709": Tuple(), "createOS0_709": Tuple(UInt, UInt), "dBT0_709": Tuple(UInt256), "docHash0_709": Tuple(Bytes(96)), "endOS0_709": Tuple(), "optIn0_709": Tuple(), "remWL0_709": Tuple(Address)})
   concat
-  log // up to 77 bytes
+  log // up to 101 bytes
   global Round
   int 18446744073709551615
   <
   assert
-  load 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
+  load 234 // .fork709.msg/3782 :: Data({"aST0_709": Tuple(Address, Address, UInt256), "addCoopId0_709": Tuple(Bytes(36)), "addWL0_709": Tuple(Address), "buyOS0_709": Tuple(UInt), "cBT0_709": Tuple(), "cCM0_709": Tuple(Address), "claimOSpr0_709": Tuple(), "createOS0_709": Tuple(UInt, UInt), "dBT0_709": Tuple(UInt256), "docHash0_709": Tuple(Bytes(96)), "endOS0_709": Tuple(), "optIn0_709": Tuple(), "remWL0_709": Tuple(Address)})
   int 0
   getbyte
   dup
-  int 4
-  <
-  bnz l34_Switch_lt_4
-  dup
   int 6
   <
-  bnz l35_Switch_lt_6
+  bnz l56_Switch_lt_6
   dup
-  int 7
+  int 9
   <
-  bnz l36_Switch_lt_7
+  bnz l57_Switch_lt_9
   dup
-  int 8
+  int 11
   <
-  bnz l37_Switch_lt_8
-  int 8
+  bnz l58_Switch_lt_11
+  dup
+  int 12
+  <
+  bnz l59_Switch_lt_12
+  int 12
   ==
   assert
 
-    // { l38_Switch_remWL0_169
-    l38_Switch_remWL0_169:
-    load 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
+    // { l60_Switch_remWL0_709
+    l60_Switch_remWL0_709:
+    load 234 // .fork709.msg/3782 :: Data({"aST0_709": Tuple(Address, Address, UInt256), "addCoopId0_709": Tuple(Bytes(36)), "addWL0_709": Tuple(Address), "buyOS0_709": Tuple(UInt), "cBT0_709": Tuple(), "cCM0_709": Tuple(Address), "claimOSpr0_709": Tuple(), "createOS0_709": Tuple(UInt, UInt), "dBT0_709": Tuple(UInt256), "docHash0_709": Tuple(Bytes(96)), "endOS0_709": Tuple(), "optIn0_709": Tuple(), "remWL0_709": Tuple(Address)})
     extract 1 32
-    store 246 // data_id/3640 :: Tuple(Address)
+    store 231 // data_id/12497 :: Tuple(Address)
+    // CompanionLabel True "api_remWL"
     api_remWL:
+    itxn_begin
+    int 0
+    itxn_field Fee
+    int appl
+    itxn_field TypeEnum
+    load 8 // GV_companion :: Contract
+    // resource: R_App
+    itxn_field ApplicationID
+    itxn_submit
+    // cost credit: 3
     // ^ CheckPay
-    // at ./index.rsh:102:72:dot
-    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
-    extract 0 17
-    store 245 // tokInfo/3724 :: Tuple(UInt, UInt, Bool)
+    // at ./index.rsh:80:35:dot
     // ^ CheckPay
-    // at ./index.rsh:102:72:dot
+    // at ./index.rsh:80:35:dot
     txn Sender
-    load 255 // Creator/1185 :: Address
+    load 255 // Creator/2949 :: Address
     ==
     txn Sender
-    load 253 // ctcMan/1202 :: Address
+    load 241 // v3370 :: Address
     ==
     ||
     assert
-    // ^ Claim
-    // at ./index.rsh:142:24:application
-    // at ./index.rsh:141:13:application call to [unknown function] (defined at: ./index.rsh:141:13:function exp)
+    // ^ Claim: you must be creator or manager
+    // at ./index.rsh:266:24:application
+    // at ./index.rsh:265:13:application call to [unknown function] (defined at: ./index.rsh:265:13:function exp)
     // resource: R_Account
-    load 246 // data_id/3640 :: Tuple(Address)
-    byte base64(AA==)
-    load 246 // data_id/3640 :: Tuple(Address)
-    callsub l15_LF_cMapLoad
+    load 231 // data_id/12497 :: Tuple(Address)
+    dup
+    callsub l25_LF_cMapLoad
     int 0
-    int 54
+    int 200
     swap
     setbyte
+    dig 1
+    byte base64(AA==)
+    dig 2
+    extract 0 127
     app_local_put
-    byte base64(AAAAAAAADz4B)
+    dig 1
+    byte base64(AQ==)
+    dig 2
+    extract 127 127
+    app_local_put
+    dig 1
+    byte base64(Ag==)
+    dig 2
+    extract 254 127
+    app_local_put
+    dig 1
+    byte base64(Aw==)
+    dig 2
+    int 381
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BA==)
+    dig 2
+    int 508
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BQ==)
+    dig 2
+    int 635
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bg==)
+    dig 2
+    int 762
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bw==)
+    dig 2
+    int 889
+    int 113
+    extract3
+    app_local_put
+    pop
+    pop
+    byte base64(AAAAAAAAM58B)
     log // up to 9 bytes
     byte base64(AQ==)
     store 7 // GV_apiRet :: Null
-    load 255 // Creator/1185 :: Address
-    load 254 // bT/1189 :: Token
-    load 253 // ctcMan/1202 :: Address
-    load 252 // distrNum/1203 :: UInt
-    load 251 // saleLocked/1204 :: Bool
-    load 250 // totBT/1205 :: UInt
-    load 249 // totST/1206 :: UInt
+    load 255 // Creator/2949 :: Address
+    load 254 // bT/2953 :: Token
+    load 253 // v3276 :: Bytes(5)
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
     global Round
-    load 245 // tokInfo/3724 :: Tuple(UInt, UInt, Bool)
-    extract 0 8
-    load 245 // tokInfo/3724 :: Tuple(UInt, UInt, Bool)
+    load 242 // v3367 :: UInt
+    itob
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
     extract 8 8
     concat
-    load 245 // tokInfo/3724 :: Tuple(UInt, UInt, Bool)
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
     extract 16 1
     concat
     b loopBody1
-    // l38_Switch_remWL0_169 }
+    // l60_Switch_remWL0_709 }
 
-  l37_Switch_lt_8:
+  l59_Switch_lt_12:
   pop
 
-    // { l39_Switch_optIn0_169
-    l39_Switch_optIn0_169:
+    // { l61_Switch_optIn0_709
+    l61_Switch_optIn0_709:
+    // CompanionLabel True "api_optIn"
     api_optIn:
+    itxn_begin
+    int 0
+    itxn_field Fee
+    int appl
+    itxn_field TypeEnum
+    load 8 // GV_companion :: Contract
+    // resource: R_App
+    itxn_field ApplicationID
+    itxn_submit
+    // cost credit: 3
     // ^ CheckPay
-    // at ./index.rsh:102:72:dot
-    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
-    extract 0 17
-    store 246 // tokInfo/3454 :: Tuple(UInt, UInt, Bool)
+    // at ./index.rsh:80:35:dot
     // ^ CheckPay
-    // at ./index.rsh:102:72:dot
-    byte base64(AAAAAAAADiMB)
+    // at ./index.rsh:80:35:dot
+    txn Sender
+    txn Sender
+    callsub l25_LF_cMapLoad
+    byte base64(AQE=)
+    store 231 // spliceNew
+    dup
+    extract 0 198
+    load 231 // spliceNew
+    concat
+    swap
+    int 200
+    int 802
+    extract3
+    concat
+    dig 1
+    byte base64(AA==)
+    dig 2
+    extract 0 127
+    app_local_put
+    dig 1
+    byte base64(AQ==)
+    dig 2
+    extract 127 127
+    app_local_put
+    dig 1
+    byte base64(Ag==)
+    dig 2
+    extract 254 127
+    app_local_put
+    dig 1
+    byte base64(Aw==)
+    dig 2
+    int 381
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BA==)
+    dig 2
+    int 508
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BQ==)
+    dig 2
+    int 635
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bg==)
+    dig 2
+    int 762
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bw==)
+    dig 2
+    int 889
+    int 113
+    extract3
+    app_local_put
+    pop
+    pop
+    byte base64(AAAAAAAAMLsB)
     log // up to 9 bytes
     byte base64(AQ==)
     store 7 // GV_apiRet :: Null
-    load 255 // Creator/1185 :: Address
-    load 254 // bT/1189 :: Token
-    load 253 // ctcMan/1202 :: Address
-    load 252 // distrNum/1203 :: UInt
-    load 251 // saleLocked/1204 :: Bool
-    load 250 // totBT/1205 :: UInt
-    load 249 // totST/1206 :: UInt
+    load 255 // Creator/2949 :: Address
+    load 254 // bT/2953 :: Token
+    load 253 // v3276 :: Bytes(5)
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
     global Round
-    load 246 // tokInfo/3454 :: Tuple(UInt, UInt, Bool)
-    extract 0 8
-    load 246 // tokInfo/3454 :: Tuple(UInt, UInt, Bool)
+    load 242 // v3367 :: UInt
+    itob
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
     extract 8 8
     concat
-    load 246 // tokInfo/3454 :: Tuple(UInt, UInt, Bool)
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
     extract 16 1
     concat
     b loopBody1
-    // l39_Switch_optIn0_169 }
+    // l61_Switch_optIn0_709 }
 
-  l36_Switch_lt_7:
+  l58_Switch_lt_11:
+  dup
+  int 10
+  <
+  bnz l62_Switch_lt_10
   pop
 
-    // { l40_Switch_dBT0_169
-    l40_Switch_dBT0_169:
-    load 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
-    extract 1 8
-    store 246 // data_id/3100 :: Tuple(UInt)
-    api_dBT:
-    load 246 // data_id/3100 :: Tuple(UInt)
-    btoi
-    store 245 // amt/3153 :: UInt
+    // { l63_Switch_endOS0_709
+    l63_Switch_endOS0_709:
+    // CompanionLabel True "api_endOS"
+    api_endOS:
+    itxn_begin
+    int 0
+    itxn_field Fee
+    int appl
+    itxn_field TypeEnum
+    load 8 // GV_companion :: Contract
+    // resource: R_App
+    itxn_field ApplicationID
+    itxn_submit
+    // cost credit: 3
     // ^ CheckPay
-    // at ./index.rsh:102:72:dot
-    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
-    extract 0 17
-    store 244 // tokInfo/3184 :: Tuple(UInt, UInt, Bool)
+    // at ./index.rsh:80:35:dot
+    // ^ CheckPay
+    // at ./index.rsh:80:35:dot
+    txn Sender
+    load 255 // Creator/2949 :: Address
+    ==
+    txn Sender
+    load 241 // v3370 :: Address
+    ==
+    ||
+    assert
+    // ^ Claim: you must be creator or manager
+    // at ./index.rsh:145:24:application
+    // at ./index.rsh:144:13:application call to [unknown function] (defined at: ./index.rsh:144:13:function exp)
+    load 236 // v3379 :: Bytes(5)
+    sha256
+    byte base64(g4NGe0jACsbbGwAf9XxPwnqspe0HAhLyTDVhn3JaeGo=)
+    ==
+    assert
+    // ^ Claim: sale must be active
+    // at ./index.rsh:146:24:application
+    // at ./index.rsh:144:13:application call to [unknown function] (defined at: ./index.rsh:144:13:function exp)
+    byte base64(AAAAAAAALdcB)
+    log // up to 9 bytes
+    byte base64(AQ==)
+    store 7 // GV_apiRet :: Null
+    load 255 // Creator/2949 :: Address
+    load 254 // bT/2953 :: Token
+    load 253 // v3276 :: Bytes(5)
+    load 241 // v3370 :: Address
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    extract 32 32
+    concat
+    load 244 // v3361 :: Tuple(Bytes(4), Bytes(36))
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 104
+    int 1600
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1704
+    int 8
+    extract3
+    concat
+    load 248 // v3333 :: UInt256
+    concat
+    load 246 // v3357 :: Tuple(Bytes(96), UInt, UInt)
+    concat
+    load 235 // v3380 :: UInt
+    itob
+    load 238 // v3377 :: UInt
+    itob
+    concat
+    int 8
+    bzero
+    concat
+    int 8
+    bzero
+    concat
+    load 253 // v3276 :: Bytes(5)
+    concat
+    concat
+    load 247 // v3335 :: Bool
+    itob
+    substring 7 8
+    concat
+    load 249 // v3332 :: UInt256
+    concat
+    load 250 // v3331 :: UInt256
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1958
+    int 800
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 2758
+    int 8
+    extract3
+    concat
+    global Round
+    load 242 // v3367 :: UInt
+    itob
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
+    b loopBody1
+    // l63_Switch_endOS0_709 }
+
+  l62_Switch_lt_10:
+  pop
+
+    // { l64_Switch_docHash0_709
+    l64_Switch_docHash0_709:
+    load 234 // .fork709.msg/3782 :: Data({"aST0_709": Tuple(Address, Address, UInt256), "addCoopId0_709": Tuple(Bytes(36)), "addWL0_709": Tuple(Address), "buyOS0_709": Tuple(UInt), "cBT0_709": Tuple(), "cCM0_709": Tuple(Address), "claimOSpr0_709": Tuple(), "createOS0_709": Tuple(UInt, UInt), "dBT0_709": Tuple(UInt256), "docHash0_709": Tuple(Bytes(96)), "endOS0_709": Tuple(), "optIn0_709": Tuple(), "remWL0_709": Tuple(Address)})
+    extract 1 96
+    store 231 // data_id/10319 :: Tuple(Bytes(96))
+    // CompanionLabel True "api_docHash"
+    api_docHash:
+    // ^ CheckPay
+    // at ./index.rsh:80:35:dot
+    // ^ CheckPay
+    // at ./index.rsh:80:35:dot
+    load 245 // v3359 :: UInt
+    int 0
+    ==
+    assert
+    // ^ Claim: hash is immutable
+    // at ./index.rsh:225:24:application
+    // at ./index.rsh:223:13:application call to [unknown function] (defined at: ./index.rsh:223:13:function exp)
+    txn Sender
+    load 255 // Creator/2949 :: Address
+    ==
+    txn Sender
+    load 241 // v3370 :: Address
+    ==
+    ||
+    assert
+    // ^ Claim: only creator or contract manager can change hash
+    // at ./index.rsh:226:24:application
+    // at ./index.rsh:223:13:application call to [unknown function] (defined at: ./index.rsh:223:13:function exp)
+    byte base64(AAAAAAAAKs0B)
+    log // up to 9 bytes
+    byte base64(AQ==)
+    store 7 // GV_apiRet :: Null
+    load 255 // Creator/2949 :: Address
+    load 254 // bT/2953 :: Token
+    load 253 // v3276 :: Bytes(5)
+    load 241 // v3370 :: Address
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    extract 32 32
+    concat
+    load 244 // v3361 :: Tuple(Bytes(4), Bytes(36))
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 104
+    int 1600
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1704
+    int 8
+    extract3
+    concat
+    load 248 // v3333 :: UInt256
+    concat
+    load 231 // data_id/10319 :: Tuple(Bytes(96))
+    load 245 // v3359 :: UInt
+    int 1
+    +
+    itob
+    concat
+    global Round
+    itob
+    concat
+    concat
+    load 240 // v3375 :: Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)})
+    concat
+    load 247 // v3335 :: Bool
+    itob
+    substring 7 8
+    concat
+    load 249 // v3332 :: UInt256
+    concat
+    load 250 // v3331 :: UInt256
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1958
+    int 800
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 2758
+    int 8
+    extract3
+    concat
+    global Round
+    load 242 // v3367 :: UInt
+    itob
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
+    b loopBody1
+    // l64_Switch_docHash0_709 }
+
+  l57_Switch_lt_9:
+  dup
+  int 7
+  <
+  bnz l65_Switch_lt_7
+  dup
+  int 8
+  <
+  bnz l66_Switch_lt_8
+  pop
+
+    // { l67_Switch_dBT0_709
+    l67_Switch_dBT0_709:
+    load 234 // .fork709.msg/3782 :: Data({"aST0_709": Tuple(Address, Address, UInt256), "addCoopId0_709": Tuple(Bytes(36)), "addWL0_709": Tuple(Address), "buyOS0_709": Tuple(UInt), "cBT0_709": Tuple(), "cCM0_709": Tuple(Address), "claimOSpr0_709": Tuple(), "createOS0_709": Tuple(UInt, UInt), "dBT0_709": Tuple(UInt256), "docHash0_709": Tuple(Bytes(96)), "endOS0_709": Tuple(), "optIn0_709": Tuple(), "remWL0_709": Tuple(Address)})
+    extract 1 32
+    store 231 // data_id/9593 :: Tuple(UInt256)
+    // CompanionLabel True "api_dBT"
+    api_dBT:
+    itxn_begin
+    int 0
+    itxn_field Fee
+    int appl
+    itxn_field TypeEnum
+    load 8 // GV_companion :: Contract
+    // resource: R_App
+    itxn_field ApplicationID
+    itxn_submit
+    // cost credit: 3
+    load 231 // data_id/9593 :: Tuple(UInt256)
+    dup
+    store 230 // amt/9666 :: UInt256
+    dup
+    dup2
+    int 16
+    extract_uint64
+    int 0
+    ==
+    assert
+    int 8
+    extract_uint64
+    int 0
+    ==
+    assert
+    int 0
+    extract_uint64
+    int 0
+    ==
+    assert
+    int 24
+    extract_uint64
+    store 229 // v9667 :: UInt
+    // ^ CheckPay
+    // at ./index.rsh:80:35:dot
 
       // { checkTxn
-      load 245 // amt/3153 :: UInt
-      load 254 // bT/1189 :: Token
-      callsub l41_LF_checkTxn_tok
+      load 229 // v9667 :: UInt
+      load 254 // bT/2953 :: Token
+      callsub l68_LF_checkTxn_tok
       // checkTxn }
 
     // ^ CheckPay
-    // at ./index.rsh:102:72:dot
+    // at ./index.rsh:80:35:dot
     txn Sender
-    load 255 // Creator/1185 :: Address
+    load 255 // Creator/2949 :: Address
     ==
     txn Sender
-    load 253 // ctcMan/1202 :: Address
-    ==
-    ||
-    assert
-    // ^ Claim
-    // at ./index.rsh:225:24:application
-    // at ./index.rsh:224:13:application call to [unknown function] (defined at: ./index.rsh:224:13:function exp)
-    load 245 // amt/3153 :: UInt
-    int 0
-    >
-    assert
-    // ^ Claim
-    // at ./index.rsh:226:24:application
-    // at ./index.rsh:224:13:application call to [unknown function] (defined at: ./index.rsh:224:13:function exp)
-    byte base64(AAAAAAAADQoB)
-    log // up to 9 bytes
-    byte base64(AQ==)
-    store 7 // GV_apiRet :: Null
-    load 255 // Creator/1185 :: Address
-    load 254 // bT/1189 :: Token
-    load 253 // ctcMan/1202 :: Address
-    load 252 // distrNum/1203 :: UInt
-    int 1
-    +
-    load 251 // saleLocked/1204 :: Bool
-    load 250 // totBT/1205 :: UInt
-    load 245 // amt/3153 :: UInt
-    +
-    load 249 // totST/1206 :: UInt
-    global Round
-    load 244 // tokInfo/3184 :: Tuple(UInt, UInt, Bool)
-    int 0
-    extract_uint64
-    load 245 // amt/3153 :: UInt
-    +
-    itob
-    load 244 // tokInfo/3184 :: Tuple(UInt, UInt, Bool)
-    extract 8 8
-    concat
-    load 244 // tokInfo/3184 :: Tuple(UInt, UInt, Bool)
-    extract 16 1
-    concat
-    b loopBody1
-    // l40_Switch_dBT0_169 }
-
-  l35_Switch_lt_6:
-  dup
-  int 5
-  <
-  bnz l42_Switch_lt_5
-  pop
-
-    // { l43_Switch_cST0_169
-    l43_Switch_cST0_169:
-    api_cST:
-    // ^ CheckPay
-    // at ./index.rsh:102:72:dot
-    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
-    extract 0 17
-    store 246 // tokInfo/2914 :: Tuple(UInt, UInt, Bool)
-    // ^ CheckPay
-    // at ./index.rsh:102:72:dot
-    int 0
-    txn Sender
-    callsub l15_LF_cMapLoad
-    extract 0 9
-    dup
-    store 244 // fromSome object
-    int 1
-    extract_uint64
-    load 244 // fromSome object
-    int 0
-    getbyte
-    select
-    store 245 // has/3046 :: UInt
-    txn Sender
-    callsub l15_LF_cMapLoad
-    extract 54 1
-    dup
-    store 243 // v/3047 :: Data({"None": Null, "Some": Null}) for switch
-    int 0
-    getbyte
-    bnz l45_LocalSwitch_nz
-
-      // { l46_LocalSwitch_None
-      l46_LocalSwitch_None:
-      int 0
-      store 244 // v3048 :: Bool
-      b l44_LocalSwitchK
-      // l46_LocalSwitch_None }
-
-    l45_LocalSwitch_nz:
-
-      // { l47_LocalSwitch_Some
-      l47_LocalSwitch_Some:
-      int 1
-      store 244 // v3048 :: Bool
-      b l44_LocalSwitchK
-      // l47_LocalSwitch_Some }
-
-    l44_LocalSwitchK:
-    load 244 // v3048 :: Bool
-    assert
-    // ^ Claim
-    // at ./index.rsh:188:24:application
-    // at ./index.rsh:186:13:application call to [unknown function] (defined at: ./index.rsh:186:13:function exp)
-    load 245 // has/3046 :: UInt
-    int 0
-    >
-    assert
-    // ^ Claim
-    // at ./index.rsh:189:24:application
-    // at ./index.rsh:186:13:application call to [unknown function] (defined at: ./index.rsh:186:13:function exp)
-    txn Sender
-    byte base64(AA==)
-    txn Sender
-    callsub l15_LF_cMapLoad
-    byte base64(AQ==)
-    int 0
-    txn Sender
-    callsub l15_LF_cMapLoad
-    extract 18 9
-    dup
-    store 243 // fromSome object
-    int 1
-    extract_uint64
-    load 243 // fromSome object
-    int 0
-    getbyte
-    select
-    load 245 // has/3046 :: UInt
-    +
-    itob
-    concat
-    store 243 // spliceNew
-    dup
-    extract 0 18
-    load 243 // spliceNew
-    concat
-    swap
-    extract 27 28
-    concat
-    app_local_put
-    txn Sender
-    byte base64(AA==)
-    txn Sender
-    callsub l15_LF_cMapLoad
-    byte base64(AQAAAAAAAAAA)
-    store 243 // spliceNew
-    extract 9 46
-    load 243 // spliceNew
-    swap
-    concat
-    app_local_put
-    byte base64(AAAAAAAAC+8B)
-    log // up to 9 bytes
-    byte base64(AQ==)
-    store 7 // GV_apiRet :: Null
-    load 255 // Creator/1185 :: Address
-    load 254 // bT/1189 :: Token
-    load 253 // ctcMan/1202 :: Address
-    load 252 // distrNum/1203 :: UInt
-    load 251 // saleLocked/1204 :: Bool
-    load 250 // totBT/1205 :: UInt
-    load 249 // totST/1206 :: UInt
-    global Round
-    load 246 // tokInfo/2914 :: Tuple(UInt, UInt, Bool)
-    extract 0 8
-    load 246 // tokInfo/2914 :: Tuple(UInt, UInt, Bool)
-    extract 8 8
-    concat
-    load 246 // tokInfo/2914 :: Tuple(UInt, UInt, Bool)
-    extract 16 1
-    concat
-    b loopBody1
-    // l43_Switch_cST0_169 }
-
-  l42_Switch_lt_5:
-  pop
-
-    // { l48_Switch_cCM0_169
-    l48_Switch_cCM0_169:
-    load 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
-    extract 1 32
-    store 246 // data_id/2560 :: Tuple(Address)
-    api_cCM:
-    // ^ CheckPay
-    // at ./index.rsh:102:72:dot
-    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
-    extract 0 17
-    store 245 // tokInfo/2644 :: Tuple(UInt, UInt, Bool)
-    // ^ CheckPay
-    // at ./index.rsh:102:72:dot
-    txn Sender
-    load 255 // Creator/1185 :: Address
-    ==
-    txn Sender
-    load 253 // ctcMan/1202 :: Address
+    load 241 // v3370 :: Address
     ==
     ||
     assert
+    // ^ Claim: you must be creator or manager
+    // at ./index.rsh:337:24:application
+    // at ./index.rsh:336:13:application call to [unknown function] (defined at: ./index.rsh:336:13:function exp)
+    load 229 // v9667 :: UInt
+    int 0
+    >
+    assert
     // ^ Claim
-    // at ./index.rsh:292:24:application
-    // at ./index.rsh:291:13:application call to [unknown function] (defined at: ./index.rsh:291:13:function exp)
-    byte base64(AAAAAAAACs4B)
+    // at ./index.rsh:338:24:application
+    // at ./index.rsh:336:13:application call to [unknown function] (defined at: ./index.rsh:336:13:function exp)
+    byte base64(AAAAAAAAJ9MB)
     log // up to 9 bytes
     byte base64(AQ==)
     store 7 // GV_apiRet :: Null
-    load 255 // Creator/1185 :: Address
-    load 254 // bT/1189 :: Token
-    load 246 // data_id/2560 :: Tuple(Address)
-    load 252 // distrNum/1203 :: UInt
-    load 251 // saleLocked/1204 :: Bool
-    load 250 // totBT/1205 :: UInt
-    load 249 // totST/1206 :: UInt
+    load 255 // Creator/2949 :: Address
+    load 254 // bT/2953 :: Token
+    load 253 // v3276 :: Bytes(5)
+    load 241 // v3370 :: Address
+    load 230 // amt/9666 :: UInt256
+    concat
+    load 244 // v3361 :: Tuple(Bytes(4), Bytes(36))
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 104
+    int 1600
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1704
+    int 8
+    extract3
+    concat
+    load 248 // v3333 :: UInt256
+    byte base64(AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=)
+    b+
+    callsub l69_LF_checkUInt256ResultLen
+    concat
+    load 246 // v3357 :: Tuple(Bytes(96), UInt, UInt)
+    concat
+    load 240 // v3375 :: Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)})
+    concat
+    load 247 // v3335 :: Bool
+    itob
+    substring 7 8
+    concat
+    load 249 // v3332 :: UInt256
+    load 230 // amt/9666 :: UInt256
+    b+
+    callsub l69_LF_checkUInt256ResultLen
+    concat
+    load 250 // v3331 :: UInt256
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1958
+    int 800
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 2758
+    int 8
+    extract3
+    concat
     global Round
-    load 245 // tokInfo/2644 :: Tuple(UInt, UInt, Bool)
-    extract 0 8
-    load 245 // tokInfo/2644 :: Tuple(UInt, UInt, Bool)
+    load 242 // v3367 :: UInt
+    load 229 // v9667 :: UInt
+    +
+    itob
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
     extract 8 8
     concat
-    load 245 // tokInfo/2644 :: Tuple(UInt, UInt, Bool)
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
     extract 16 1
     concat
     b loopBody1
-    // l48_Switch_cCM0_169 }
+    // l67_Switch_dBT0_709 }
 
-  l34_Switch_lt_4:
-  dup
-  int 2
-  <
-  bnz l49_Switch_lt_2
-  dup
-  int 3
-  <
-  bnz l50_Switch_lt_3
+  l66_Switch_lt_8:
   pop
 
-    // { l51_Switch_cBT0_169
-    l51_Switch_cBT0_169:
-    api_cBT:
+    // { l70_Switch_createOS0_709
+    l70_Switch_createOS0_709:
+    load 234 // .fork709.msg/3782 :: Data({"aST0_709": Tuple(Address, Address, UInt256), "addCoopId0_709": Tuple(Bytes(36)), "addWL0_709": Tuple(Address), "buyOS0_709": Tuple(UInt), "cBT0_709": Tuple(), "cCM0_709": Tuple(Address), "claimOSpr0_709": Tuple(), "createOS0_709": Tuple(UInt, UInt), "dBT0_709": Tuple(UInt256), "docHash0_709": Tuple(Bytes(96)), "endOS0_709": Tuple(), "optIn0_709": Tuple(), "remWL0_709": Tuple(Address)})
+    extract 1 16
+    store 231 // data_id/8867 :: Tuple(UInt, UInt)
+    // CompanionLabel True "api_createOS"
+    api_createOS:
+    itxn_begin
+    int 0
+    itxn_field Fee
+    int appl
+    itxn_field TypeEnum
+    load 8 // GV_companion :: Contract
+    // resource: R_App
+    itxn_field ApplicationID
+    itxn_submit
+    // cost credit: 3
     // ^ CheckPay
-    // at ./index.rsh:102:72:dot
-    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
-    extract 0 17
-    dup
-    store 246 // tokInfo/2374 :: Tuple(UInt, UInt, Bool)
-    extract 0 8
-    load 246 // tokInfo/2374 :: Tuple(UInt, UInt, Bool)
+    // at ./index.rsh:80:35:dot
+    // ^ CheckPay
+    // at ./index.rsh:80:35:dot
+    load 231 // data_id/8867 :: Tuple(UInt, UInt)
+    int 0
+    extract_uint64
+    store 230 // e/9384 :: UInt
+    load 231 // data_id/8867 :: Tuple(UInt, UInt)
+    int 8
+    extract_uint64
+    store 229 // e/9385 :: UInt
+    txn Sender
+    load 255 // Creator/2949 :: Address
+    ==
+    txn Sender
+    load 241 // v3370 :: Address
+    ==
+    ||
+    assert
+    // ^ Claim: you must be creator or manager
+    // at ./index.rsh:124:24:application
+    // at ./index.rsh:123:13:application call to [unknown function] (defined at: ./index.rsh:123:13:function exp)
+    load 230 // e/9384 :: UInt
+    int 0
+    >
+    assert
+    // ^ Claim: you must sell at least 1 share token
+    // at ./index.rsh:125:24:application
+    // at ./index.rsh:123:13:application call to [unknown function] (defined at: ./index.rsh:123:13:function exp)
+    load 229 // e/9385 :: UInt
+    int 0
+    >
+    assert
+    // ^ Claim: price must be greater than 0
+    // at ./index.rsh:126:24:application
+    // at ./index.rsh:123:13:application call to [unknown function] (defined at: ./index.rsh:123:13:function exp)
+    byte base64(YWN0aXY=)
+    store 228 // v9398 :: Bytes(5)
+    byte base64(AAAAAAAAJM0=)
+    load 230 // e/9384 :: UInt
+    itob
+    load 229 // e/9385 :: UInt
+    itob
+    concat
+    load 237 // v3378 :: UInt
+    itob
+    concat
+    load 228 // v9398 :: Bytes(5)
+    concat
+    load 235 // v3380 :: UInt
+    itob
+    concat
+    concat
+    log // up to 45 bytes
+    load 230 // e/9384 :: UInt
+    itob
+    load 229 // e/9385 :: UInt
+    itob
+    concat
+    load 237 // v3378 :: UInt
+    itob
+    concat
+    load 228 // v9398 :: Bytes(5)
+    concat
+    load 235 // v3380 :: UInt
+    itob
+    concat
+    store 7 // GV_apiRet :: Null
+    load 255 // Creator/2949 :: Address
+    load 254 // bT/2953 :: Token
+    load 253 // v3276 :: Bytes(5)
+    load 241 // v3370 :: Address
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    extract 32 32
+    concat
+    load 244 // v3361 :: Tuple(Bytes(4), Bytes(36))
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 104
+    int 1600
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1704
+    int 8
+    extract3
+    concat
+    load 248 // v3333 :: UInt256
+    concat
+    load 246 // v3357 :: Tuple(Bytes(96), UInt, UInt)
+    concat
+    load 235 // v3380 :: UInt
+    itob
+    load 229 // e/9385 :: UInt
+    itob
+    concat
+    load 230 // e/9384 :: UInt
+    itob
+    concat
+    load 237 // v3378 :: UInt
+    itob
+    concat
+    load 228 // v9398 :: Bytes(5)
+    concat
+    concat
+    load 247 // v3335 :: Bool
+    itob
+    substring 7 8
+    concat
+    load 249 // v3332 :: UInt256
+    concat
+    load 250 // v3331 :: UInt256
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1958
+    int 800
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 2758
+    int 8
+    extract3
+    concat
+    global Round
+    load 242 // v3367 :: UInt
+    itob
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
     extract 8 8
     concat
-    load 246 // tokInfo/2374 :: Tuple(UInt, UInt, Bool)
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
     extract 16 1
     concat
-    store 245 // tokInfos'/2382 :: Array(Tuple(UInt, UInt, Bool), 1)
-    // ^ CheckPay
-    // at ./index.rsh:102:72:dot
-    txn Sender
-    callsub l15_LF_cMapLoad
-    extract 54 1
-    dup
-    store 243 // v/2450 :: Data({"None": Null, "Some": Null}) for switch
+    b loopBody1
+    // l70_Switch_createOS0_709 }
+
+  l65_Switch_lt_7:
+  pop
+
+    // { l71_Switch_claimOSpr0_709
+    l71_Switch_claimOSpr0_709:
+    // CompanionLabel True "api_claimOSpr"
+    api_claimOSpr:
+    itxn_begin
     int 0
-    getbyte
-    bnz l53_LocalSwitch_nz
-
-      // { l54_LocalSwitch_None
-      l54_LocalSwitch_None:
-      int 0
-      store 244 // v2451 :: Bool
-      b l52_LocalSwitchK
-      // l54_LocalSwitch_None }
-
-    l53_LocalSwitch_nz:
-
-      // { l55_LocalSwitch_Some
-      l55_LocalSwitch_Some:
-      int 1
-      store 244 // v2451 :: Bool
-      b l52_LocalSwitchK
-      // l55_LocalSwitch_Some }
-
-    l52_LocalSwitchK:
-    load 244 // v2451 :: Bool
+    itxn_field Fee
+    int appl
+    itxn_field TypeEnum
+    load 8 // GV_companion :: Contract
+    // resource: R_App
+    itxn_field ApplicationID
+    itxn_submit
+    // cost credit: 3
+    // ^ CheckPay
+    // at ./index.rsh:80:35:dot
+    load 242 // v3367 :: UInt
+    itob
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
+    store 231 // tokInfos'/8269 :: Array(Tuple(UInt, UInt, Bool), 1)
+    // ^ CheckPay
+    // at ./index.rsh:80:35:dot
+    txn Sender
+    load 255 // Creator/2949 :: Address
+    ==
+    txn Sender
+    load 241 // v3370 :: Address
+    ==
+    ||
     assert
-    // ^ Claim
-    // at ./index.rsh:244:24:application
-    // at ./index.rsh:243:13:application call to [unknown function] (defined at: ./index.rsh:243:13:function exp)
-    load 245 // tokInfos'/2382 :: Array(Tuple(UInt, UInt, Bool), 1)
+    // ^ Claim: you must be creator or manager
+    // at ./index.rsh:201:24:application
+    // at ./index.rsh:200:13:application call to [unknown function] (defined at: ./index.rsh:200:13:function exp)
+    load 235 // v3380 :: UInt
+    int 0
+    >
+    assert
+    // ^ Claim: available proceeds must be greater than 0
+    // at ./index.rsh:202:24:application
+    // at ./index.rsh:200:13:application call to [unknown function] (defined at: ./index.rsh:200:13:function exp)
+    load 231 // tokInfos'/8269 :: Array(Tuple(UInt, UInt, Bool), 1)
     extract 0 17
     dup
-    store 243 // tokInfo/2454 :: Tuple(UInt, UInt, Bool)
+    store 230 // tokInfo/8605 :: Tuple(UInt, UInt, Bool)
     int 0
     extract_uint64
-    store 242 // v2455 :: UInt
-    int 0
-    txn Sender
-    callsub l15_LF_cMapLoad
-    extract 27 9
     dup
-    store 240 // fromSome object
-    int 1
-    extract_uint64
-    load 240 // fromSome object
-    int 0
-    getbyte
-    select
-    store 241 // v2460 :: UInt
-    load 242 // v2455 :: UInt
-    int 0
-    >
-    load 249 // totST/1206 :: UInt
-    int 0
-    >
-    &&
-    load 249 // totST/1206 :: UInt
-    load 241 // v2460 :: UInt
+    store 229 // v8606 :: UInt
+    load 235 // v3380 :: UInt
     >=
-    &&
     assert
-    // ^ Claim
-    // at ./index.rsh:245:24:application
-    // at ./index.rsh:243:13:application call to [unknown function] (defined at: ./index.rsh:243:13:function exp)
-    load 241 // v2460 :: UInt
-    load 242 // v2455 :: UInt
-    *
-    load 249 // totST/1206 :: UInt
-    /
-    store 240 // has/2468 :: UInt
+    // ^ Claim: weirdly insufficienct balance of BT
+    // at ./index.rsh:203:24:application
+    // at ./index.rsh:200:13:application call to [unknown function] (defined at: ./index.rsh:200:13:function exp)
 
       // { makeTxn
       itxn_begin
       int 0
       itxn_field Fee
-      load 240 // has/2468 :: UInt
+      load 235 // v3380 :: UInt
       itxn_field AssetAmount
       int axfer
       itxn_field TypeEnum
       txn Sender
       itxn_field AssetReceiver
       // resource: R_Asset
-      load 254 // bT/1189 :: Token
+      load 254 // bT/2953 :: Token
+      itxn_field XferAsset
+      itxn_submit
+      // makeTxn }
+
+    byte base64(AAAAAAAAIcYB)
+    log // up to 9 bytes
+    byte base64(AQ==)
+    store 7 // GV_apiRet :: Null
+    load 255 // Creator/2949 :: Address
+    load 254 // bT/2953 :: Token
+    load 253 // v3276 :: Bytes(5)
+    load 241 // v3370 :: Address
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    extract 32 32
+    concat
+    load 244 // v3361 :: Tuple(Bytes(4), Bytes(36))
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 104
+    int 1600
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1704
+    int 8
+    extract3
+    concat
+    load 248 // v3333 :: UInt256
+    concat
+    load 246 // v3357 :: Tuple(Bytes(96), UInt, UInt)
+    concat
+    int 8
+    bzero
+    load 238 // v3377 :: UInt
+    itob
+    concat
+    load 239 // v3376 :: UInt
+    itob
+    concat
+    load 237 // v3378 :: UInt
+    itob
+    concat
+    load 236 // v3379 :: Bytes(5)
+    concat
+    concat
+    load 247 // v3335 :: Bool
+    itob
+    substring 7 8
+    concat
+    load 249 // v3332 :: UInt256
+    concat
+    load 250 // v3331 :: UInt256
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1958
+    int 800
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 2758
+    int 8
+    extract3
+    concat
+    global Round
+    load 229 // v8606 :: UInt
+    load 235 // v3380 :: UInt
+    -
+    itob
+    load 230 // tokInfo/8605 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 230 // tokInfo/8605 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
+    b loopBody1
+    // l71_Switch_claimOSpr0_709 }
+
+  l56_Switch_lt_6:
+  dup
+  int 3
+  <
+  bnz l72_Switch_lt_3
+  dup
+  int 4
+  <
+  bnz l73_Switch_lt_4
+  dup
+  int 5
+  <
+  bnz l74_Switch_lt_5
+  pop
+
+    // { l75_Switch_cCM0_709
+    l75_Switch_cCM0_709:
+    load 234 // .fork709.msg/3782 :: Data({"aST0_709": Tuple(Address, Address, UInt256), "addCoopId0_709": Tuple(Bytes(36)), "addWL0_709": Tuple(Address), "buyOS0_709": Tuple(UInt), "cBT0_709": Tuple(), "cCM0_709": Tuple(Address), "claimOSpr0_709": Tuple(), "createOS0_709": Tuple(UInt, UInt), "dBT0_709": Tuple(UInt256), "docHash0_709": Tuple(Bytes(96)), "endOS0_709": Tuple(), "optIn0_709": Tuple(), "remWL0_709": Tuple(Address)})
+    extract 1 32
+    store 231 // data_id/7415 :: Tuple(Address)
+    // CompanionLabel True "api_cCM"
+    api_cCM:
+    // ^ CheckPay
+    // at ./index.rsh:80:35:dot
+    // ^ CheckPay
+    // at ./index.rsh:80:35:dot
+    txn Sender
+    load 255 // Creator/2949 :: Address
+    ==
+    txn Sender
+    load 241 // v3370 :: Address
+    ==
+    ||
+    assert
+    // ^ Claim: you must be creator or manager
+    // at ./index.rsh:389:24:application
+    // at ./index.rsh:388:13:application call to [unknown function] (defined at: ./index.rsh:388:13:function exp)
+    byte base64(AAAAAAAAHqcB)
+    log // up to 9 bytes
+    byte base64(AQ==)
+    store 7 // GV_apiRet :: Null
+    load 255 // Creator/2949 :: Address
+    load 254 // bT/2953 :: Token
+    load 253 // v3276 :: Bytes(5)
+    load 231 // data_id/7415 :: Tuple(Address)
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    extract 32 32
+    concat
+    load 244 // v3361 :: Tuple(Bytes(4), Bytes(36))
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 104
+    int 1600
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1704
+    int 8
+    extract3
+    concat
+    load 248 // v3333 :: UInt256
+    concat
+    load 246 // v3357 :: Tuple(Bytes(96), UInt, UInt)
+    concat
+    load 240 // v3375 :: Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)})
+    concat
+    load 247 // v3335 :: Bool
+    itob
+    substring 7 8
+    concat
+    load 249 // v3332 :: UInt256
+    concat
+    load 250 // v3331 :: UInt256
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1958
+    int 800
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 2758
+    int 8
+    extract3
+    concat
+    global Round
+    load 242 // v3367 :: UInt
+    itob
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
+    b loopBody1
+    // l75_Switch_cCM0_709 }
+
+  l74_Switch_lt_5:
+  pop
+
+    // { l76_Switch_cBT0_709
+    l76_Switch_cBT0_709:
+    // CompanionLabel True "api_cBT"
+    api_cBT:
+    itxn_begin
+    int 0
+    itxn_field Fee
+    int appl
+    itxn_field TypeEnum
+    load 8 // GV_companion :: Contract
+    // resource: R_App
+    itxn_field ApplicationID
+    itxn_submit
+    // cost credit: 3
+    // ^ CheckPay
+    // at ./index.rsh:80:35:dot
+    load 242 // v3367 :: UInt
+    itob
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
+    store 231 // tokInfos'/6817 :: Array(Tuple(UInt, UInt, Bool), 1)
+    // ^ CheckPay
+    // at ./index.rsh:80:35:dot
+    txn Sender
+    callsub l25_LF_cMapLoad
+    extract 200 1
+    dup
+    store 229 // v/7063 :: Data({"None": Null, "Some": Null}) for switch
+    int 0
+    getbyte
+    bnz l78_LocalSwitch_nz
+
+      // { l79_LocalSwitch_None
+      l79_LocalSwitch_None:
+      int 0
+      store 230 // v7064 :: Bool
+      b l77_LocalSwitchK
+      // l79_LocalSwitch_None }
+
+    l78_LocalSwitch_nz:
+
+      // { l80_LocalSwitch_Some
+      l80_LocalSwitch_Some:
+      int 1
+      store 230 // v7064 :: Bool
+      b l77_LocalSwitchK
+      // l80_LocalSwitch_Some }
+
+    l77_LocalSwitchK:
+    load 230 // v7064 :: Bool
+    assert
+    // ^ Claim
+    // at ./index.rsh:364:24:application
+    // at ./index.rsh:363:13:application call to [unknown function] (defined at: ./index.rsh:363:13:function exp)
+    load 231 // tokInfos'/6817 :: Array(Tuple(UInt, UInt, Bool), 1)
+    extract 0 17
+    dup
+    store 229 // tokInfo/7067 :: Tuple(UInt, UInt, Bool)
+    int 0
+    extract_uint64
+    store 228 // v7068 :: UInt
+    int 24
+    bzero
+    load 228 // v7068 :: UInt
+    itob
+    concat
+    global ZeroAddress
+    b>
+    assert
+    // ^ Claim: well, balance(bT) is 0
+    // at ./index.rsh:365:24:application
+    // at ./index.rsh:363:13:application call to [unknown function] (defined at: ./index.rsh:363:13:function exp)
+    load 250 // v3331 :: UInt256
+    global ZeroAddress
+    b>
+    assert
+    // ^ Claim: totST is 0. This means there should be no distributions yet
+    // at ./index.rsh:366:24:application
+    // at ./index.rsh:363:13:application call to [unknown function] (defined at: ./index.rsh:363:13:function exp)
+    global ZeroAddress
+    txn Sender
+    callsub l25_LF_cMapLoad
+    extract 99 33
+    dup
+    store 226 // fromSome object
+    extract 1 32
+    load 226 // fromSome object
+    int 0
+    getbyte
+    select
+    store 227 // v7075 :: UInt256
+    load 250 // v3331 :: UInt256
+    load 227 // v7075 :: UInt256
+    b>=
+    assert
+    // ^ Claim: weirdly, totST is less than totAllST[this]
+    // at ./index.rsh:367:24:application
+    // at ./index.rsh:363:13:application call to [unknown function] (defined at: ./index.rsh:363:13:function exp)
+    load 227 // v7075 :: UInt256
+    global ZeroAddress
+    b>
+    assert
+    // ^ Claim: totAllST[this] is 0. This means you should not rec distr
+    // at ./index.rsh:368:24:application
+    // at ./index.rsh:363:13:application call to [unknown function] (defined at: ./index.rsh:363:13:function exp)
+    load 227 // v7075 :: UInt256
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    extract 32 32
+    b*
+    callsub l69_LF_checkUInt256ResultLen
+    load 250 // v3331 :: UInt256
+    b/
+    callsub l69_LF_checkUInt256ResultLen
+    dup
+    store 226 // .api61.rng/7085 :: UInt256
+    dup
+    dup2
+    int 16
+    extract_uint64
+    int 0
+    ==
+    assert
+    int 8
+    extract_uint64
+    int 0
+    ==
+    assert
+    int 0
+    extract_uint64
+    int 0
+    ==
+    assert
+    int 24
+    extract_uint64
+    dup
+    store 225 // v7086 :: UInt
+    load 228 // v7068 :: UInt
+    <=
+    assert
+    // ^ Claim: weirdly, trying to withdraw more than available balance
+    // at ./index.rsh:370:24:application
+    // at ./index.rsh:363:13:application call to [unknown function] (defined at: ./index.rsh:363:13:function exp)
+
+      // { makeTxn
+      itxn_begin
+      int 0
+      itxn_field Fee
+      load 225 // v7086 :: UInt
+      itxn_field AssetAmount
+      int axfer
+      itxn_field TypeEnum
+      txn Sender
+      itxn_field AssetReceiver
+      // resource: R_Asset
+      load 254 // bT/2953 :: Token
       itxn_field XferAsset
       itxn_submit
       // makeTxn }
 
     txn Sender
-    byte base64(AA==)
     txn Sender
-    callsub l15_LF_cMapLoad
+    callsub l25_LF_cMapLoad
     byte base64(AQ==)
-    int 0
+    global ZeroAddress
     txn Sender
-    callsub l15_LF_cMapLoad
-    extract 36 9
+    callsub l25_LF_cMapLoad
+    extract 132 33
     dup
-    store 239 // fromSome object
-    int 1
-    extract_uint64
-    load 239 // fromSome object
+    store 224 // fromSome object
+    extract 1 32
+    load 224 // fromSome object
     int 0
     getbyte
     select
-    load 240 // has/2468 :: UInt
-    +
-    itob
+    load 226 // .api61.rng/7085 :: UInt256
+    b+
+    callsub l69_LF_checkUInt256ResultLen
     concat
-    store 239 // spliceNew
+    store 224 // spliceNew
     dup
-    extract 0 36
-    load 239 // spliceNew
+    extract 0 132
+    load 224 // spliceNew
     concat
     swap
-    extract 45 10
+    int 165
+    int 837
+    extract3
     concat
-    app_local_put
-    txn Sender
+    dig 1
     byte base64(AA==)
-    txn Sender
-    callsub l15_LF_cMapLoad
+    dig 2
+    extract 0 127
+    app_local_put
+    dig 1
     byte base64(AQ==)
-    load 252 // distrNum/1203 :: UInt
-    itob
-    concat
-    store 239 // spliceNew
+    dig 2
+    extract 127 127
+    app_local_put
+    dig 1
+    byte base64(Ag==)
+    dig 2
+    extract 254 127
+    app_local_put
+    dig 1
+    byte base64(Aw==)
+    dig 2
+    int 381
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BA==)
+    dig 2
+    int 508
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BQ==)
+    dig 2
+    int 635
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bg==)
+    dig 2
+    int 762
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bw==)
+    dig 2
+    int 889
+    int 113
+    extract3
+    app_local_put
+    pop
+    pop
+    txn Sender
+    txn Sender
+    callsub l25_LF_cMapLoad
+    byte base64(AQ==)
+    global ZeroAddress
+    txn Sender
+    callsub l25_LF_cMapLoad
+    extract 165 33
     dup
-    extract 0 45
-    load 239 // spliceNew
+    store 224 // fromSome object
+    extract 1 32
+    load 224 // fromSome object
+    int 0
+    getbyte
+    select
+    byte base64(AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=)
+    b+
+    callsub l69_LF_checkUInt256ResultLen
+    concat
+    store 224 // spliceNew
+    dup
+    extract 0 165
+    load 224 // spliceNew
     concat
     swap
-    extract 54 1
+    int 198
+    int 804
+    extract3
     concat
+    dig 1
+    byte base64(AA==)
+    dig 2
+    extract 0 127
     app_local_put
-    byte base64(AAAAAAAACbQB)
-    log // up to 9 bytes
+    dig 1
     byte base64(AQ==)
+    dig 2
+    extract 127 127
+    app_local_put
+    dig 1
+    byte base64(Ag==)
+    dig 2
+    extract 254 127
+    app_local_put
+    dig 1
+    byte base64(Aw==)
+    dig 2
+    int 381
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BA==)
+    dig 2
+    int 508
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BQ==)
+    dig 2
+    int 635
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bg==)
+    dig 2
+    int 762
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bw==)
+    dig 2
+    int 889
+    int 113
+    extract3
+    app_local_put
+    pop
+    pop
+    byte base64(AAAAAAAAG60=)
+    load 226 // .api61.rng/7085 :: UInt256
+    concat
+    log // up to 40 bytes
+    load 226 // .api61.rng/7085 :: UInt256
     store 7 // GV_apiRet :: Null
-    load 255 // Creator/1185 :: Address
-    load 254 // bT/1189 :: Token
-    load 253 // ctcMan/1202 :: Address
-    load 252 // distrNum/1203 :: UInt
-    load 251 // saleLocked/1204 :: Bool
-    load 250 // totBT/1205 :: UInt
-    load 249 // totST/1206 :: UInt
+    load 255 // Creator/2949 :: Address
+    load 254 // bT/2953 :: Token
+    load 253 // v3276 :: Bytes(5)
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
     global Round
-    load 242 // v2455 :: UInt
-    load 240 // has/2468 :: UInt
+    load 228 // v7068 :: UInt
+    load 225 // v7086 :: UInt
     -
     itob
-    load 243 // tokInfo/2454 :: Tuple(UInt, UInt, Bool)
+    load 229 // tokInfo/7067 :: Tuple(UInt, UInt, Bool)
     extract 8 8
     concat
-    load 243 // tokInfo/2454 :: Tuple(UInt, UInt, Bool)
+    load 229 // tokInfo/7067 :: Tuple(UInt, UInt, Bool)
     extract 16 1
     concat
     b loopBody1
-    // l51_Switch_cBT0_169 }
+    // l76_Switch_cBT0_709 }
 
-  l50_Switch_lt_3:
+  l73_Switch_lt_4:
   pop
 
-    // { l56_Switch_addWL0_169
-    l56_Switch_addWL0_169:
-    load 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
-    extract 1 32
-    store 246 // data_id/2020 :: Tuple(Address)
-    api_addWL:
+    // { l81_Switch_buyOS0_709
+    l81_Switch_buyOS0_709:
+    load 234 // .fork709.msg/3782 :: Data({"aST0_709": Tuple(Address, Address, UInt256), "addCoopId0_709": Tuple(Bytes(36)), "addWL0_709": Tuple(Address), "buyOS0_709": Tuple(UInt), "cBT0_709": Tuple(), "cCM0_709": Tuple(Address), "claimOSpr0_709": Tuple(), "createOS0_709": Tuple(UInt, UInt), "dBT0_709": Tuple(UInt256), "docHash0_709": Tuple(Bytes(96)), "endOS0_709": Tuple(), "optIn0_709": Tuple(), "remWL0_709": Tuple(Address)})
+    extract 1 8
+    store 231 // data_id/5963 :: Tuple(UInt)
+    // CompanionLabel True "api_buyOS"
+    api_buyOS:
+
+      // { l82_forTop
+      int 0
+      store 230 // l82_forTopIdx
+      l82_forTop:
+      // for runs 7 times
+      itxn_begin
+      int 0
+      itxn_field Fee
+      int appl
+      itxn_field TypeEnum
+      load 8 // GV_companion :: Contract
+      // resource: R_App
+      itxn_field ApplicationID
+      itxn_submit
+      // cost credit: 3
+      load 230 // l82_forTopIdx
+      int 1
+      +
+      dup
+      store 230 // l82_forTopIdx
+      int 7
+      <
+      bnz l82_forTop // for runs 7 times
+      l83_forEnd:
+      // l82_forTop }
+
+    load 231 // data_id/5963 :: Tuple(UInt)
+    btoi
+    store 230 // qty/5994 :: UInt
+    load 238 // v3377 :: UInt
+    load 230 // qty/5994 :: UInt
+    *
+    store 229 // v5997 :: UInt
     // ^ CheckPay
-    // at ./index.rsh:102:72:dot
-    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
-    extract 0 17
-    store 245 // tokInfo/2104 :: Tuple(UInt, UInt, Bool)
+    // at ./index.rsh:80:35:dot
+
+      // { checkTxn
+      load 229 // v5997 :: UInt
+      load 254 // bT/2953 :: Token
+      callsub l68_LF_checkTxn_tok
+      // checkTxn }
+
     // ^ CheckPay
-    // at ./index.rsh:102:72:dot
-    txn Sender
-    load 255 // Creator/1185 :: Address
-    ==
-    txn Sender
-    load 253 // ctcMan/1202 :: Address
-    ==
-    ||
+    // at ./index.rsh:80:35:dot
+    load 230 // qty/5994 :: UInt
+    int 0
+    >
     assert
-    // ^ Claim
-    // at ./index.rsh:124:24:application
-    // at ./index.rsh:123:13:application call to [unknown function] (defined at: ./index.rsh:123:13:function exp)
-    // resource: R_Account
-    load 246 // data_id/2020 :: Tuple(Address)
-    byte base64(AA==)
-    load 246 // data_id/2020 :: Tuple(Address)
-    callsub l15_LF_cMapLoad
-    int 1
-    int 54
-    swap
-    setbyte
-    app_local_put
-    byte base64(AAAAAAAACHsB)
-    log // up to 9 bytes
+    // ^ Claim: you must sell at least 1 share token
+    // at ./index.rsh:169:24:application
+    // at ./index.rsh:167:13:application call to [unknown function] (defined at: ./index.rsh:167:13:function exp)
+    load 236 // v3379 :: Bytes(5)
+    sha256
+    byte base64(g4NGe0jACsbbGwAf9XxPwnqspe0HAhLyTDVhn3JaeGo=)
+    ==
+    assert
+    // ^ Claim: no sale is active
+    // at ./index.rsh:170:24:application
+    // at ./index.rsh:167:13:application call to [unknown function] (defined at: ./index.rsh:167:13:function exp)
+    load 239 // v3376 :: UInt
+    load 230 // qty/5994 :: UInt
+    >=
+    assert
+    // ^ Claim: do not try to buy more than available
+    // at ./index.rsh:171:24:application
+    // at ./index.rsh:167:13:application call to [unknown function] (defined at: ./index.rsh:167:13:function exp)
+    txn Sender
+    callsub l25_LF_cMapLoad
+    extract 200 1
+    dup
+    store 227 // v/6248 :: Data({"None": Null, "Some": Null}) for switch
+    int 0
+    getbyte
+    bnz l85_LocalSwitch_nz
+
+      // { l86_LocalSwitch_None
+      l86_LocalSwitch_None:
+      int 0
+      store 228 // v6249 :: Bool
+      b l84_LocalSwitchK
+      // l86_LocalSwitch_None }
+
+    l85_LocalSwitch_nz:
+
+      // { l87_LocalSwitch_Some
+      l87_LocalSwitch_Some:
+      int 1
+      store 228 // v6249 :: Bool
+      b l84_LocalSwitchK
+      // l87_LocalSwitch_Some }
+
+    l84_LocalSwitchK:
+    load 228 // v6249 :: Bool
+    assert
+    // ^ Claim: you must be whitelisted to buy
+    // at ./index.rsh:172:24:application
+    // at ./index.rsh:167:13:application call to [unknown function] (defined at: ./index.rsh:167:13:function exp)
+    int 24
+    bzero
+    load 230 // qty/5994 :: UInt
+    itob
+    concat
+    store 227 // v6254 :: UInt256
+    txn Sender
+    txn Sender
+    callsub l25_LF_cMapLoad
     byte base64(AQ==)
+    global ZeroAddress
+    txn Sender
+    callsub l25_LF_cMapLoad
+    extract 0 33
+    dup
+    store 226 // fromSome object
+    extract 1 32
+    load 226 // fromSome object
+    int 0
+    getbyte
+    select
+    load 227 // v6254 :: UInt256
+    b+
+    callsub l69_LF_checkUInt256ResultLen
+    concat
+    store 226 // spliceNew
+    int 33
+    int 969
+    extract3
+    load 226 // spliceNew
+    swap
+    concat
+    dig 1
+    byte base64(AA==)
+    dig 2
+    extract 0 127
+    app_local_put
+    dig 1
+    byte base64(AQ==)
+    dig 2
+    extract 127 127
+    app_local_put
+    dig 1
+    byte base64(Ag==)
+    dig 2
+    extract 254 127
+    app_local_put
+    dig 1
+    byte base64(Aw==)
+    dig 2
+    int 381
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BA==)
+    dig 2
+    int 508
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BQ==)
+    dig 2
+    int 635
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bg==)
+    dig 2
+    int 762
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bw==)
+    dig 2
+    int 889
+    int 113
+    extract3
+    app_local_put
+    pop
+    pop
+    txn Sender
+    txn Sender
+    callsub l25_LF_cMapLoad
+    byte base64(AQ==)
+    global ZeroAddress
+    txn Sender
+    callsub l25_LF_cMapLoad
+    extract 99 33
+    dup
+    store 226 // fromSome object
+    extract 1 32
+    load 226 // fromSome object
+    int 0
+    getbyte
+    select
+    load 227 // v6254 :: UInt256
+    b+
+    callsub l69_LF_checkUInt256ResultLen
+    concat
+    store 226 // spliceNew
+    dup
+    extract 0 99
+    load 226 // spliceNew
+    concat
+    swap
+    int 132
+    int 870
+    extract3
+    concat
+    dig 1
+    byte base64(AA==)
+    dig 2
+    extract 0 127
+    app_local_put
+    dig 1
+    byte base64(AQ==)
+    dig 2
+    extract 127 127
+    app_local_put
+    dig 1
+    byte base64(Ag==)
+    dig 2
+    extract 254 127
+    app_local_put
+    dig 1
+    byte base64(Aw==)
+    dig 2
+    int 381
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BA==)
+    dig 2
+    int 508
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BQ==)
+    dig 2
+    int 635
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bg==)
+    dig 2
+    int 762
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bw==)
+    dig 2
+    int 889
+    int 113
+    extract3
+    app_local_put
+    pop
+    pop
+    int 800
+    bzero
+    txn Sender
+    callsub l25_LF_cMapLoad
+    int 201
+    int 801
+    extract3
+    dup
+    store 225 // fromSome object
+    int 1
+    int 800
+    extract3
+    load 225 // fromSome object
+    int 0
+    getbyte
+    select
+    store 226 // iStArr/6267 :: Array(UInt, 100)
+    int 9
+    bzero
+    store 225 // m/6269 :: Data({"None": Null, "Some": UInt})
+
+      // { l88_forTop
+      int 0
+      store 224 // l88_forTopIdx
+      l88_forTop:
+      // for runs 100 times
+      load 226 // iStArr/6267 :: Array(UInt, 100)
+      int 8
+      load 224 // l88_forTopIdx
+      *
+      int 8
+      extract3
+      btoi
+      store 223 // el/6271 :: UInt
+      load 225 // m/6269 :: Data({"None": Null, "Some": UInt})
+      int 0
+      getbyte
+      bnz l91_LocalSwitch_nz
+
+        // { l92_LocalSwitch_None
+        l92_LocalSwitch_None:
+        int 1
+        store 222 // v6273 :: Bool
+        b l90_LocalSwitchK
+        // l92_LocalSwitch_None }
+
+      l91_LocalSwitch_nz:
+
+        // { l93_LocalSwitch_Some
+        l93_LocalSwitch_Some:
+        int 0
+        store 222 // v6273 :: Bool
+        b l90_LocalSwitchK
+        // l93_LocalSwitch_Some }
+
+      l90_LocalSwitchK:
+      load 225 // m/6269 :: Data({"None": Null, "Some": UInt})
+      byte base64(AQ==)
+      load 224 // l88_forTopIdx
+      itob
+      concat
+      load 222 // v6273 :: Bool
+      int 0
+      load 223 // el/6271 :: UInt
+      ==
+      &&
+      select
+      store 225 // m/6269 :: Data({"None": Null, "Some": UInt})
+      load 224 // l88_forTopIdx
+      int 1
+      +
+      dup
+      store 224 // l88_forTopIdx
+      int 100
+      <
+      bnz l88_forTop // for runs 100 times
+      l89_forEnd:
+      // l88_forTop }
+
+    txn Sender
+    txn Sender
+    callsub l25_LF_cMapLoad
+    byte base64(AQ==)
+    load 226 // iStArr/6267 :: Array(UInt, 100)
+    int 0
+    int 8
+    int 0
+    load 225 // m/6269 :: Data({"None": Null, "Some": UInt})
+    dup
+    store 224 // fromSome object
+    int 1
+    extract_uint64
+    load 224 // fromSome object
+    int 0
+    getbyte
+    select
+    *
+    substring3
+    load 230 // qty/5994 :: UInt
+    itob
+    concat
+    load 226 // iStArr/6267 :: Array(UInt, 100)
+    int 8
+    dup
+    int 0
+    load 225 // m/6269 :: Data({"None": Null, "Some": UInt})
+    dup
+    store 224 // fromSome object
+    int 1
+    extract_uint64
+    load 224 // fromSome object
+    int 0
+    getbyte
+    select
+    *
+    +
+    int 800
+    substring3
+    concat
+    concat
+    store 224 // spliceNew
+    extract 0 201
+    load 224 // spliceNew
+    concat
+    dig 1
+    byte base64(AA==)
+    dig 2
+    extract 0 127
+    app_local_put
+    dig 1
+    byte base64(AQ==)
+    dig 2
+    extract 127 127
+    app_local_put
+    dig 1
+    byte base64(Ag==)
+    dig 2
+    extract 254 127
+    app_local_put
+    dig 1
+    byte base64(Aw==)
+    dig 2
+    int 381
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BA==)
+    dig 2
+    int 508
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BQ==)
+    dig 2
+    int 635
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bg==)
+    dig 2
+    int 762
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bw==)
+    dig 2
+    int 889
+    int 113
+    extract3
+    app_local_put
+    pop
+    pop
+    load 239 // v3376 :: UInt
+    load 230 // qty/5994 :: UInt
+    -
+    store 224 // e/6286 :: UInt
+    load 237 // v3378 :: UInt
+    load 230 // qty/5994 :: UInt
+    +
+    store 223 // e/6295 :: UInt
+    load 235 // v3380 :: UInt
+    load 230 // qty/5994 :: UInt
+    load 238 // v3377 :: UInt
+    *
+    +
+    store 222 // e/6300 :: UInt
+    byte base64(AAAAAAAAGK8=)
+    load 224 // e/6286 :: UInt
+    itob
+    load 238 // v3377 :: UInt
+    itob
+    concat
+    load 223 // e/6295 :: UInt
+    itob
+    concat
+    load 236 // v3379 :: Bytes(5)
+    concat
+    load 222 // e/6300 :: UInt
+    itob
+    concat
+    concat
+    log // up to 45 bytes
+    load 224 // e/6286 :: UInt
+    itob
+    load 238 // v3377 :: UInt
+    itob
+    concat
+    load 223 // e/6295 :: UInt
+    itob
+    concat
+    load 236 // v3379 :: Bytes(5)
+    concat
+    load 222 // e/6300 :: UInt
+    itob
+    concat
     store 7 // GV_apiRet :: Null
-    load 255 // Creator/1185 :: Address
-    load 254 // bT/1189 :: Token
-    load 253 // ctcMan/1202 :: Address
-    load 252 // distrNum/1203 :: UInt
-    load 251 // saleLocked/1204 :: Bool
-    load 250 // totBT/1205 :: UInt
-    load 249 // totST/1206 :: UInt
+    load 255 // Creator/2949 :: Address
+    load 254 // bT/2953 :: Token
+    load 253 // v3276 :: Bytes(5)
+    load 241 // v3370 :: Address
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    extract 32 32
+    concat
+    load 244 // v3361 :: Tuple(Bytes(4), Bytes(36))
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 104
+    int 1600
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1704
+    int 8
+    extract3
+    concat
+    load 248 // v3333 :: UInt256
+    concat
+    load 246 // v3357 :: Tuple(Bytes(96), UInt, UInt)
+    concat
+    load 222 // e/6300 :: UInt
+    itob
+    load 238 // v3377 :: UInt
+    itob
+    concat
+    load 224 // e/6286 :: UInt
+    itob
+    concat
+    load 223 // e/6295 :: UInt
+    itob
+    concat
+    load 236 // v3379 :: Bytes(5)
+    concat
+    concat
+    load 247 // v3335 :: Bool
+    itob
+    substring 7 8
+    concat
+    load 249 // v3332 :: UInt256
+    concat
+    load 250 // v3331 :: UInt256
+    load 227 // v6254 :: UInt256
+    b+
+    callsub l69_LF_checkUInt256ResultLen
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1958
+    int 800
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 2758
+    int 8
+    extract3
+    concat
     global Round
-    load 245 // tokInfo/2104 :: Tuple(UInt, UInt, Bool)
-    extract 0 8
-    load 245 // tokInfo/2104 :: Tuple(UInt, UInt, Bool)
+    load 242 // v3367 :: UInt
+    load 229 // v5997 :: UInt
+    +
+    itob
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
     extract 8 8
     concat
-    load 245 // tokInfo/2104 :: Tuple(UInt, UInt, Bool)
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
     extract 16 1
     concat
     b loopBody1
-    // l56_Switch_addWL0_169 }
+    // l81_Switch_buyOS0_709 }
 
-  l49_Switch_lt_2:
+  l72_Switch_lt_3:
   dup
   int 1
   <
-  bnz l57_Switch_lt_1
+  bnz l94_Switch_lt_1
+  dup
+  int 2
+  <
+  bnz l95_Switch_lt_2
   pop
 
-    // { l58_Switch_aST0_169
-    l58_Switch_aST0_169:
-    load 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
-    extract 1 72
-    store 246 // data_id/1750 :: Tuple(Address, Address, UInt)
-    api_aST:
+    // { l96_Switch_addWL0_709
+    l96_Switch_addWL0_709:
+    load 234 // .fork709.msg/3782 :: Data({"aST0_709": Tuple(Address, Address, UInt256), "addCoopId0_709": Tuple(Bytes(36)), "addWL0_709": Tuple(Address), "buyOS0_709": Tuple(UInt), "cBT0_709": Tuple(), "cCM0_709": Tuple(Address), "claimOSpr0_709": Tuple(), "createOS0_709": Tuple(UInt, UInt), "dBT0_709": Tuple(UInt256), "docHash0_709": Tuple(Bytes(96)), "endOS0_709": Tuple(), "optIn0_709": Tuple(), "remWL0_709": Tuple(Address)})
+    extract 1 32
+    store 231 // data_id/5237 :: Tuple(Address)
+    // CompanionLabel True "api_addWL"
+    api_addWL:
+    itxn_begin
+    int 0
+    itxn_field Fee
+    int appl
+    itxn_field TypeEnum
+    load 8 // GV_companion :: Contract
+    // resource: R_App
+    itxn_field ApplicationID
+    itxn_submit
+    // cost credit: 3
     // ^ CheckPay
-    // at ./index.rsh:102:72:dot
-    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
-    extract 0 17
-    store 245 // tokInfo/1834 :: Tuple(UInt, UInt, Bool)
+    // at ./index.rsh:80:35:dot
     // ^ CheckPay
-    // at ./index.rsh:102:72:dot
-    load 246 // data_id/1750 :: Tuple(Address, Address, UInt)
-    extract 0 32
-    store 244 // user/1870 :: Address
-    load 246 // data_id/1750 :: Tuple(Address, Address, UInt)
-    extract 32 32
-    store 243 // i/1871 :: Address
-    load 246 // data_id/1750 :: Tuple(Address, Address, UInt)
-    int 64
-    extract_uint64
-    store 242 // amt/1872 :: UInt
-    load 244 // user/1870 :: Address
-    load 255 // Creator/1185 :: Address
+    // at ./index.rsh:80:35:dot
+    load 231 // data_id/5237 :: Tuple(Address)
+    store 230 // i/5463 :: Address
+    txn Sender
+    load 255 // Creator/2949 :: Address
     ==
-    load 244 // user/1870 :: Address
-    load 253 // ctcMan/1202 :: Address
+    txn Sender
+    load 241 // v3370 :: Address
     ==
     ||
     assert
-    // ^ Claim
-    // at ./index.rsh:162:24:application
-    // at ./index.rsh:161:13:application call to [unknown function] (defined at: ./index.rsh:161:13:function exp)
-    load 242 // amt/1872 :: UInt
-    int 0
-    >
-    assert
-    // ^ Claim
-    // at ./index.rsh:163:24:application
-    // at ./index.rsh:161:13:application call to [unknown function] (defined at: ./index.rsh:161:13:function exp)
+    // ^ Claim: you must be creator or manager
+    // at ./index.rsh:243:24:application
+    // at ./index.rsh:242:13:application call to [unknown function] (defined at: ./index.rsh:242:13:function exp)
     // resource: R_Account
-    load 243 // i/1871 :: Address
-    byte base64(AA==)
-    load 243 // i/1871 :: Address
-    callsub l15_LF_cMapLoad
+    load 230 // i/5463 :: Address
+    dup
+    callsub l25_LF_cMapLoad
     int 1
-    int 54
+    int 200
     swap
     setbyte
-    app_local_put
-    load 243 // i/1871 :: Address
+    dig 1
     byte base64(AA==)
-    load 243 // i/1871 :: Address
-    callsub l15_LF_cMapLoad
-    byte base64(AQ==)
-    int 0
-    load 243 // i/1871 :: Address
-    callsub l15_LF_cMapLoad
-    extract 0 9
-    dup
-    store 241 // fromSome object
-    int 1
-    extract_uint64
-    load 241 // fromSome object
-    int 0
-    getbyte
-    select
-    load 242 // amt/1872 :: UInt
-    +
-    itob
-    concat
-    store 241 // spliceNew
-    extract 9 46
-    load 241 // spliceNew
-    swap
-    concat
+    dig 2
+    extract 0 127
     app_local_put
-    load 243 // i/1871 :: Address
-    byte base64(AA==)
-    load 243 // i/1871 :: Address
-    callsub l15_LF_cMapLoad
+    dig 1
     byte base64(AQ==)
-    int 0
-    load 243 // i/1871 :: Address
-    callsub l15_LF_cMapLoad
-    extract 27 9
-    dup
-    store 241 // fromSome object
-    int 1
-    extract_uint64
-    load 241 // fromSome object
-    int 0
-    getbyte
-    select
-    load 242 // amt/1872 :: UInt
-    +
-    itob
-    concat
-    store 241 // spliceNew
-    dup
-    extract 0 27
-    load 241 // spliceNew
-    concat
-    swap
-    extract 36 19
-    concat
+    dig 2
+    extract 127 127
     app_local_put
-    byte base64(AAAAAAAAB1wB)
+    dig 1
+    byte base64(Ag==)
+    dig 2
+    extract 254 127
+    app_local_put
+    dig 1
+    byte base64(Aw==)
+    dig 2
+    int 381
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BA==)
+    dig 2
+    int 508
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BQ==)
+    dig 2
+    int 635
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bg==)
+    dig 2
+    int 762
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bw==)
+    dig 2
+    int 889
+    int 113
+    extract3
+    app_local_put
+    pop
+    pop
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 2758
+    extract_uint64
+    dup
+    store 229 // v5469 :: UInt
+    int 1
+    +
+    int 0
+    load 229 // v5469 :: UInt
+    int 24
+    >=
+    select
+    store 228 // e/5473 :: UInt
+    byte base64(AAAAAAAAFXkB)
     log // up to 9 bytes
     byte base64(AQ==)
     store 7 // GV_apiRet :: Null
-    load 255 // Creator/1185 :: Address
-    load 254 // bT/1189 :: Token
-    load 253 // ctcMan/1202 :: Address
-    load 252 // distrNum/1203 :: UInt
-    load 251 // saleLocked/1204 :: Bool
-    load 250 // totBT/1205 :: UInt
-    load 249 // totST/1206 :: UInt
-    load 242 // amt/1872 :: UInt
+    load 255 // Creator/2949 :: Address
+    load 254 // bT/2953 :: Token
+    load 253 // v3276 :: Bytes(5)
+    load 241 // v3370 :: Address
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    extract 32 32
+    concat
+    load 244 // v3361 :: Tuple(Bytes(4), Bytes(36))
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 104
+    int 1600
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1704
+    int 8
+    extract3
+    concat
+    load 248 // v3333 :: UInt256
+    concat
+    load 246 // v3357 :: Tuple(Bytes(96), UInt, UInt)
+    concat
+    load 240 // v3375 :: Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)})
+    concat
+    load 247 // v3335 :: Bool
+    itob
+    substring 7 8
+    concat
+    load 249 // v3332 :: UInt256
+    concat
+    load 250 // v3331 :: UInt256
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1958
+    int 800
+    extract3
+    dup
+    int 0
+    int 32
+    load 228 // e/5473 :: UInt
+    *
+    substring3
+    load 230 // i/5463 :: Address
+    concat
+    swap
+    int 32
+    dup
+    load 228 // e/5473 :: UInt
+    *
     +
+    int 800
+    substring3
+    concat
+    concat
+    load 228 // e/5473 :: UInt
+    itob
+    concat
     global Round
-    load 245 // tokInfo/1834 :: Tuple(UInt, UInt, Bool)
-    extract 0 8
-    load 245 // tokInfo/1834 :: Tuple(UInt, UInt, Bool)
+    load 242 // v3367 :: UInt
+    itob
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
     extract 8 8
     concat
-    load 245 // tokInfo/1834 :: Tuple(UInt, UInt, Bool)
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
     extract 16 1
     concat
     b loopBody1
-    // l58_Switch_aST0_169 }
+    // l96_Switch_addWL0_709 }
 
-  l57_Switch_lt_1:
+  l95_Switch_lt_2:
   pop
 
-    // { l59_Switch_aBT0_169
-    l59_Switch_aBT0_169:
-    load 247 // .fork169.msg/1477 :: Data({"aBT0_169": Tuple(Address), "aST0_169": Tuple(Address, Address, UInt), "addWL0_169": Tuple(Address), "cBT0_169": Tuple(), "cCM0_169": Tuple(Address), "cST0_169": Tuple(), "dBT0_169": Tuple(UInt), "optIn0_169": Tuple(), "remWL0_169": Tuple(Address)})
-    extract 1 32
-    store 246 // data_id/1480 :: Tuple(Address)
-    api_aBT:
+    // { l97_Switch_addCoopId0_709
+    l97_Switch_addCoopId0_709:
+    load 234 // .fork709.msg/3782 :: Data({"aST0_709": Tuple(Address, Address, UInt256), "addCoopId0_709": Tuple(Bytes(36)), "addWL0_709": Tuple(Address), "buyOS0_709": Tuple(UInt), "cBT0_709": Tuple(), "cCM0_709": Tuple(Address), "claimOSpr0_709": Tuple(), "createOS0_709": Tuple(UInt, UInt), "dBT0_709": Tuple(UInt256), "docHash0_709": Tuple(Bytes(96)), "endOS0_709": Tuple(), "optIn0_709": Tuple(), "remWL0_709": Tuple(Address)})
+    extract 1 36
+    store 231 // data_id/4511 :: Tuple(Bytes(36))
+    // CompanionLabel True "api_addCoopId"
+    api_addCoopId:
     // ^ CheckPay
-    // at ./index.rsh:102:72:dot
-    load 248 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
-    extract 0 17
-    dup
-    store 245 // tokInfo/1564 :: Tuple(UInt, UInt, Bool)
-    extract 0 8
-    load 245 // tokInfo/1564 :: Tuple(UInt, UInt, Bool)
+    // at ./index.rsh:80:35:dot
+    // ^ CheckPay
+    // at ./index.rsh:80:35:dot
+    byte base64(AAAAAAAAEnQB)
+    log // up to 9 bytes
+    byte base64(AQ==)
+    store 7 // GV_apiRet :: Null
+    load 255 // Creator/2949 :: Address
+    load 254 // bT/2953 :: Token
+    load 253 // v3276 :: Bytes(5)
+    load 241 // v3370 :: Address
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    extract 32 32
+    concat
+    load 3 // GV_svs :: Null
+    int 3085
+    int 4
+    extract3
+    load 231 // data_id/4511 :: Tuple(Bytes(36))
+    concat
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 104
+    int 1600
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1704
+    int 8
+    extract3
+    concat
+    load 248 // v3333 :: UInt256
+    concat
+    load 246 // v3357 :: Tuple(Bytes(96), UInt, UInt)
+    concat
+    load 240 // v3375 :: Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)})
+    concat
+    load 247 // v3335 :: Bool
+    itob
+    substring 7 8
+    concat
+    load 249 // v3332 :: UInt256
+    concat
+    load 250 // v3331 :: UInt256
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1958
+    int 800
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 2758
+    int 8
+    extract3
+    concat
+    global Round
+    load 242 // v3367 :: UInt
+    itob
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
     extract 8 8
     concat
-    load 245 // tokInfo/1564 :: Tuple(UInt, UInt, Bool)
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
     extract 16 1
     concat
-    store 244 // tokInfos'/1572 :: Array(Tuple(UInt, UInt, Bool), 1)
+    b loopBody1
+    // l97_Switch_addCoopId0_709 }
+
+  l94_Switch_lt_1:
+  pop
+
+    // { l98_Switch_aST0_709
+    l98_Switch_aST0_709:
+    load 234 // .fork709.msg/3782 :: Data({"aST0_709": Tuple(Address, Address, UInt256), "addCoopId0_709": Tuple(Bytes(36)), "addWL0_709": Tuple(Address), "buyOS0_709": Tuple(UInt), "cBT0_709": Tuple(), "cCM0_709": Tuple(Address), "claimOSpr0_709": Tuple(), "createOS0_709": Tuple(UInt, UInt), "dBT0_709": Tuple(UInt256), "docHash0_709": Tuple(Bytes(96)), "endOS0_709": Tuple(), "optIn0_709": Tuple(), "remWL0_709": Tuple(Address)})
+    extract 1 96
+    store 231 // data_id/3785 :: Tuple(Address, Address, UInt256)
+    // CompanionLabel True "api_aST"
+    api_aST:
+
+      // { l99_forTop
+      int 0
+      store 230 // l99_forTopIdx
+      l99_forTop:
+      // for runs 7 times
+      itxn_begin
+      int 0
+      itxn_field Fee
+      int appl
+      itxn_field TypeEnum
+      load 8 // GV_companion :: Contract
+      // resource: R_App
+      itxn_field ApplicationID
+      itxn_submit
+      // cost credit: 3
+      load 230 // l99_forTopIdx
+      int 1
+      +
+      dup
+      store 230 // l99_forTopIdx
+      int 7
+      <
+      bnz l99_forTop // for runs 7 times
+      l100_forEnd:
+      // l99_forTop }
+
     // ^ CheckPay
-    // at ./index.rsh:102:72:dot
-    load 246 // data_id/1480 :: Tuple(Address)
-    store 243 // i/1574 :: Address
-    txn Sender
-    load 255 // Creator/1185 :: Address
+    // at ./index.rsh:80:35:dot
+    // ^ CheckPay
+    // at ./index.rsh:80:35:dot
+    load 231 // data_id/3785 :: Tuple(Address, Address, UInt256)
+    extract 0 32
+    store 230 // user/3915 :: Address
+    load 231 // data_id/3785 :: Tuple(Address, Address, UInt256)
+    extract 32 32
+    store 229 // i/3916 :: Address
+    load 231 // data_id/3785 :: Tuple(Address, Address, UInt256)
+    extract 64 32
+    store 228 // amt/3917 :: UInt256
+    load 230 // user/3915 :: Address
+    load 255 // Creator/2949 :: Address
     ==
-    txn Sender
-    load 253 // ctcMan/1202 :: Address
+    load 230 // user/3915 :: Address
+    load 241 // v3370 :: Address
     ==
     ||
     assert
-    // ^ Claim
-    // at ./index.rsh:270:24:application
-    // at ./index.rsh:269:13:application call to [unknown function] (defined at: ./index.rsh:269:13:function exp)
-    int 0
-    // resource: R_Account
-    load 243 // i/1574 :: Address
-    callsub l15_LF_cMapLoad
-    extract 27 9
-    dup
-    store 242 // fromSome object
-    int 1
-    extract_uint64
-    load 242 // fromSome object
-    int 0
-    getbyte
-    select
-    int 0
-    >
+    // ^ Claim: you must be creator or manager
+    // at ./index.rsh:285:24:application
+    // at ./index.rsh:284:13:application call to [unknown function] (defined at: ./index.rsh:284:13:function exp)
+    load 228 // amt/3917 :: UInt256
+    global ZeroAddress
+    b>
     assert
     // ^ Claim
-    // at ./index.rsh:272:24:application
-    // at ./index.rsh:269:13:application call to [unknown function] (defined at: ./index.rsh:269:13:function exp)
-    int 0
-    txn Sender
-    callsub l15_LF_cMapLoad
-    extract 27 9
+    // at ./index.rsh:286:24:application
+    // at ./index.rsh:284:13:application call to [unknown function] (defined at: ./index.rsh:284:13:function exp)
+    // resource: R_Account
+    load 229 // i/3916 :: Address
     dup
-    store 241 // fromSome object
+    callsub l25_LF_cMapLoad
     int 1
-    extract_uint64
-    load 241 // fromSome object
-    int 0
-    getbyte
-    select
-    load 244 // tokInfos'/1572 :: Array(Tuple(UInt, UInt, Bool), 1)
-    extract 0 17
-    int 0
-    extract_uint64
-    *
-    load 249 // totST/1206 :: UInt
-    /
-    store 242 // amt/1586 :: UInt
-    load 243 // i/1574 :: Address
+    int 200
+    swap
+    setbyte
+    dig 1
     byte base64(AA==)
-    load 243 // i/1574 :: Address
-    callsub l15_LF_cMapLoad
+    dig 2
+    extract 0 127
+    app_local_put
+    dig 1
     byte base64(AQ==)
-    int 0
-    load 243 // i/1574 :: Address
-    callsub l15_LF_cMapLoad
-    extract 9 9
+    dig 2
+    extract 127 127
+    app_local_put
+    dig 1
+    byte base64(Ag==)
+    dig 2
+    extract 254 127
+    app_local_put
+    dig 1
+    byte base64(Aw==)
+    dig 2
+    int 381
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BA==)
+    dig 2
+    int 508
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BQ==)
+    dig 2
+    int 635
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bg==)
+    dig 2
+    int 762
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bw==)
+    dig 2
+    int 889
+    int 113
+    extract3
+    app_local_put
+    pop
+    pop
+    load 229 // i/3916 :: Address
     dup
-    store 241 // fromSome object
-    int 1
-    extract_uint64
-    load 241 // fromSome object
+    callsub l25_LF_cMapLoad
+    byte base64(AQ==)
+    global ZeroAddress
+    load 229 // i/3916 :: Address
+    callsub l25_LF_cMapLoad
+    extract 0 33
+    dup
+    store 227 // fromSome object
+    extract 1 32
+    load 227 // fromSome object
     int 0
     getbyte
     select
-    load 242 // amt/1586 :: UInt
-    +
-    itob
+    load 228 // amt/3917 :: UInt256
+    b+
+    callsub l69_LF_checkUInt256ResultLen
     concat
-    store 241 // spliceNew
+    store 227 // spliceNew
+    int 33
+    int 969
+    extract3
+    load 227 // spliceNew
+    swap
+    concat
+    dig 1
+    byte base64(AA==)
+    dig 2
+    extract 0 127
+    app_local_put
+    dig 1
+    byte base64(AQ==)
+    dig 2
+    extract 127 127
+    app_local_put
+    dig 1
+    byte base64(Ag==)
+    dig 2
+    extract 254 127
+    app_local_put
+    dig 1
+    byte base64(Aw==)
+    dig 2
+    int 381
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BA==)
+    dig 2
+    int 508
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BQ==)
+    dig 2
+    int 635
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bg==)
+    dig 2
+    int 762
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bw==)
+    dig 2
+    int 889
+    int 113
+    extract3
+    app_local_put
+    pop
+    pop
+    load 229 // i/3916 :: Address
     dup
-    extract 0 9
-    load 241 // spliceNew
+    callsub l25_LF_cMapLoad
+    byte base64(AQ==)
+    global ZeroAddress
+    load 229 // i/3916 :: Address
+    callsub l25_LF_cMapLoad
+    extract 99 33
+    dup
+    store 227 // fromSome object
+    extract 1 32
+    load 227 // fromSome object
+    int 0
+    getbyte
+    select
+    load 228 // amt/3917 :: UInt256
+    b+
+    callsub l69_LF_checkUInt256ResultLen
+    concat
+    store 227 // spliceNew
+    dup
+    extract 0 99
+    load 227 // spliceNew
     concat
     swap
-    extract 18 37
+    int 132
+    int 870
+    extract3
     concat
+    dig 1
+    byte base64(AA==)
+    dig 2
+    extract 0 127
     app_local_put
-    byte base64(AAAAAAAABjYB)
+    dig 1
+    byte base64(AQ==)
+    dig 2
+    extract 127 127
+    app_local_put
+    dig 1
+    byte base64(Ag==)
+    dig 2
+    extract 254 127
+    app_local_put
+    dig 1
+    byte base64(Aw==)
+    dig 2
+    int 381
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BA==)
+    dig 2
+    int 508
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BQ==)
+    dig 2
+    int 635
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bg==)
+    dig 2
+    int 762
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bw==)
+    dig 2
+    int 889
+    int 113
+    extract3
+    app_local_put
+    pop
+    pop
+    int 800
+    bzero
+    load 229 // i/3916 :: Address
+    callsub l25_LF_cMapLoad
+    int 201
+    int 801
+    extract3
+    dup
+    store 226 // fromSome object
+    int 1
+    int 800
+    extract3
+    load 226 // fromSome object
+    int 0
+    getbyte
+    select
+    store 227 // iStArr/3936 :: Array(UInt, 100)
+    int 9
+    bzero
+    store 226 // m/3938 :: Data({"None": Null, "Some": UInt})
+
+      // { l101_forTop
+      int 0
+      store 225 // l101_forTopIdx
+      l101_forTop:
+      // for runs 100 times
+      load 227 // iStArr/3936 :: Array(UInt, 100)
+      int 8
+      load 225 // l101_forTopIdx
+      *
+      int 8
+      extract3
+      btoi
+      store 224 // el/3940 :: UInt
+      load 226 // m/3938 :: Data({"None": Null, "Some": UInt})
+      int 0
+      getbyte
+      bnz l104_LocalSwitch_nz
+
+        // { l105_LocalSwitch_None
+        l105_LocalSwitch_None:
+        int 1
+        store 223 // v3942 :: Bool
+        b l103_LocalSwitchK
+        // l105_LocalSwitch_None }
+
+      l104_LocalSwitch_nz:
+
+        // { l106_LocalSwitch_Some
+        l106_LocalSwitch_Some:
+        int 0
+        store 223 // v3942 :: Bool
+        b l103_LocalSwitchK
+        // l106_LocalSwitch_Some }
+
+      l103_LocalSwitchK:
+      load 226 // m/3938 :: Data({"None": Null, "Some": UInt})
+      byte base64(AQ==)
+      load 225 // l101_forTopIdx
+      itob
+      concat
+      load 223 // v3942 :: Bool
+      int 0
+      load 224 // el/3940 :: UInt
+      ==
+      &&
+      select
+      store 226 // m/3938 :: Data({"None": Null, "Some": UInt})
+      load 225 // l101_forTopIdx
+      int 1
+      +
+      dup
+      store 225 // l101_forTopIdx
+      int 100
+      <
+      bnz l101_forTop // for runs 100 times
+      l102_forEnd:
+      // l101_forTop }
+
+    load 229 // i/3916 :: Address
+    dup
+    callsub l25_LF_cMapLoad
+    byte base64(AQ==)
+    load 227 // iStArr/3936 :: Array(UInt, 100)
+    int 0
+    int 8
+    int 0
+    load 226 // m/3938 :: Data({"None": Null, "Some": UInt})
+    dup
+    store 225 // fromSome object
+    int 1
+    extract_uint64
+    load 225 // fromSome object
+    int 0
+    getbyte
+    select
+    *
+    substring3
+    load 228 // amt/3917 :: UInt256
+    dup
+    dup2
+    int 16
+    extract_uint64
+    int 0
+    ==
+    assert
+    int 8
+    extract_uint64
+    int 0
+    ==
+    assert
+    int 0
+    extract_uint64
+    int 0
+    ==
+    assert
+    int 24
+    extract_uint64
+    itob
+    concat
+    load 227 // iStArr/3936 :: Array(UInt, 100)
+    int 8
+    dup
+    int 0
+    load 226 // m/3938 :: Data({"None": Null, "Some": UInt})
+    dup
+    store 225 // fromSome object
+    int 1
+    extract_uint64
+    load 225 // fromSome object
+    int 0
+    getbyte
+    select
+    *
+    +
+    int 800
+    substring3
+    concat
+    concat
+    store 225 // spliceNew
+    extract 0 201
+    load 225 // spliceNew
+    concat
+    dig 1
+    byte base64(AA==)
+    dig 2
+    extract 0 127
+    app_local_put
+    dig 1
+    byte base64(AQ==)
+    dig 2
+    extract 127 127
+    app_local_put
+    dig 1
+    byte base64(Ag==)
+    dig 2
+    extract 254 127
+    app_local_put
+    dig 1
+    byte base64(Aw==)
+    dig 2
+    int 381
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BA==)
+    dig 2
+    int 508
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(BQ==)
+    dig 2
+    int 635
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bg==)
+    dig 2
+    int 762
+    int 127
+    extract3
+    app_local_put
+    dig 1
+    byte base64(Bw==)
+    dig 2
+    int 889
+    int 113
+    extract3
+    app_local_put
+    pop
+    pop
+    byte base64(AAAAAAAAD3EB)
     log // up to 9 bytes
     byte base64(AQ==)
     store 7 // GV_apiRet :: Null
-    load 255 // Creator/1185 :: Address
-    load 254 // bT/1189 :: Token
-    load 253 // ctcMan/1202 :: Address
-    load 252 // distrNum/1203 :: UInt
-    load 251 // saleLocked/1204 :: Bool
-    load 250 // totBT/1205 :: UInt
-    load 249 // totST/1206 :: UInt
-    load 242 // amt/1586 :: UInt
-    +
+    load 255 // Creator/2949 :: Address
+    load 254 // bT/2953 :: Token
+    load 253 // v3276 :: Bytes(5)
+    load 241 // v3370 :: Address
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    extract 32 32
+    concat
+    load 244 // v3361 :: Tuple(Bytes(4), Bytes(36))
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 104
+    int 1600
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1704
+    int 8
+    extract3
+    concat
+    load 248 // v3333 :: UInt256
+    concat
+    load 246 // v3357 :: Tuple(Bytes(96), UInt, UInt)
+    concat
+    load 240 // v3375 :: Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)})
+    concat
+    load 247 // v3335 :: Bool
+    itob
+    substring 7 8
+    concat
+    load 249 // v3332 :: UInt256
+    concat
+    load 250 // v3331 :: UInt256
+    load 228 // amt/3917 :: UInt256
+    b+
+    callsub l69_LF_checkUInt256ResultLen
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 1958
+    int 800
+    extract3
+    concat
+    load 252 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+    int 2758
+    int 8
+    extract3
+    concat
     global Round
-    load 244 // tokInfos'/1572 :: Array(Tuple(UInt, UInt, Bool), 1)
+    load 242 // v3367 :: UInt
+    itob
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
+    extract 8 8
+    concat
+    load 243 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
+    extract 16 1
+    concat
     b loopBody1
-    // l59_Switch_aBT0_169 }
+    // l98_Switch_aST0_709 }
 
   // publish2 }
 
-l32_publish_lt_2:
+l54_publish_lt_2:
 int 0
 ==
 assert
 
   // { publish0
   publish0:
+  // CompanionCreate
+
+    // { checkTxn
+    int 200000
+    callsub l107_LF_checkTxn_net
+    // checkTxn }
+
+  // ^ CheckPay
+  // at ./index.rsh:60:13:dot
+  itxn_begin
+  int 0
+  itxn_field Fee
+  int appl
+  itxn_field TypeEnum
+  int 0
+  // resource: R_App
+  itxn_field ApplicationID
+  byte base64(BjEAMgkS)
+  itxn_field ApprovalProgram
+  byte base64(Bg==)
+  itxn_field ClearStateProgram
+  itxn_submit
+  // cost credit: 3
+  itxn CreatedApplicationID
+  store 8 // GV_companion :: Contract
+  // CompanionLabel False "publish0"
   // check step
   int 0
   load 1 // GV_currentStep :: UInt
@@ -1553,54 +4553,44 @@ assert
   dup2
   dup
   extract 0 128
-  store 255 // companyName/1186 :: Bytes(128)
+  store 255 // companyName/2950 :: Bytes(128)
   extract 128 1
   btoi
-  store 254 // lockSale/1187 :: Bool
+  store 254 // lockSale/2951 :: Bool
   extract 129 32
-  store 253 // managerAddr/1188 :: Address
+  store 253 // managerAddr/2952 :: Address
   int 161
   extract_uint64
-  store 252 // bT/1189 :: Token
-  int 169
-  extract_uint64
-  store 251 // authorizedST/1190 :: UInt
-  byte base64(ZxWleA==)
-  load 255 // companyName/1186 :: Bytes(128)
+  store 252 // bT/2953 :: Token
+  extract 169 32
+  store 251 // authorizedST/2954 :: UInt256
+  byte base64(mjD5HQ==)
+  load 255 // companyName/2950 :: Bytes(128)
   concat
-  load 254 // lockSale/1187 :: Bool
+  load 254 // lockSale/2951 :: Bool
   itob
   substring 7 8
   concat
-  load 253 // managerAddr/1188 :: Address
+  load 253 // managerAddr/2952 :: Address
   concat
-  load 252 // bT/1189 :: Token
+  load 252 // bT/2953 :: Token
   itob
   concat
-  load 251 // authorizedST/1190 :: UInt
-  itob
+  load 251 // authorizedST/2954 :: UInt256
   concat
-  log // up to 181 bytes
-
-    // { checkTxn
-    int 100000
-    callsub l60_LF_checkTxn_net
-    // checkTxn }
-
-  // ^ CheckPay
-  // at ./index.rsh:82:13:dot
+  log // up to 205 bytes
   int 17
   bzero
   dup
-  store 250 // tokInfos/1168 :: Array(Tuple(UInt, UInt, Bool), 1)
+  store 250 // tokInfos/2931 :: Array(Tuple(UInt, UInt, Bool), 1)
   extract 0 17
-  store 249 // tokInfo/1193 :: Tuple(UInt, UInt, Bool)
+  store 249 // tokInfo/2957 :: Tuple(UInt, UInt, Bool)
 
     // { TokenInit
 
       // { checkTxn
       int 100000
-      callsub l60_LF_checkTxn_net
+      callsub l107_LF_checkTxn_net
       // checkTxn }
 
 
@@ -1615,7 +4605,7 @@ assert
       global CurrentApplicationAddress
       itxn_field AssetReceiver
       // resource: R_Asset
-      load 252 // bT/1189 :: Token
+      load 252 // bT/2953 :: Token
       itxn_field XferAsset
       itxn_submit
       // makeTxn }
@@ -1623,21 +4613,299 @@ assert
     // TokenInit }
 
   // ^ CheckPay
-  // at ./index.rsh:82:13:dot
+  // at ./index.rsh:60:13:dot
+  int 16
+  bzero
+  store 248 // v2969 :: Tuple(UInt, UInt)
+  byte base64(ZW5kZWQ=)
+  store 247 // v3276 :: Bytes(5)
   txn Sender
-  load 252 // bT/1189 :: Token
-  load 253 // managerAddr/1188 :: Address
-  int 0
-  load 254 // lockSale/1187 :: Bool
-  int 0
-  int 0
+  load 252 // bT/2953 :: Token
+  load 247 // v3276 :: Bytes(5)
+  load 253 // managerAddr/2952 :: Address
+  global ZeroAddress
+  concat
+  byte base64(MS4wNGNvb3BlcmF0aXZJZGNvb3BlcmF0aXZJZGNvb3BlcmF0aXZJZA==)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  dup
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  load 248 // v2969 :: Tuple(UInt, UInt)
+  concat
+  concat
+  int 8
+  bzero
+  concat
+  global ZeroAddress
+  concat
+  byte base64(YWpkbmFlaW5hd2luZGlhZW5ndG5pZnJqd3JpdG5pcXdybmlyZWZpbmRpbmlnYWpkbmFlaW5hd2lkaWFlbmd0bmlpdG5pcXdybmlyZWZpbmRpbmlnZnVhZWJmdWJhd3VyAAAAAAAAAAAAAAAAAAAAAA==)
+  concat
+  global ZeroAddress
+  load 247 // v3276 :: Bytes(5)
+  concat
+  concat
+  load 254 // lockSale/2951 :: Bool
+  itob
+  substring 7 8
+  concat
+  global ZeroAddress
+  concat
+  global ZeroAddress
+  concat
+  txn Sender
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  txn Sender
+  concat
+  concat
+  int 8
+  bzero
+  concat
   global Round
   int 8
   bzero
-  load 249 // tokInfo/1193 :: Tuple(UInt, UInt, Bool)
+  load 249 // tokInfo/2957 :: Tuple(UInt, UInt, Bool)
   extract 8 8
   concat
-  load 249 // tokInfo/1193 :: Tuple(UInt, UInt, Bool)
+  load 249 // tokInfo/2957 :: Tuple(UInt, UInt, Bool)
   extract 16 1
   concat
   b loopBody1
@@ -1646,39 +4914,296 @@ assert
 
   // { loopBody1
   loopBody1:
-  store 255 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
-  store 254 // thisConsensusTime/1207 :: UInt
-  store 253 // totST/1206 :: UInt
-  store 252 // totBT/1205 :: UInt
-  store 251 // saleLocked/1204 :: Bool
-  store 250 // distrNum/1203 :: UInt
-  store 249 // ctcMan/1202 :: Address
-  store 248 // bT/1189 :: Token
+  store 255 // tokenInfos/3283 :: Array(Tuple(UInt, UInt, Bool), 1)
+  store 254 // thisConsensusTime/3281 :: UInt
+  store 253 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+  store 252 // v3276 :: Bytes(5)
+  store 251 // bT/2953 :: Token
+  store 250 // Creator/2949 :: Address
+  load 253 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+  int 1926
+  int 32
+  extract3
+  store 249 // v3331 :: UInt256
+  load 253 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+  int 1894
+  int 32
+  extract3
+  store 248 // v3332 :: UInt256
+  load 253 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+  int 1712
+  int 32
+  extract3
+  store 247 // v3333 :: UInt256
+  load 253 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+  int 1893
+  int 1
+  extract3
+  btoi
+  store 246 // v3335 :: Bool
+  load 253 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+  int 1744
+  int 112
+  extract3
   dup
-  store 247 // Creator/1185 :: Address
-  load 248 // bT/1189 :: Token
+  store 245 // v3357 :: Tuple(Bytes(96), UInt, UInt)
+  int 96
+  extract_uint64
+  store 244 // v3359 :: UInt
+  load 253 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+  extract 64 40
+  dup
+  store 243 // v3361 :: Tuple(Bytes(4), Bytes(36))
+  extract 0 4
+  store 242 // v3362 :: Bytes(4)
+  load 243 // v3361 :: Tuple(Bytes(4), Bytes(36))
+  extract 4 36
+  store 241 // v3364 :: Bytes(36)
+  load 255 // tokenInfos/3283 :: Array(Tuple(UInt, UInt, Bool), 1)
+  extract 0 17
+  dup
+  store 240 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
+  int 0
+  extract_uint64
+  store 239 // v3367 :: UInt
+  int 24
+  bzero
+  load 239 // v3367 :: UInt
   itob
   concat
-  load 249 // ctcMan/1202 :: Address
-  concat
-  load 250 // distrNum/1203 :: UInt
+  store 238 // v3368 :: UInt256
+  load 253 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+  extract 0 32
+  store 237 // v3370 :: Address
+  load 253 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+  int 1856
+  int 37
+  extract3
+  dup
+  store 236 // v3375 :: Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)})
+  int 16
+  extract_uint64
+  store 235 // v3376 :: UInt
+  load 236 // v3375 :: Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)})
+  int 8
+  extract_uint64
+  store 234 // v3377 :: UInt
+  load 236 // v3375 :: Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)})
+  int 24
+  extract_uint64
+  store 233 // v3378 :: UInt
+  load 236 // v3375 :: Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)})
+  extract 32 5
+  store 232 // v3379 :: Bytes(5)
+  load 236 // v3375 :: Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)})
+  int 0
+  extract_uint64
+  store 231 // v3380 :: UInt
+  load 250 // Creator/2949 :: Address
+  load 251 // bT/2953 :: Token
   itob
   concat
-  load 251 // saleLocked/1204 :: Bool
+  load 252 // v3276 :: Bytes(5)
+  concat
+  load 253 // state/3280 :: Object({"ctcMan": Address, "currDistr": UInt256, "cv": Tuple(Bytes(4), Bytes(36)), "distrHis": Array(Tuple(UInt, UInt), 100), "distrIndex": UInt, "distrNum": UInt256, "docHash": Tuple(Bytes(96), UInt, UInt), "saleDetails": Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)}), "saleLocked": Bool, "totBT": UInt256, "totST": UInt256, "wlArr": Array(Address, 25), "wlIndex": UInt})
+  concat
+  load 255 // tokenInfos/3283 :: Array(Tuple(UInt, UInt, Bool), 1)
+  concat
+  load 249 // v3331 :: UInt256
+  concat
+  load 248 // v3332 :: UInt256
+  concat
+  load 247 // v3333 :: UInt256
+  concat
+  load 246 // v3335 :: Bool
   itob
   substring 7 8
   concat
-  load 252 // totBT/1205 :: UInt
+  load 245 // v3357 :: Tuple(Bytes(96), UInt, UInt)
+  concat
+  load 244 // v3359 :: UInt
   itob
   concat
-  load 253 // totST/1206 :: UInt
+  load 243 // v3361 :: Tuple(Bytes(4), Bytes(36))
+  concat
+  load 242 // v3362 :: Bytes(4)
+  concat
+  load 241 // v3364 :: Bytes(36)
+  concat
+  load 240 // tokInfo/3366 :: Tuple(UInt, UInt, Bool)
+  concat
+  load 239 // v3367 :: UInt
   itob
   concat
-  load 255 // tokenInfos/1209 :: Array(Tuple(UInt, UInt, Bool), 1)
+  load 238 // v3368 :: UInt256
+  concat
+  load 237 // v3370 :: Address
+  concat
+  load 236 // v3375 :: Object({"cumProceeds": UInt, "price": UInt, "qty": UInt, "sold": UInt, "status": Bytes(5)})
+  concat
+  load 235 // v3376 :: UInt
+  itob
+  concat
+  load 234 // v3377 :: UInt
+  itob
+  concat
+  load 233 // v3378 :: UInt
+  itob
+  concat
+  load 232 // v3379 :: Bytes(5)
+  concat
+  load 231 // v3380 :: UInt
+  itob
   concat
   byte base64(AA==)
   dig 1
-  extract 0 114
+  extract 0 127
+  app_global_put
+  byte base64(AQ==)
+  dig 1
+  extract 127 127
+  app_global_put
+  byte base64(Ag==)
+  dig 1
+  extract 254 127
+  app_global_put
+  byte base64(Aw==)
+  dig 1
+  int 381
+  int 127
+  extract3
+  app_global_put
+  byte base64(BA==)
+  dig 1
+  int 508
+  int 127
+  extract3
+  app_global_put
+  byte base64(BQ==)
+  dig 1
+  int 635
+  int 127
+  extract3
+  app_global_put
+  byte base64(Bg==)
+  dig 1
+  int 762
+  int 127
+  extract3
+  app_global_put
+  byte base64(Bw==)
+  dig 1
+  int 889
+  int 127
+  extract3
+  app_global_put
+  byte base64(CA==)
+  dig 1
+  int 1016
+  int 127
+  extract3
+  app_global_put
+  byte base64(CQ==)
+  dig 1
+  int 1143
+  int 127
+  extract3
+  app_global_put
+  byte base64(Cg==)
+  dig 1
+  int 1270
+  int 127
+  extract3
+  app_global_put
+  byte base64(Cw==)
+  dig 1
+  int 1397
+  int 127
+  extract3
+  app_global_put
+  byte base64(DA==)
+  dig 1
+  int 1524
+  int 127
+  extract3
+  app_global_put
+  byte base64(DQ==)
+  dig 1
+  int 1651
+  int 127
+  extract3
+  app_global_put
+  byte base64(Dg==)
+  dig 1
+  int 1778
+  int 127
+  extract3
+  app_global_put
+  byte base64(Dw==)
+  dig 1
+  int 1905
+  int 127
+  extract3
+  app_global_put
+  byte base64(EA==)
+  dig 1
+  int 2032
+  int 127
+  extract3
+  app_global_put
+  byte base64(EQ==)
+  dig 1
+  int 2159
+  int 127
+  extract3
+  app_global_put
+  byte base64(Eg==)
+  dig 1
+  int 2286
+  int 127
+  extract3
+  app_global_put
+  byte base64(Ew==)
+  dig 1
+  int 2413
+  int 127
+  extract3
+  app_global_put
+  byte base64(FA==)
+  dig 1
+  int 2540
+  int 127
+  extract3
+  app_global_put
+  byte base64(FQ==)
+  dig 1
+  int 2667
+  int 127
+  extract3
+  app_global_put
+  byte base64(Fg==)
+  dig 1
+  int 2794
+  int 127
+  extract3
+  app_global_put
+  byte base64(Fw==)
+  dig 1
+  int 2921
+  int 127
+  extract3
+  app_global_put
+  byte base64(GA==)
+  dig 1
+  int 3048
+  int 127
+  extract3
+  app_global_put
+  byte base64(GQ==)
+  dig 1
+  int 3175
+  int 113
+  extract3
   app_global_put
   pop
   int 3
@@ -1694,6 +5219,18 @@ int DeleteApplication
 ==
 assert
 // checked on completion
+// CompanionDelete
+itxn_begin
+int 0
+itxn_field Fee
+int appl
+itxn_field TypeEnum
+load 8 // GV_companion :: Contract
+itxn_field ApplicationID
+int DeleteApplication
+itxn_field OnCompletion
+itxn_submit
+// cost credit: 3
 
   // { makeTxn
   itxn_begin
@@ -1723,6 +5260,9 @@ load 1 // GV_currentStep :: UInt
 itob
 load 2 // GV_currentTime :: UInt
 itob
+load 8 // GV_companion :: Contract
+itob
+concat
 concat
 app_global_put
 load 6 // GV_wasMeth :: Bool
@@ -1731,7 +5271,7 @@ apiReturn_noCheck:
 byte base64(FR98dQ==)
 load 7 // GV_apiRet :: Null
 concat
-log // up to 28 bytes
+log // up to 804 bytes
 checkSize:
 load 0 // GV_txnCounter :: UInt
 dup
@@ -1755,25 +5295,74 @@ assert
 b apiReturn_noCheck
 alloc:
 int 0
+txn GlobalNumUint
+==
+assert
+int 27
+txn GlobalNumByteSlice
+==
+assert
+int 0
+txn LocalNumUint
+==
+assert
+int 8
+txn LocalNumByteSlice
+==
+assert
+int 0
 store 1 // GV_currentStep :: UInt
 int 0
 store 2 // GV_currentTime :: UInt
+int 0
+store 8 // GV_companion :: Contract
 b updateStateNoOp
-l15_LF_cMapLoad:
+l25_LF_cMapLoad:
 dup
 txn ApplicationID
 app_opted_in
-bnz l61_mapLoadDo
-l62_mapLoadDef:
+bnz l108_mapLoadDo
+l109_mapLoadDef:
 pop
-int 55
+int 1002
 bzero
 retsub
-l61_mapLoadDo:
+l108_mapLoadDo:
+dup
 byte base64(AA==)
 app_local_get
+dig 1
+byte base64(AQ==)
+app_local_get
+concat
+dig 1
+byte base64(Ag==)
+app_local_get
+concat
+dig 1
+byte base64(Aw==)
+app_local_get
+concat
+dig 1
+byte base64(BA==)
+app_local_get
+concat
+dig 1
+byte base64(BQ==)
+app_local_get
+concat
+dig 1
+byte base64(Bg==)
+app_local_get
+concat
+dig 1
+byte base64(Bw==)
+app_local_get
+concat
+swap
+pop
 retsub
-l60_LF_checkTxn_net:
+l107_LF_checkTxn_net:
 // resource: R_Txn
 load 0 // GV_txnCounter :: UInt
 dup
@@ -1793,7 +5382,7 @@ gtxns Amount
 ==
 assert
 retsub
-l41_LF_checkTxn_tok:
+l68_LF_checkTxn_tok:
 // resource: R_Txn
 load 0 // GV_txnCounter :: UInt
 dup
@@ -1817,4 +5406,14 @@ assert
 gtxns AssetAmount
 ==
 assert
+retsub
+l69_LF_checkUInt256ResultLen:
+dup
+len
+int 32
+swap
+-
+bzero
+swap
+concat
 retsub
