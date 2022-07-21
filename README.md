@@ -9,6 +9,9 @@ This code has not been audited and Cooperativ Labs makes no guarentees about it'
 * Thanks to [Algorand Foundation](https://algorand.foundation/) for their grant supporting this project.
 * Built with [Reach.sh](https://reach.sh/) 
 
+## Demonstration
+* [Demonstration of Cooperativ Platform Prototype](https://youtube.com/playlist?list=PLdUGBxGRPWz_n-tWwlKt_o6phKlHsR6CC)
+
 ## User Story
 
 Alice whats to distribute shares of Syndication LLC shares as tokens, so she deploys a Distribution Capable smart contract to Algorand. This smart contract *must be tied to a legal contract* that describes the investment in legal terms. To create this linkage, Alice creates a hash of the legal text, and publishes it to the smart contract. Alice’s investors send her money, and she allocates to them the appropriate number of share tokens. 
