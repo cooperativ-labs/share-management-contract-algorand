@@ -2,6 +2,8 @@
 
 The goal of this contract is to allow a business to pay distributions in the simplest possible manner, without requiring any detailed personal information about the recipients of those distributions. The tokens are tied to a centralized legal contract that specifies the obligations of the business. This written contract can specify additional terms, such as the smart contract’s relationship to an underlying security and the rights of the token holder vis a vis the issuing entity.
 
+Note that each business launches and controls their own contract. They do not participate in a central contract.
+
 ## Disclaimer
 This code has not been audited and Cooperativ Labs makes no guarentees about it's functionality or security. Comments and bug reports are most welcome.
 
