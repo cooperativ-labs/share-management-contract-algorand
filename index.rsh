@@ -10,7 +10,7 @@ const Params = Object({
 export const main = Reach.App(() => {
     setOptions({ untrustworthyMaps: true, connectors: [ALGO] });
 
-    const currSwap = Struct([['qty', UInt], ['price', UInt], ['status', Bytes(5)], ['cumProceeds', UInt], ['shareIssuanceType', Bool]]);
+    const currSwap = Struct([['qty', UInt], ['price', UInt], ['sold', UInt], ['status', Bytes(5)], ['cumProceeds', UInt], ['shareIssuanceType', Bool]]);
 
 
     const Creator = Participant('Creator', {
@@ -31,7 +31,7 @@ export const main = Reach.App(() => {
         initSwap: Fun([UInt, UInt, Bool], Bool),
         cancelSwap: Fun([], Bool),
         approveSwap: Fun([Address], Bool),
-        completeSwap: Fun([Address], Bool), //any approved buyer can complete the swap
+        completeSwap: Fun([Address, UInt], Bool), //any approved buyer can complete the swap
         claimSwapProceeds: Fun([], Bool),
 
     });
@@ -63,7 +63,7 @@ export const main = Reach.App(() => {
     const end = UInt.max;
     const unwInt = (m) => fromSome(m, UInt256(0));
     const unwBool = (m) => fromSome(m, false);
-    const unwSwapDetails2 = (m) => fromSome(m, Array.replicate(3, 0)); //[qty, price, cumProceeds]
+    const unwSwapDetails2 = (m) => fromSome(m, Array.replicate(4, 0)); //[qty, price, cumProceeds, sold]
     const unwBytes5 = (m) => fromSome(m, '-----');
     const claimST = new Map(UInt256); //share tokens waiting to be claimed by each investor
     const claimBT = new Map(UInt256); //backing tokens waiting to be claimed by each investor
@@ -71,7 +71,7 @@ export const main = Reach.App(() => {
     const totAllST = new Map(UInt256); //total allocated share token for each investor
     const totRecBT = new Map(UInt256); //total received backing token by each investor
     const iDistrNum = new Map(UInt256); //each investor's claimed distribution number
-    const swapDetails2 = new Map(Array(UInt, 3)); //each investor's swap details [qty, price, cumProceeds, shareIssuanceType]
+    const swapDetails2 = new Map(Array(UInt, 4)); //each investor's swap details [qty, price, cumProceeds, shareIssuanceType]
     const swapStatus = new Map(Bytes(5)); //each investor's swap status
     const shareIssuanceType = new Map(Bool); //each investor's share issuance type
     const optedIn = new Map(Bool); //each investor's opted in status
@@ -79,7 +79,7 @@ export const main = Reach.App(() => {
 
     const state = parallelReduce({
         wlIndex: 0,
-        cv: ['2.01', 'cooperativIdcooperativIdcooperativId'],
+        cv: ['2.02', 'cooperativIdcooperativIdcooperativId'],
         currDistr: UInt256(0),
         totST: UInt256(0),
         totBT: UInt256(0),
@@ -107,7 +107,7 @@ export const main = Reach.App(() => {
                 const arr = unwSwapDetails2(swapDetails2[addr]);
                 const swapStatusV = unwBytes5(swapStatus[addr]);
                 const SIT = unwBool(shareIssuanceType[addr]);
-                return currSwap.fromObject({ price: arr[1], qty: arr[0], status: swapStatusV, cumProceeds: arr[2], shareIssuanceType: SIT });
+                return currSwap.fromObject({ price: arr[1], qty: arr[0], sold: arr[3], status: swapStatusV, cumProceeds: arr[2], shareIssuanceType: SIT });
             });
         })
         .api(
@@ -115,7 +115,7 @@ export const main = Reach.App(() => {
             // Assumes
             ((qty, price, SIT) => {
                 assume((SIT == true && (this == Creator || this == state.ctcMan)) || SIT == false, 'if you are not creator or manager, the swap cannot be share issuance type');
-                assume(wl.member(this), 'you must be a whitelist member');
+                assume((wl.member(this) && SIT == false) || SIT == true, 'you must be a whitelist member');
                 assume(qty > 0, 'you must sell at least 1 share token');
                 assume(price > 0, 'price must be greater than 0');
                 assume(unwBytes5(swapStatus[this]) == '-----' || unwBytes5(swapStatus[this]) == 'compl', 'there must be no pending swap');
@@ -125,7 +125,7 @@ export const main = Reach.App(() => {
             // Consensus
             ((qty, price, SIT, res) => {
                 require((SIT == true && (this == Creator || this == state.ctcMan)) || SIT == false, 'if you are not creator or manager, the swap cannot be share issuance type');
-                require(wl.member(this), 'you must be a whitelist member');
+                require((wl.member(this) && SIT == false) || SIT == true, 'you must be a whitelist member');
                 require(qty > 0, 'you must sell at least 1 share token');
                 require(price > 0, 'price must be greater than 0');
                 require(unwBytes5(swapStatus[this]) == '-----' || unwBytes5(swapStatus[this]) == 'compl', 'there must be no pending swap');
@@ -134,7 +134,8 @@ export const main = Reach.App(() => {
                 const arr = unwSwapDetails2(swapDetails2[this]);
                 const arr1 = arr.set(0, qty);
                 const arr2 = arr1.set(1, price);
-                swapDetails2[this] = arr2;
+                const arr3 = arr2.set(3, 0);
+                swapDetails2[this] = arr3;
                 //const obj = { price: arr2[0], qty: arr2[1], status: unwBytes5(swapStatus[this]), cumProceeds: arr2[2], shareIssuanceType: unwBool(shareIssuanceType[this]) };
                 res(true);
                 return state;
@@ -158,6 +159,7 @@ export const main = Reach.App(() => {
                 const arr = unwSwapDetails2(swapDetails2[this]);
                 const arr1 = arr.set(0, 0);
                 const arr2 = arr1.set(1, 0);
+                const arr3 = arr2.set(3, 0);
                 swapDetails2[this] = arr2;
                 //const obj = { price: arr2[0], qty: arr2[1], status: unwBytes5(swapStatus[this]), cumProceeds: arr2[2], shareIssuanceType: unwBool(shareIssuanceType[this]) };
                 res(true);
@@ -188,28 +190,37 @@ export const main = Reach.App(() => {
         .api(
             User.completeSwap,
             // Assumes
-            ((seller) => {
+            ((seller, amt) => {
+                assume(amt > 0, 'you must buy at least 1 share token');
+                assume(amt <= unwSwapDetails2(swapDetails2[seller])[0], 'you cannot buy more than the quantity offered for sale');
                 assume(wl.member(this), 'you must be a whitelist member to complete or buy swap');
-                assume(unwBytes5(swapStatus[seller]) == 'apprv', 'you can only complete an approved swap');
+                assume(unwBytes5(swapStatus[seller]) == 'apprv' || unwBytes5(swapStatus[seller]) == 'partl', 'you can only buy an approved or partially completed swap');
             }
             ),
             // Payments
-            ((seller) => [0, [unwSwapDetails2(swapDetails2[seller])[0] * unwSwapDetails2(swapDetails2[seller])[1], bT]]),
+            ((seller, amt) => [0, [amt * unwSwapDetails2(swapDetails2[seller])[1], bT]]),
             // Consensus
-            ((seller, res) => {
+            ((seller, amt, res) => {
+                require(amt > 0, 'you must buy at least 1 share token');
+                require(amt <= unwSwapDetails2(swapDetails2[seller])[0], 'you cannot buy more than the quantity offered for sale');
                 require(wl.member(this), 'you must be a whitelist member to complete or buy swap');
-                require(unwBytes5(swapStatus[seller]) == 'apprv', 'you can only buy an approved swap');
+                require(unwBytes5(swapStatus[seller]) == 'apprv' || unwBytes5(swapStatus[seller]) == 'partl', 'you can only buy an approved or partially completed swap');
                 const arr = unwSwapDetails2(swapDetails2[seller]);
                 //Increase buyer's share tokens by qty
-                const amt = arr[0];
                 claimST[this] = unwInt(claimST[this]) + UInt256(amt);
-                //increase total allocated share token for each investor
+                //increase total allocated share token for investor
                 totAllST[this] = unwInt(totAllST[this]) + UInt256(amt);
                 //set cumulative proceeds for seller
-                const arr1 = arr.set(2, arr[2] + arr[0] * arr[1]);
+                const arr1 = arr.set(2, arr[2] + amt * arr[1]);
+                const arr2 = arr1.set(3, arr1[3] + amt);
+                const arr3 = arr2.set(0, arr2[0] - amt);
                 //set swap details and swap status to completed
-                swapDetails2[seller] = arr1;
-                swapStatus[seller] = 'compl';
+                swapDetails2[seller] = arr3;
+                if (arr3[0] == 0) {
+                    swapStatus[seller] = 'compl';
+                } else {
+                    swapStatus[seller] = 'partl';
+                }
                 //const obj = { price: arr1[0], qty: arr1[1], status: unwBytes5(swapStatus[seller]), cumProceeds: arr1[2], shareIssuanceType: unwBool(shareIssuanceType[seller]) };
                 res(true);
                 if (unwBool(shareIssuanceType[seller]) == false) {
