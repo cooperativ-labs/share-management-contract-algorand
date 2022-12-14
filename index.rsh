@@ -129,7 +129,12 @@ export const main = Reach.App(() => {
                 require(qty > 0, 'you must sell at least 1 share token');
                 require(price > 0, 'price must be greater than 0');
                 require(unwBytes5(swapStatus[this]) == '-----' || unwBytes5(swapStatus[this]) == 'compl', 'there must be no pending swap');
-                swapStatus[this] = 'initd';
+
+                if ((this == Creator || this == state.ctcMan) && SIT == true) {
+                    swapStatus[this] = 'apprv'
+                } else {
+                    swapStatus[this] = 'initd'
+                }
                 shareIssuanceType[this] = SIT;
                 const arr = unwSwapDetails2(swapDetails2[this]);
                 const arr1 = arr.set(0, qty);
@@ -145,7 +150,6 @@ export const main = Reach.App(() => {
             User.cancelSwap,
             // Assumes
             (() => {
-                assume(wl.member(this), 'you must be a whitelist member');
                 assume(unwBytes5(swapStatus[this]) != '-----' && unwBytes5(swapStatus[this]) != 'compl', 'there must be a pending swap');
             }
             ),
@@ -153,7 +157,6 @@ export const main = Reach.App(() => {
             (() => [0, [0, bT]]),
             // Consensus
             ((res) => {
-                require(wl.member(this), 'you must be a whitelist member');
                 require(unwBytes5(swapStatus[this]) != '-----' && unwBytes5(swapStatus[this]) != 'compl', 'there must be a pending swap');
                 swapStatus[this] = '-----';
                 const arr = unwSwapDetails2(swapDetails2[this]);
@@ -191,6 +194,7 @@ export const main = Reach.App(() => {
             User.completeSwap,
             // Assumes
             ((seller, amt) => {
+                assume(this != seller, 'you cannot complete/buy your own swap');
                 assume(amt > 0, 'you must buy at least 1 share token');
                 assume(amt <= unwSwapDetails2(swapDetails2[seller])[0], 'you cannot buy more than the quantity offered for sale');
                 assume(wl.member(this), 'you must be a whitelist member to complete or buy swap');
@@ -201,6 +205,7 @@ export const main = Reach.App(() => {
             ((seller, amt) => [0, [amt * unwSwapDetails2(swapDetails2[seller])[1], bT]]),
             // Consensus
             ((seller, amt, res) => {
+                require(this != seller, 'you cannot complete/buy your own swap');
                 require(amt > 0, 'you must buy at least 1 share token');
                 require(amt <= unwSwapDetails2(swapDetails2[seller])[0], 'you cannot buy more than the quantity offered for sale');
                 require(wl.member(this), 'you must be a whitelist member to complete or buy swap');
@@ -212,7 +217,9 @@ export const main = Reach.App(() => {
                 totAllST[this] = unwInt(totAllST[this]) + UInt256(amt);
                 //set cumulative proceeds for seller
                 const arr1 = arr.set(2, arr[2] + amt * arr[1]);
+                //set the amount sold by seller
                 const arr2 = arr1.set(3, arr1[3] + amt);
+                //set the amount remaining for sale by seller
                 const arr3 = arr2.set(0, arr2[0] - amt);
                 //set swap details and swap status to completed
                 swapDetails2[seller] = arr3;
@@ -226,11 +233,11 @@ export const main = Reach.App(() => {
                 if (unwBool(shareIssuanceType[seller]) == false) {
                     //Reduce seller's share tokens by qty
                     claimST[seller] = unwInt(claimST[seller]) - UInt256(amt);
+                    totAllST[seller] = unwInt(totAllST[seller]) - UInt256(amt);
                     return state;
                 } else {
                     const newTotST = state.totST + UInt256(amt);
                     const newState = Object.set(state, 'totST', newTotST);
-                    shareIssuanceType[seller] = false;
                     return newState;
                 }
             })
