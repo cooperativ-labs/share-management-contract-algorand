@@ -71,7 +71,7 @@ export const main = Reach.App(() => {
     const totAllST = new Map(UInt256); //total allocated share token for each investor
     const totRecBT = new Map(UInt256); //total received backing token by each investor
     const iDistrNum = new Map(UInt256); //each investor's claimed distribution number
-    const swapDetails2 = new Map(Array(UInt, 4)); //each investor's swap details [qty, price, cumProceeds, shareIssuanceType]
+    const swapDetails2 = new Map(Array(UInt, 4)); //each investor's swap details [qty, price, cumProceeds, sold]
     const swapStatus = new Map(Bytes(5)); //each investor's swap status
     const shareIssuanceType = new Map(Bool); //each investor's share issuance type
     const optedIn = new Map(Bool); //each investor's opted in status
@@ -163,7 +163,7 @@ export const main = Reach.App(() => {
                 const arr1 = arr.set(0, 0);
                 const arr2 = arr1.set(1, 0);
                 const arr3 = arr2.set(3, 0);
-                swapDetails2[this] = arr2;
+                swapDetails2[this] = arr3;
                 //const obj = { price: arr2[0], qty: arr2[1], status: unwBytes5(swapStatus[this]), cumProceeds: arr2[2], shareIssuanceType: unwBool(shareIssuanceType[this]) };
                 res(true);
                 return state;
@@ -216,11 +216,11 @@ export const main = Reach.App(() => {
                 //increase total allocated share token for investor
                 totAllST[this] = unwInt(totAllST[this]) + UInt256(amt);
                 //set cumulative proceeds for seller
-                const arr1 = arr.set(2, arr[2] + amt * arr[1]);
+                const arr1 = arr.set(2, (amt * arr[1]) + arr[2]);
                 //set the amount sold by seller
-                const arr2 = arr1.set(3, arr1[3] + amt);
+                const arr2 = arr1.set(3, arr[3] + amt);
                 //set the amount remaining for sale by seller
-                const arr3 = arr2.set(0, arr2[0] - amt);
+                const arr3 = arr2.set(0, arr[0] - amt);
                 //set swap details and swap status to completed
                 swapDetails2[seller] = arr3;
                 if (arr3[0] == 0) {
