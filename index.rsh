@@ -86,7 +86,6 @@ export const main = Reach.App(() => {
         saleLocked: lockSale,
         ctcMan: managerAddr,
         distrNum: UInt256(0),
-        distrIndex: 0,
         docHash: ['ajdnaeinawindiaengtnifrjwritniqwrnirefindinigajdnaeinawidiaengtniitniqwrnirefindinigfuaebfubawur', 0, 0,],
     })
         .invariant(balance() == 0)
@@ -399,6 +398,7 @@ export const main = Reach.App(() => {
             // Assumes
             (() => {
                 assume(wl.member(this));
+                assume(unwInt(iDistrNum[this]) < state.distrNum, 'You have already claimed your current distribution')
                 assume(UInt256(balance(bT)) > UInt256(0), 'well, balance(bT) is 0');
                 assume(state.totST > UInt256(0), 'totST is 0. This means there should be no distributions yet');
                 assume(state.totST >= unwInt(totAllST[this]), 'weirdly, totST is less than totAllST[this]');
@@ -411,6 +411,7 @@ export const main = Reach.App(() => {
             // Consensus
             ((res) => {
                 require(wl.member(this));
+                require(unwInt(iDistrNum[this]) < state.distrNum, 'You have already claimed your current distribution')
                 require(UInt256(balance(bT)) > UInt256(0), 'well, balance(bT) is 0');
                 require(state.totST > UInt256(0), 'totST is 0. This means there should be no distributions yet');
                 require(state.totST >= unwInt(totAllST[this]), 'weirdly, totST is less than totAllST[this]');
@@ -419,7 +420,7 @@ export const main = Reach.App(() => {
                 require(UInt(has) <= (balance(bT)), 'weirdly, trying to withdraw more than available balance');
                 transfer([0, [UInt(has), bT]]).to(this);
                 totRecBT[this] = unwInt(totRecBT[this]) + has;
-                iDistrNum[this] = unwInt(iDistrNum[this]) + UInt256(1);
+                iDistrNum[this] = state.distrNum;
                 res(has);
                 return state;
             })
